@@ -1,20 +1,20 @@
 # Contributing
 
-Thanks for showing interest in contributing to Hono Rate Limitter 💖, you rock!
+Thanks for showing interest in contributing to React Bluesky 💖, you rock!
 
 When it comes to open source, you can contribute in different ways, all of which are valuable. Here are a few guidelines that should help you prepare your contribution.
 
 ## Setup the Project
 
-The following steps will get you up and running to contribute to Hono Rate Limitter:
+The following steps will get you up and running to contribute to React Bluesky:
 
-1. Fork the repo (click the `Fork` button at the top right of [this page](https://github.com/rhinobase/hono-rate-limiter))
+1. Fork the repo (click the `Fork` button at the top right of [this page](https://github.com/rhinobase/react-bluesky))
 
 2. Clone your fork locally
 
    ```sh
-   git clone https://github.com/<your_github_username>/hono-rate-limiter.git
-   cd hono-rate-limiter
+   git clone https://github.com/<your_github_username>/react-bluesky.git
+   cd react-bluesky
    ```
 
 3. Set up all the dependencies and packages by running `pnpm install`. This command will install dependencies.
@@ -23,7 +23,7 @@ The following steps will get you up and running to contribute to Hono Rate Limit
 
 ## Development
 
-To improve our development process, we’ve set up tooling and systems, and Hono Rate Limitter uses a mono repo structure by `nx`.
+To improve our development process, we’ve set up tooling and systems, and React Bluesky uses a mono repo structure by `nx`.
 
 ### Tooling
 
@@ -73,7 +73,7 @@ If you are interested in the detailed specification you can visit <https://www.c
 
 ### Steps to PR
 
-1. Fork the `hono-rate-limiter` repository and clone your fork
+1. Fork the `react-bluesky` repository and clone your fork
 
 2. Create a new branch out of the `main` branch. We follow the convention `[type/scope]`. For example `fix/memcache` or `docs/core`. `type` can be either `docs`, `fix`, `feat`, `build`, or any other conventional commit type. `scope` is just a short id that describes the scope of work.
 
@@ -91,4 +91,4 @@ That would be amazing! Reach out to the core team here: <https://discord.gg/Ytzx
 
 ## License
 
-By contributing your code to the `hono-rate-limiter` GitHub repository, you agree to license your contribution under the MIT license.
+By contributing your code to the `react-bluesky` GitHub repository, you agree to license your contribution under the MIT license.
