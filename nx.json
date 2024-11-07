@@ -24,12 +24,6 @@
         "devTargetName": "dev",
         "serveStaticTargetName": "serve-static"
       }
-    },
-    {
-      "plugin": "@nx/eslint/plugin",
-      "options": {
-        "targetName": "lint"
-      }
     }
   ],
   "generators": {
@@ -40,8 +34,7 @@
     },
     "@nx/next": {
       "application": {
-        "style": "tailwind",
-        "linter": "eslint"
+        "style": "tailwind"
       }
     }
   }

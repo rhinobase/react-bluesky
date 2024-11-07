@@ -7,5 +7,3 @@ export function Core() {
     </div>
   );
 }
-
-export default Core;
