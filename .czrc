@@ -1,0 +1,14 @@
+{
+  "scopes": [
+    {
+      "value": "core",
+      "name": "core:                 anything core specific"
+    },
+    {
+      "value": "docs",
+      "name": "docs:                 anything docs specific"
+    }
+  ],
+  "scopesSearchValue": true,
+  "allowCustomScopes": false
+}

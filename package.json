@@ -2,12 +2,44 @@
   "name": "@react-bluesky/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "commit": "czg",
+    "prepare": "is-ci || husky",
+    "format": "biome check --write ."
+  },
   "private": true,
-  "dependencies": {},
   "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
     "@nx/js": "19.8.10",
+    "@nx/next": "19.8.10",
+    "@nx/react": "19.8.10",
+    "@nx/rollup": "19.8.10",
     "@nx/workspace": "19.8.10",
-    "nx": "19.8.10"
+    "@rollup/plugin-url": "^8.0.2",
+    "@svgr/rollup": "^8.1.0",
+    "@swc-node/register": "~1.9.1",
+    "@swc/cli": "~0.3.12",
+    "@swc/core": "~1.5.7",
+    "@swc/helpers": "~0.5.11",
+    "@types/node": "18.16.9",
+    "@types/react": "18.3.1",
+    "@types/react-dom": "18.3.0",
+    "autoprefixer": "10.4.13",
+    "czg": "^1.10.1",
+    "husky": "^9.1.6",
+    "is-ci": "^3.0.1",
+    "lint-staged": "^15.2.10",
+    "nx": "19.8.10",
+    "postcss": "8.4.38",
+    "rollup": "^4.14.0",
+    "swc-loader": "0.1.15",
+    "tailwindcss": "3.4.3",
+    "tslib": "^2.3.0",
+    "typescript": "~5.5.2"
+  },
+  "dependencies": {
+    "next": "14.2.3",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
   }
 }
