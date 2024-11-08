@@ -1,5 +1,5 @@
-import { Core } from "react-bluesky";
+import { Post, fetchPost } from "react-bluesky";
 
-export default function Index() {
-  return <Core />;
+export default async function Index() {
+  return <Post />;
 }

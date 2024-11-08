@@ -1,4 +1,10 @@
 {
   "name": "react-bluesky",
-  "version": "0.0.1"
+  "version": "0.0.1",
+  "dependencies": {
+    "swr": "^2.2.5"
+  },
+  "peerDependencies": {
+    "react": "^18.3.1"
+  }
 }
