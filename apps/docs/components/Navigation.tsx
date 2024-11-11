@@ -19,7 +19,6 @@ type NavGroupType = {
   links: {
     title: string;
     href: string;
-    isExternal?: boolean;
   }[];
 };
 
