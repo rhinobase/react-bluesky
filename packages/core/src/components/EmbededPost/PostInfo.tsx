@@ -1,5 +1,5 @@
-import type { PostType } from "../api";
-import { classNames, formatDate, formatNumber } from "../utils";
+import type { PostType } from "../../api";
+import { classNames, formatDate, formatNumber } from "../../utils";
 
 export type PostInfo = {
   content: PostType;
@@ -11,12 +11,14 @@ export function PostInfo({ content }: PostInfo) {
 
   return (
     <>
-      <time
-        dateTime={createdAt.toISOString()}
-        className="text-sm text-[rgb(83,100,113)] group-data-[theme=light]/post:text-[rgb(83,100,113)] dark:text-[rgb(139,152,165)] group-data-[theme=dark]/post:text-[rgb(139,152,165)]"
-      >
-        {formattedCreatedAtDate}
-      </time>
+      <div className="flex items-center text-[rgb(83,100,113)] group-data-[theme=light]/post:text-[rgb(83,100,113)] dark:text-[rgb(139,152,165)] group-data-[theme=dark]/post:text-[rgb(139,152,165)] break-words whitespace-nowrap text-ellipsis">
+        <time
+          dateTime={createdAt.toISOString()}
+          className="text-sm text-[rgb(83,100,113)] group-data-[theme=light]/post:text-[rgb(83,100,113)] dark:text-[rgb(139,152,165)] group-data-[theme=dark]/post:text-[rgb(139,152,165)]"
+        >
+          {formattedCreatedAtDate}
+        </time>
+      </div>
       <div
         className={classNames(
           "w-full pt-2.5 flex items-center gap-5 text-sm cursor-pointer",

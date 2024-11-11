@@ -1,30 +1,23 @@
 import { useMemo } from "react";
-import type { PostType } from "../api";
-import type { PostComponents } from "../types";
+import type { PostType } from "../../api";
+import type { PostComponents } from "../../types";
+import { PostContainer } from "../PostContainer";
+import { PostEmbed } from "../PostEmbed";
 import { PostBody } from "./PostBody";
-import { PostContainer } from "./PostContainer";
-import { PostEmbed } from "./PostEmbed";
 import { PostHeader } from "./PostHeader";
 import { PostInfo } from "./PostInfo";
 
-export type PostComponent = {
+export type EmbededPost = {
   content: PostType;
   components?: Omit<PostComponents, "PostNotFound">;
 };
 
-export function PostComponent({
-  content: postContent,
-  components,
-}: PostComponent) {
+export function EmbededPost({ content: postContent, components }: EmbededPost) {
   // useMemo does nothing for RSC but it helps when the component is used in the client (e.g by SWR)
   const content = useMemo(() => postContent, [postContent]);
 
   return (
-    <PostContainer
-      link={`https://bsky.app/profile/${
-        content.author.handle
-      }/post/${content.uri.split("/").pop()}`}
-    >
+    <PostContainer>
       <PostHeader content={content} components={components} />
       <PostBody content={content} />
       {content.embed && <PostEmbed content={content.embed} />}

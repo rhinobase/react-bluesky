@@ -1,5 +1,5 @@
 import { Fragment } from "react/jsx-runtime";
-import type { PostType } from "../api";
+import type { PostType } from "../../api";
 
 export type PostBody = {
   content: PostType;

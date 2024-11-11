@@ -1,6 +1,7 @@
-import type { PostType } from "../api";
-import type { PostComponents } from "../types";
-import { AvatarImage } from "./AvatarImage";
+import type { PostType } from "../../../api";
+import type { PostComponents } from "../../../types";
+import { AvatarImage } from "../../AvatarImage";
+import s from "./post-header.module.css";
 
 export type PostHeader = {
   content: PostType;
@@ -13,12 +14,12 @@ export function PostHeader({ content, components }: PostHeader) {
   const profileLink = `https://bsky.app/profile/${content.author.did}?ref_src=embed`;
 
   return (
-    <div className="flex gap-2.5 items-center leading-5 text-[15px] whitespace-nowrap break-words overflow-hidden">
+    <div className={s.header}>
       <a
         href={profileLink}
         target="_blank"
         rel="noopener noreferrer nofollow"
-        className="size-10 min-w-10 min-h-10 overflow-hidden rounded-full bg-neutral-300 shrink-0"
+        className={s.avatar}
       >
         <div className="size-full overflow-hidden rounded-[inherit]">
           <Img

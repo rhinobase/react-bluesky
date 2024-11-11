@@ -1,0 +1,133 @@
+.react-bluesky-theme {
+  --post-container-margin: 1.5rem 0;
+
+  /* Header */
+  --post-header-font-size: 0.9375rem;
+  --post-header-line-height: 1.25rem;
+
+  /* Text */
+  --post-body-font-size: 1.25rem;
+  --post-body-font-weight: 400;
+  --post-body-line-height: 1.5rem;
+  --post-body-margin: 0;
+
+  /* Quoted Tweet */
+  --post-quoted-container-margin: 0.75rem 0;
+  --post-quoted-body-font-size: 0.938rem;
+  --post-quoted-body-font-weight: 400;
+  --post-quoted-body-line-height: 1.25rem;
+  --post-quoted-body-margin: 0.25rem 0 0.75rem 0;
+
+  /* Info */
+  --post-info-font-size: 0.9375rem;
+  --post-info-line-height: 1.25rem;
+
+  /* Actions like the like, reply and copy buttons */
+  --post-actions-font-size: 0.875rem;
+  --post-actions-line-height: 1rem;
+  --post-actions-font-weight: 700;
+  --post-actions-icon-size: 1.25em;
+  --post-actions-icon-wrapper-size: calc(
+    var(--post-actions-icon-size) + 0.75em
+  );
+
+  /* Reply button */
+  --post-replies-font-size: 0.875rem;
+  --post-replies-line-height: 1rem;
+  --post-replies-font-weight: 700;
+}
+
+:where(.react-bluesky-theme) * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:is([data-theme="light"], .light) :where(.react-bluesky-theme),
+:where(.react-bluesky-theme) {
+  --post-skeleton-gradient: linear-gradient(
+    270deg,
+    #fafafa,
+    #eaeaea,
+    #eaeaea,
+    #fafafa
+  );
+  --post-border: 1px solid rgb(207, 217, 222);
+  --post-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Helvetica, Arial, sans-serif;
+  --post-font-color: rgb(15, 20, 25);
+  --post-font-color-secondary: rgb(83, 100, 113);
+  --post-bg-color: #fff;
+  --post-bg-color-hover: rgb(247, 249, 249);
+  --post-quoted-bg-color-hover: rgba(0, 0, 0, 0.03);
+  --post-color-blue-primary: rgb(29, 155, 240);
+  --post-color-blue-primary-hover: rgb(26, 140, 216);
+  --post-color-blue-secondary: rgb(0, 111, 214);
+  --post-color-blue-secondary-hover: rgba(0, 111, 214, 0.1);
+  --post-color-red-primary: rgb(249, 24, 128);
+  --post-color-red-primary-hover: rgba(249, 24, 128, 0.1);
+  --post-color-green-primary: rgb(0, 186, 124);
+  --post-color-green-primary-hover: rgba(0, 186, 124, 0.1);
+  --post-twitter-icon-color: var(--post-font-color);
+  --post-verified-old-color: rgb(130, 154, 171);
+  --post-verified-blue-color: var(--post-color-blue-primary);
+}
+
+:is([data-theme="dark"], .dark) :where(.react-bluesky-theme) {
+  --post-skeleton-gradient: linear-gradient(
+    270deg,
+    #15202b,
+    rgb(30, 39, 50),
+    rgb(30, 39, 50),
+    rgb(21, 32, 43)
+  );
+  --post-border: 1px solid rgb(66, 83, 100);
+  --post-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Helvetica, Arial, sans-serif;
+  --post-font-color: rgb(247, 249, 249);
+  --post-font-color-secondary: rgb(139, 152, 165);
+  --post-bg-color: rgb(21, 32, 43);
+  --post-bg-color-hover: rgb(30, 39, 50);
+  --post-quoted-bg-color-hover: rgba(255, 255, 255, 0.03);
+  --post-color-blue-primary: rgb(29, 155, 240);
+  --post-color-blue-primary-hover: rgb(26, 140, 216);
+  --post-color-blue-secondary: rgb(107, 201, 251);
+  --post-color-blue-secondary-hover: rgba(107, 201, 251, 0.1);
+  --post-color-red-primary: rgb(249, 24, 128);
+  --post-color-red-primary-hover: rgba(249, 24, 128, 0.1);
+  --post-color-green-primary: rgb(0, 186, 124);
+  --post-color-green-primary-hover: rgba(0, 186, 124, 0.1);
+  --post-twitter-icon-color: var(--post-font-color);
+  --post-verified-old-color: rgb(130, 154, 171);
+  --post-verified-blue-color: #fff;
+}
+
+@media (prefers-color-scheme: dark) {
+  :where(.react-bluesky-theme) {
+    --post-skeleton-gradient: linear-gradient(
+      270deg,
+      #15202b,
+      rgb(30, 39, 50),
+      rgb(30, 39, 50),
+      rgb(21, 32, 43)
+    );
+    --post-border: 1px solid rgb(66, 83, 100);
+    --post-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      Helvetica, Arial, sans-serif;
+    --post-font-color: rgb(247, 249, 249);
+    --post-font-color-secondary: rgb(139, 152, 165);
+    --post-bg-color: rgb(21, 32, 43);
+    --post-bg-color-hover: rgb(30, 39, 50);
+    --post-color-blue-primary: rgb(29, 155, 240);
+    --post-color-blue-primary-hover: rgb(26, 140, 216);
+    --post-color-blue-secondary: rgb(107, 201, 251);
+    --post-color-blue-secondary-hover: rgba(107, 201, 251, 0.1);
+    --post-color-red-primary: rgb(249, 24, 128);
+    --post-color-red-primary-hover: rgba(249, 24, 128, 0.1);
+    --post-color-green-primary: rgb(0, 186, 124);
+    --post-color-green-primary-hover: rgba(0, 186, 124, 0.1);
+    --post-twitter-icon-color: var(--post-font-color);
+    --post-verified-old-color: rgb(130, 154, 171);
+    --post-verified-blue-color: #fff;
+  }
+}

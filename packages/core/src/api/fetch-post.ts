@@ -24,3 +24,25 @@ export async function fetchPost(handle: string, id: string) {
 
   return response.thread.post;
 }
+
+export class PostApiError extends Error {
+  status: number;
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  data: any;
+
+  constructor({
+    message,
+    status,
+    data,
+  }: {
+    message: string;
+    status: number;
+    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+    data: any;
+  }) {
+    super(message);
+    this.name = "TwitterApiError";
+    this.status = status;
+    this.data = data;
+  }
+}

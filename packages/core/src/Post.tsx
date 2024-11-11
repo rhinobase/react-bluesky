@@ -1,5 +1,5 @@
 import { fetchPost } from "./api";
-import { PostComponent } from "./components/PostComponent";
+import { EmbededPost } from "./components/EmbededPost";
 import type { PostProps } from "./types";
 
 export type Post = Partial<PostProps>;
@@ -15,5 +15,5 @@ export async function Post({
 }: Post) {
   const content = await fetchPost("pfrazee.com", "3lafvzlbncc2r");
 
-  return <PostComponent content={content} components={components} />;
+  return <EmbededPost content={content} components={components} />;
 }

@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  edge-cors:
+    specifier: ^0.2.1
+    version: 0.2.1
   next:
     specifier: 14.2.3
     version: 14.2.3(@babel/core@7.26.0)(react-dom@18.3.1)(react@18.3.1)
@@ -2120,6 +2123,23 @@ packages:
       - nx
     dev: true
 
+  /@nrwl/js@19.8.10(@swc-node/register@1.9.2)(@swc/core@1.5.29)(@types/node@18.16.9)(nx@19.8.10)(typescript@5.4.5):
+    resolution: {integrity: sha512-3mVljFIlizoBDeyVBHsRuq7LMbij4NSL0zOJoEILsBcNjmZ4UZQhkztH/jbWN9JCSyWxDmo991d9KkCA5zxAKQ==}
+    dependencies:
+      '@nx/js': 19.8.10(@swc-node/register@1.9.2)(@swc/core@1.5.29)(@types/node@18.16.9)(nx@19.8.10)(typescript@5.4.5)
+    transitivePeerDependencies:
+      - '@babel/traverse'
+      - '@swc-node/register'
+      - '@swc/core'
+      - '@swc/wasm'
+      - '@types/node'
+      - debug
+      - nx
+      - supports-color
+      - typescript
+      - verdaccio
+    dev: true
+
   /@nrwl/js@19.8.10(@swc-node/register@1.9.2)(@swc/core@1.5.29)(@types/node@18.16.9)(nx@19.8.10)(typescript@5.5.4):
     resolution: {integrity: sha512-3mVljFIlizoBDeyVBHsRuq7LMbij4NSL0zOJoEILsBcNjmZ4UZQhkztH/jbWN9JCSyWxDmo991d9KkCA5zxAKQ==}
     dependencies:
@@ -2358,7 +2378,7 @@ packages:
       '@babel/preset-env': 7.26.0(@babel/core@7.26.0)
       '@babel/preset-typescript': 7.26.0(@babel/core@7.26.0)
       '@babel/runtime': 7.26.0
-      '@nrwl/js': 19.8.10(@swc-node/register@1.9.2)(@swc/core@1.5.29)(@types/node@18.16.9)(nx@19.8.10)(typescript@5.5.4)
+      '@nrwl/js': 19.8.10(@swc-node/register@1.9.2)(@swc/core@1.5.29)(@types/node@18.16.9)(nx@19.8.10)(typescript@5.4.5)
       '@nx/devkit': 19.8.10(nx@19.8.10)
       '@nx/workspace': 19.8.10(@swc-node/register@1.9.2)(@swc/core@1.5.29)
       babel-plugin-const-enum: 1.2.0(@babel/core@7.26.0)
@@ -5436,6 +5456,10 @@ packages:
   /eastasianwidth@0.2.0:
     resolution: {integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==}
     dev: true
+
+  /edge-cors@0.2.1:
+    resolution: {integrity: sha512-ti3F5g96Dx99/+CCPuNpmN0gO5eIxMOTwyMMgNTpxs2rXsmpg6A76yVQZkaKVroWJfJeH6slRqL1HNE52yr5TA==}
+    dev: false
 
   /ee-first@1.1.1:
     resolution: {integrity: sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==}
