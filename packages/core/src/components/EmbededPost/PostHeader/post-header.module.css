@@ -1,8 +1,8 @@
 .header {
   display: flex;
   padding-bottom: 0.75rem;
-  line-height: var(--tweet-header-line-height);
-  font-size: var(--tweet-header-font-size);
+  line-height: var(--post-header-line-height);
+  font-size: var(--post-header-font-size);
   white-space: nowrap;
   overflow-wrap: break-word;
   overflow: hidden;
@@ -44,14 +44,10 @@
 .authorLink {
   text-decoration: none;
   color: inherit;
-  display: flex;
-  align-items: center;
+  width: max-content;
 }
 .authorLink:hover {
   text-decoration-line: underline;
-}
-.authorVerified {
-  display: inline-flex;
 }
 .authorLinkText {
   font-weight: 700;
@@ -63,34 +59,34 @@
 .authorMeta {
   display: flex;
 }
-.authorFollow {
-  display: flex;
-}
 .username {
-  color: var(--tweet-font-color-secondary);
+  color: var(--post-font-color-secondary);
   text-decoration: none;
   text-overflow: ellipsis;
 }
-.follow {
-  color: var(--tweet-color-blue-secondary);
-  text-decoration: none;
-  font-weight: 700;
-}
-.follow:hover {
-  text-decoration-line: underline;
-}
-.separator {
-  padding: 0 0.25rem;
+
+.spacer {
+  flex: 1 1 0%;
 }
 
 .brand {
-  margin-inline-start: auto;
+  position: absolute;
+  right: 0.75rem;
+  z-index: 1;
 }
 
-.twitterIcon {
-  width: 23.75px;
-  height: 23.75px;
-  color: var(--tweet-twitter-icon-color);
-  fill: currentColor;
+.blueskyIcon {
+  height: 32px;
+  width: max-content;
   user-select: none;
+}
+.blueskyIcon:hover {
+  --tw-scale-x: 1.1;
+  --tw-scale-y: 1.1;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y))
+    rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
+    scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
 }

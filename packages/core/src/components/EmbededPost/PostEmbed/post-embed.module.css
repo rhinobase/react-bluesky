@@ -1,0 +1,107 @@
+.multiImages {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.25rem;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+.multiImagesImage {
+  aspect-ratio: 1 / 1;
+  width: 100%;
+  object-fit: cover;
+}
+
+.singleImage {
+  width: 100%;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  object-fit: cover;
+  height: auto;
+  max-height: 1000px;
+}
+
+.videosContainer {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 0.5rem;
+  aspect-ratio: 1 / 1;
+  position: relative;
+}
+
+.videoThumbnail {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.videoPlayIconBg {
+  width: 5rem;
+  height: 5rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  --tw-translate-x: -50%;
+  --tw-translate-y: -50%;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y))
+    rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
+    scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  border-radius: 9999px;
+  background-color: rgb(0 0 0 / 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.videoPlayIcon {
+  object-fit: cover;
+  width: 60%;
+  height: 60%;
+}
+
+.externalLink {
+  cursor: pointer;
+  width: 100%;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  border: var(--post-border);
+}
+.externalLinkMedia {
+  position: relative;
+  aspect-ratio: 1.77778 / 1;
+}
+.externalLinkMediaTumb {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+.externalVideoPlayIconBg {
+  width: 3.5rem;
+  height: 3.5rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  --tw-translate-x: -50%;
+  --tw-translate-y: -50%;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y))
+    rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
+    scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  border-radius: 9999px;
+  background-color: rgb(0 0 0 / 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.externalContent {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+.externalDomain {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: var(--post-font-color-secondary);
+}

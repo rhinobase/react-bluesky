@@ -1,15 +1,17 @@
-import { EmbedContentType, type EmbedType } from "../api/types";
-import { classNames } from "../utils";
+import { EmbedContentType, type EmbedType } from "../../../api/types";
+import { classNames } from "../../../utils";
+import s from "./post-embed.module.css";
 
 export type PostEmbed = {
   content: EmbedType;
+  link?: string;
 };
 
-export function PostEmbed({ content }: PostEmbed) {
+export function PostEmbed({ content, link }: PostEmbed) {
   if (content.$type === EmbedContentType.IMAGES) {
     if (content.images.length > 1)
       return (
-        <div className="grid grid-cols-2 gap-1 rounded-lg overflow-hidden">
+        <div className={s.multiImages}>
           {content.images.map((image, index) => (
             <img
               key={`post_embed_image_${
@@ -18,7 +20,7 @@ export function PostEmbed({ content }: PostEmbed) {
               }`}
               src={image.thumb}
               alt={image.alt}
-              className="aspect-square w-full object-cover rounded-sm"
+              className={s.multiImagesImage}
             />
           ))}
         </div>
@@ -27,35 +29,37 @@ export function PostEmbed({ content }: PostEmbed) {
       <img
         src={content.images[0].thumb}
         alt={content.images[0].alt}
-        className="w-full rounded-lg overflow-hidden object-cover h-auto max-h-[1000px]"
+        className={s.singleImage}
       />
     );
   }
-  if (content.$type === EmbedContentType.VIDEO) {
-    const aspectRatio = content.aspectRatio
-      ? content.aspectRatio.width / content.aspectRatio.height
-      : 1 / 1;
-
+  if (content.$type === EmbedContentType.VIDEO)
     return (
-      <div
-        className="w-full overflow-hidden rounded-lg aspect-square relative"
-        style={{ aspectRatio }}
-      >
-        <img
-          src={content.thumbnail}
-          alt={content.cid}
-          className="object-cover size-full"
-        />
-        <div className="size-24 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-black/50 flex items-center justify-center">
+      <a href={link} target="_blank" rel="noopener noreferrer">
+        <div className={s.videosContainer}>
           <img
-            src="data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20fill='none'%20viewBox='0%200%2024%2024'%3e%3cpath%20fill='%23fff'%20d='M9.576%202.534C7.578%201.299%205%202.737%205%205.086v13.828c0%202.35%202.578%203.787%204.576%202.552l11.194-6.914c1.899-1.172%201.899-3.932%200-5.104L9.576%202.534Z'/%3e%3c/svg%3e"
-            alt="play_icon"
-            className="object-cover size-3/5"
+            src={content.thumbnail}
+            alt={content.cid}
+            className={s.videoThumbnail}
           />
+          <div className={s.videoPlayIconBg}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              className={s.videoPlayIcon}
+            >
+              <title>Play Icon</title>
+              <path
+                fill="#fff"
+                d="M9.576 2.534C7.578 1.299 5 2.737 5 5.086v13.828c0 2.35 2.578 3.787 4.576 2.552l11.194-6.914c1.899-1.172 1.899-3.932 0-5.104L9.576 2.534Z"
+              />
+            </svg>
+          </div>
         </div>
-      </div>
+      </a>
     );
-  }
+
   if (content.$type === EmbedContentType.EXTERNAL) {
     const blogDomain = content.external.uri.split("/")[2];
 
@@ -64,25 +68,33 @@ export function PostEmbed({ content }: PostEmbed) {
         href={content.external.uri}
         target="_blank"
         rel="noopener noreferrer nofollow"
-        className={classNames(
-          "cursor-pointer w-full rounded-lg overflow-hidden flex flex-col items-stretch",
-          "border border-[rgb(207,217,222)] group-data-[theme=light]/post:border-[rgb(207,217,222)] dark:border-[rgb(66,83,100)] group-data-[theme=dark]/post:border-[rgb(66,83,100)]",
-        )}
+        className={s.externalLink}
       >
-        <img
-          src={content.external.thumb}
-          alt={content.external.title}
-          className="aspect-[1.91/1] object-cover"
-        />
-        <div className="py-3 px-4">
-          <p
-            className={classNames(
-              "text-sm line-clamp-1",
-              "text-[rgb(83,100,113)] group-data-[theme=light]/post:text-[rgb(83,100,113)] dark:text-[rgb(139,152,165)] group-data-[theme=dark]/post:text-[rgb(139,152,165)]",
-            )}
-          >
-            {blogDomain}
-          </p>
+        <div className={s.externalLinkMedia}>
+          <img
+            src={content.external.thumb}
+            alt={content.external.title}
+            className={s.externalLinkMediaTumb}
+          />
+          {content.external.uri.includes("https://youtu.be") && (
+            <div className={s.externalVideoPlayIconBg}>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                className={s.videoPlayIcon}
+              >
+                <title>Play Icon</title>
+                <path
+                  fill="#fff"
+                  d="M9.576 2.534C7.578 1.299 5 2.737 5 5.086v13.828c0 2.35 2.578 3.787 4.576 2.552l11.194-6.914c1.899-1.172 1.899-3.932 0-5.104L9.576 2.534Z"
+                />
+              </svg>
+            </div>
+          )}
+        </div>
+        <div className={s.externalContent}>
+          <p className={s.externalDomain}>{blogDomain}</p>
           <p className="font-semibold line-clamp-3">{content.external.title}</p>
           <p
             className={classNames(

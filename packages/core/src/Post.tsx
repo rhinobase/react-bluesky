@@ -1,10 +1,11 @@
 import { fetchPost } from "./api";
 import { EmbededPost } from "./components/EmbededPost";
+import { usePost } from "./hooks";
 import type { PostProps } from "./types";
 
-export type Post = Partial<PostProps>;
+export type Post = PostProps;
 
-export async function Post({
+export function Post({
   id,
   apiUrl,
   fallback,
@@ -13,7 +14,8 @@ export async function Post({
   handle,
   onError,
 }: Post) {
-  const content = await fetchPost("pfrazee.com", "3lafvzlbncc2r");
+  const content = usePost(handle, id);
 
-  return <EmbededPost content={content} components={components} />;
+  if (content.data)
+    return <EmbededPost content={content.data} components={components} />;
 }

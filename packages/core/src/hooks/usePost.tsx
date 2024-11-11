@@ -1,3 +1,4 @@
+"use client";
 import swr from "swr";
 import { PostApiError, type PostType } from "../api";
 
@@ -35,8 +36,11 @@ export const usePost = (
 ) => {
   const { isLoading, data, error } = useSWR(
     () =>
-      apiUrl || id
-        ? [apiUrl || (id && `${host}/api/post/${handle}/${id}`), fetchOptions]
+      apiUrl || handle || id
+        ? [
+            apiUrl || (handle && id && `${host}/api/post/${handle}/${id}`),
+            fetchOptions,
+          ]
         : null,
     fetcher,
     {

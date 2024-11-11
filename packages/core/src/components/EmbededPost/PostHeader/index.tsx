@@ -17,11 +17,11 @@ export function PostHeader({ content, components }: PostHeader) {
     <div className={s.header}>
       <a
         href={profileLink}
-        target="_blank"
-        rel="noopener noreferrer nofollow"
         className={s.avatar}
+        target="_blank"
+        rel="noopener noreferrer"
       >
-        <div className="size-full overflow-hidden rounded-[inherit]">
+        <div className={s.avatarOverflow}>
           <Img
             src={content.author.avatar}
             alt={content.author.did}
@@ -29,39 +29,56 @@ export function PostHeader({ content, components }: PostHeader) {
             height={48}
           />
         </div>
+        <div className={s.avatarOverflow}>
+          <div className={s.avatarShadow} />
+        </div>
       </a>
-      <div className="flex flex-col">
+      <div className={s.author}>
         <a
           href={profileLink}
+          className={s.authorLink}
           target="_blank"
-          rel="noopener noreferrer nofollow"
-          className="cursor-pointer font-bold text-[17px] text-[inherit] leading-5 line-clamp-1 hover:underline underline-offset-2 decoration-2 w-max"
+          rel="noopener noreferrer"
         >
-          <p title={content.author.displayName}>{content.author.displayName}</p>
+          <div className={s.authorLinkText}>
+            <span title={content.author.displayName}>
+              {content.author.displayName}
+            </span>
+          </div>
         </a>
-        <a
-          href={profileLink}
-          target="_blank"
-          rel="noopener noreferrer nofollow"
-          className="text-[rgb(83,100,113)] group-data-[theme=light]/post:text-[rgb(83,100,113)] dark:text-[rgb(139,152,165)] group-data-[theme=dark]/post:text-[rgb(139,152,165)] cursor-pointer text-[15px] hover:underline line-clamp-1"
-        >
-          <p
-            title={`@${content.author.handle}`}
-          >{`@${content.author.handle}`}</p>
-        </a>
+        <div className={s.authorMeta}>
+          <a
+            href={profileLink}
+            className={s.username}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span title={`@${content.author.handle}`}>
+              @{content.author.handle}
+            </span>
+          </a>
+        </div>
       </div>
-      <div className="flex-1" />
+      <div className={s.spacer} />
       <a
         href={profileLink}
         target="_blank"
-        rel="noopener noreferrer nofollow"
-        className="cursor-pointer transition-transform hover:scale-110 shrink-0 mr-1"
+        rel="noopener noreferrer"
+        aria-label="View on Twitter"
+        className={s.brand}
       >
-        <img
-          className="h-8"
-          src="data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20fill='none'%20viewBox='0%200%20320%20286'%3e%3cpath%20fill='rgb(10,122,255)'%20d='M69.364%2019.146c36.687%2027.806%2076.147%2084.186%2090.636%20114.439%2014.489-30.253%2053.948-86.633%2090.636-114.439C277.107-.917%20320-16.44%20320%2032.957c0%209.865-5.603%2082.875-8.889%2094.729-11.423%2041.208-53.045%2051.719-90.071%2045.357%2064.719%2011.12%2081.182%2047.953%2045.627%2084.785-80%2082.874-106.667-44.333-106.667-44.333s-26.667%20127.207-106.667%2044.333c-35.555-36.832-19.092-73.665%2045.627-84.785-37.026%206.362-78.648-4.149-90.071-45.357C5.603%20115.832%200%2042.822%200%2032.957%200-16.44%2042.893-.917%2069.364%2019.147Z'/%3e%3c/svg%3e"
-          alt="Bluesky Icon"
-        />
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 320 286"
+          className={s.blueskyIcon}
+        >
+          <title>Bluesky Icon</title>
+          <path
+            fill="rgb(10,122,255)"
+            d="M69.364 19.146c36.687 27.806 76.147 84.186 90.636 114.439 14.489-30.253 53.948-86.633 90.636-114.439C277.107-.917 320-16.44 320 32.957c0 9.865-5.603 82.875-8.889 94.729-11.423 41.208-53.045 51.719-90.071 45.357 64.719 11.12 81.182 47.953 45.627 84.785-80 82.874-106.667-44.333-106.667-44.333s-26.667 127.207-106.667 44.333c-35.555-36.832-19.092-73.665 45.627-84.785-37.026 6.362-78.648-4.149-90.071-45.357C5.603 115.832 0 42.822 0 32.957 0-16.44 42.893-.917 69.364 19.147Z"
+          />
+        </svg>
       </a>
     </div>
   );

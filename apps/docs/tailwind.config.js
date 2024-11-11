@@ -13,6 +13,7 @@ module.exports = {
     ),
     "../../node_modules/@rafty/ui/**/*.js",
     ...createGlobPatternsForDependencies(__dirname),
+    "../../node_modules/@rafty/**/*.js",
   ],
   theme: {
     typography: typographyStyles,
