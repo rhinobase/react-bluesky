@@ -6,9 +6,10 @@ import s from "./post-header.module.css";
 export type PostHeader = {
   content: PostType;
   components?: PostComponents;
+  postLink: string;
 };
 
-export function PostHeader({ content, components }: PostHeader) {
+export function PostHeader({ content, components, postLink }: PostHeader) {
   const Img = components?.AvatarImage ?? AvatarImage;
 
   const profileLink = `https://bsky.app/profile/${content.author.did}?ref_src=embed`;
@@ -19,7 +20,7 @@ export function PostHeader({ content, components }: PostHeader) {
         href={profileLink}
         className={s.avatar}
         target="_blank"
-        rel="noopener noreferrer"
+        rel="noopener noreferrer nofollow"
       >
         <div className={s.avatarOverflow}>
           <Img
@@ -38,7 +39,7 @@ export function PostHeader({ content, components }: PostHeader) {
           href={profileLink}
           className={s.authorLink}
           target="_blank"
-          rel="noopener noreferrer"
+          rel="noopener noreferrer nofollow"
         >
           <div className={s.authorLinkText}>
             <span title={content.author.displayName}>
@@ -51,7 +52,7 @@ export function PostHeader({ content, components }: PostHeader) {
             href={profileLink}
             className={s.username}
             target="_blank"
-            rel="noopener noreferrer"
+            rel="noopener noreferrer nofollow"
           >
             <span title={`@${content.author.handle}`}>
               @{content.author.handle}
@@ -61,9 +62,9 @@ export function PostHeader({ content, components }: PostHeader) {
       </div>
       <div className={s.spacer} />
       <a
-        href={profileLink}
+        href={postLink}
         target="_blank"
-        rel="noopener noreferrer"
+        rel="noopener noreferrer nofollow"
         aria-label="View on Twitter"
         className={s.brand}
       >

@@ -1,13 +1,12 @@
 import { EmbedContentType, type EmbedType } from "../../../api/types";
-import { classNames } from "../../../utils";
 import s from "./post-embed.module.css";
 
 export type PostEmbed = {
   content: EmbedType;
-  link?: string;
+  postLink?: string;
 };
 
-export function PostEmbed({ content, link }: PostEmbed) {
+export function PostEmbed({ content, postLink }: PostEmbed) {
   if (content.$type === EmbedContentType.IMAGES) {
     if (content.images.length > 1)
       return (
@@ -35,7 +34,7 @@ export function PostEmbed({ content, link }: PostEmbed) {
   }
   if (content.$type === EmbedContentType.VIDEO)
     return (
-      <a href={link} target="_blank" rel="noopener noreferrer">
+      <a href={postLink} target="_blank" rel="noopener noreferrer nofollow">
         <div className={s.videosContainer}>
           <img
             src={content.thumbnail}
@@ -95,13 +94,8 @@ export function PostEmbed({ content, link }: PostEmbed) {
         </div>
         <div className={s.externalContent}>
           <p className={s.externalDomain}>{blogDomain}</p>
-          <p className="font-semibold line-clamp-3">{content.external.title}</p>
-          <p
-            className={classNames(
-              "text-sm line-clamp-2 mt-0.5",
-              "text-[rgb(83,100,113)] group-data-[theme=light]/post:text-[rgb(83,100,113)] dark:text-[rgb(139,152,165)] group-data-[theme=dark]/post:text-[rgb(139,152,165)]",
-            )}
-          >
+          <p className={s.externalTitle}>{content.external.title}</p>
+          <p className={s.externalDescription}>
             {content.external.description}
           </p>
         </div>
@@ -116,30 +110,28 @@ export function PostEmbed({ content, link }: PostEmbed) {
         }/post/${content.record.uri.split("/").pop()}`}
         target="_blank"
         rel="noopener noreferrer nofollow"
-        className={classNames(
-          "cursor-pointer transition-colors border rounded-lg p-2 gap-1.5 w-full flex flex-col",
-          "bg-white group-data-[theme=light]/post:bg-white dark:bg-[rgb(21,32,43)] group-data-[theme=dark]/post:bg-[rgb(21,32,43)]",
-          "hover:bg-[rgb(247,249,249)] group-data-[theme=light]/post:hover:bg-[rgb(247,249,249)] dark:hover:bg-[rgb(30,39,50)] group-data-[theme=dark]/post:hover:bg-[rgb(30,39,50)]",
-        )}
+        className={s.recordLink}
       >
-        <div className="flex gap-1.5 items-center">
-          <div className="size-4 min-w-4 min-h-4 overflow-hidden rounded-full bg-neutral-300 shrink-0">
+        <div className={s.recordHeader}>
+          <div className={s.recordAvatar}>
             <img
               src={content.record.author.avatar}
               alt={content.record.author.handle}
             />
           </div>
-          <p className="line-clamp-1 text-sm">
-            <span className="font-bold">
+          <p className={s.recordAuthor}>
+            <span className={s.recordAuthorName}>
               {content.record.author.displayName}
             </span>{" "}
-            <span className="text-[rgb(83,100,113)] group-data-[theme=light]/post:text-[rgb(83,100,113)] dark:text-[rgb(139,152,165)] group-data-[theme=dark]/post:text-[rgb(139,152,165)]">
+            <span className={s.recordAuthorHandle}>
               @{content.record.author.handle}
             </span>
           </p>
         </div>
-        <p className="text-sm">{content.record.value.text}</p>
-        <PostEmbed content={content.record.embeds[0]} />
+        <p className={s.recordBody}>{content.record.value.text}</p>
+        {content.record.embeds && (
+          <PostEmbed content={content.record.embeds[0]} />
+        )}
       </a>
     );
   }

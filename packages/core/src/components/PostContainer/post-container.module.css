@@ -9,7 +9,7 @@
   font-weight: 400;
   box-sizing: border-box;
   border: var(--post-border);
-  border-radius: 12px;
+  border-radius: 0.75rem;
   margin: var(--post-container-margin);
   background-color: var(--post-bg-color);
   transition-property: background-color, box-shadow;

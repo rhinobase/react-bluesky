@@ -59,18 +59,8 @@
   --post-font-color-secondary: rgb(83, 100, 113);
   --post-bg-color: #fff;
   --post-bg-color-hover: rgb(247, 249, 249);
-  --post-quoted-bg-color-hover: rgba(0, 0, 0, 0.03);
   --post-color-blue-primary: rgb(29, 155, 240);
   --post-color-blue-primary-hover: rgb(26, 140, 216);
-  --post-color-blue-secondary: rgb(0, 111, 214);
-  --post-color-blue-secondary-hover: rgba(0, 111, 214, 0.1);
-  --post-color-red-primary: rgb(249, 24, 128);
-  --post-color-red-primary-hover: rgba(249, 24, 128, 0.1);
-  --post-color-green-primary: rgb(0, 186, 124);
-  --post-color-green-primary-hover: rgba(0, 186, 124, 0.1);
-  --post-twitter-icon-color: var(--post-font-color);
-  --post-verified-old-color: rgb(130, 154, 171);
-  --post-verified-blue-color: var(--post-color-blue-primary);
 }
 
 :is([data-theme="dark"], .dark) :where(.react-bluesky-theme) {
@@ -88,18 +78,8 @@
   --post-font-color-secondary: rgb(139, 152, 165);
   --post-bg-color: rgb(21, 32, 43);
   --post-bg-color-hover: rgb(30, 39, 50);
-  --post-quoted-bg-color-hover: rgba(255, 255, 255, 0.03);
   --post-color-blue-primary: rgb(29, 155, 240);
   --post-color-blue-primary-hover: rgb(26, 140, 216);
-  --post-color-blue-secondary: rgb(107, 201, 251);
-  --post-color-blue-secondary-hover: rgba(107, 201, 251, 0.1);
-  --post-color-red-primary: rgb(249, 24, 128);
-  --post-color-red-primary-hover: rgba(249, 24, 128, 0.1);
-  --post-color-green-primary: rgb(0, 186, 124);
-  --post-color-green-primary-hover: rgba(0, 186, 124, 0.1);
-  --post-twitter-icon-color: var(--post-font-color);
-  --post-verified-old-color: rgb(130, 154, 171);
-  --post-verified-blue-color: #fff;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -120,14 +100,5 @@
     --post-bg-color-hover: rgb(30, 39, 50);
     --post-color-blue-primary: rgb(29, 155, 240);
     --post-color-blue-primary-hover: rgb(26, 140, 216);
-    --post-color-blue-secondary: rgb(107, 201, 251);
-    --post-color-blue-secondary-hover: rgba(107, 201, 251, 0.1);
-    --post-color-red-primary: rgb(249, 24, 128);
-    --post-color-red-primary-hover: rgba(249, 24, 128, 0.1);
-    --post-color-green-primary: rgb(0, 186, 124);
-    --post-color-green-primary-hover: rgba(0, 186, 124, 0.1);
-    --post-twitter-icon-color: var(--post-font-color);
-    --post-verified-old-color: rgb(130, 154, 171);
-    --post-verified-blue-color: #fff;
   }
 }

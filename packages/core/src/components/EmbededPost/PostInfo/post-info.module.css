@@ -1,0 +1,62 @@
+.createdAt {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  overflow-wrap: break-word;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.createdAtLink {
+  text-decoration: none;
+}
+.createdAtLink:hover {
+  text-decoration: underline;
+}
+.createdAtTime {
+  font-size: 0.875rem;
+  line-height: 1rem;
+  color: var(--post-font-color-secondary);
+}
+
+.actions {
+  width: 100%;
+  padding-top: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  border-top: var(--post-border);
+}
+.actionLink {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  color: var(--post-font-color-secondary);
+  transition-property: color;
+  transition-duration: 0.2s;
+}
+.actionLink:hover {
+  color: var(--post-font-color);
+}
+.actionIcon {
+  width: 1.25rem;
+  height: 1.25rem;
+  min-height: 1.25rem;
+  min-width: 1.25rem;
+}
+.actionText {
+  font-weight: 700;
+  margin-bottom: 1px;
+}
+.actionReadmore {
+  color: var(--post-color-blue-primary);
+  cursor: pointer;
+  font-weight: 700;
+  transition-property: color;
+  transition-duration: 0.2s;
+}
+.actionReadmore:hover {
+  text-decoration: underline;
+  color: var(--post-color-blue-primary-hover);
+}
