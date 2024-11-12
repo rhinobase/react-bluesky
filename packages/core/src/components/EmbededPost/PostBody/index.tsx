@@ -23,7 +23,7 @@ export function PostBody({ content }: PostBody) {
           }`}
         >
           <a
-            href={`https://bsky.app/tag/${hashtag.trim()}?ref_src=embed`}
+            href={`https://bsky.app/hashtag/${hashtag.trim()}?ref_src=embed`}
             target="_blank"
             rel="noopener noreferrer nofollow"
             className={s.hashLink}

@@ -23,7 +23,7 @@ export default function PlaygroundPage() {
     default?: boolean;
   }>(DEFAULT_POST);
 
-  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.FocusEvent<HTMLInputElement, Element>) => {
     const fragments = e.target.value.split("/");
 
     if (fragments.length < 6) return setConfig(DEFAULT_POST);
@@ -56,12 +56,12 @@ export default function PlaygroundPage() {
           <InputField
             size="lg"
             placeholder="https://bsky.app/profile/adima7.bsky.social/post/3laq6uzwjbc2t"
-            onBlur={handleBlur}
+            onChange={handleChange}
           />
           <ArrowDownIcon className="size-5 stroke-2" />
           {!config.default && (
             <div className="w-full flex items-center gap-2">
-              <div className="p-2.5 bg-white dark:bg-[#0d1117] w-full border h-max overflow-x-auto border-secondary-200 dark:border-secondary-800 rounded-md">
+              <div className="p-2.5 bg-white dark:bg-[#0d1117] w-full border h-max overflow-x-auto [&::-webkit-scrollbar]:hidden border-secondary-200 dark:border-secondary-800 rounded-md">
                 <CodeHighlighter content={content} language="js" />
               </div>
               <CopyButton data={content} />

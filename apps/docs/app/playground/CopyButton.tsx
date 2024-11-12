@@ -1,3 +1,4 @@
+import { CheckIcon, DocumentDuplicateIcon } from "@heroicons/react/24/outline";
 import { Button, eventHandler } from "@rafty/ui";
 import { useEffect, useState } from "react";
 
@@ -25,15 +26,18 @@ export function CopyButton({ data }: CopyButton) {
       });
   });
 
+  const Icon = copied ? CheckIcon : DocumentDuplicateIcon;
+
   return (
     <Button
       aria-label="copy"
-      size="lg"
+      size="icon"
+      colorScheme="primary"
+      className="p-2.5"
       onClick={handleCopy}
       onKeyDown={handleCopy}
-      className="min-w-24 bg-[#0a7aff] hover:bg-[#0a7aff] text-white dark:bg-[#0a7aff] dark:hover:bg-[#0a7aff]"
     >
-      {copied ? "Copied!" : "Copy Code"}
+      <Icon className="size-5 stroke-2" />
     </Button>
   );
 }
