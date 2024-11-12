@@ -20,7 +20,7 @@ export function EmbededPost({ content: postContent, components }: EmbededPost) {
     <PostContainer>
       <PostHeader content={content} components={components} />
       <PostBody content={content} />
-      <PostEmbed content={content} />
+      <PostEmbed content={content} components={components} />
       <PostInfo content={content} />
     </PostContainer>
   );

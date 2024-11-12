@@ -3,11 +3,15 @@ import {
   type EmbedType,
   type PostType,
 } from "../../../api/types";
+import type { PostComponents } from "../../../types";
+import { AvatarImage } from "../../AvatarImage";
+import { MediaImage } from "../../MediaImage";
 import { PostLink } from "../../PostLink";
 import s from "./post-embed.module.css";
 
 export type PostEmbed = {
   content: PostType;
+  components?: PostComponents;
 };
 
 export function PostEmbed(props: PostEmbed) {
@@ -19,15 +23,19 @@ export function PostEmbed(props: PostEmbed) {
 type EmbedRender = {
   content: EmbedType;
   post: PostType;
+  components?: PostComponents;
 };
 
-function EmbedRender({ content, post }: EmbedRender) {
+function EmbedRender({ content, post, components }: EmbedRender) {
+  const Img = components?.MediaImage ?? MediaImage;
+  const Avatar = components?.AvatarImage ?? AvatarImage;
+
   if (content.$type === EmbedContentType.IMAGES) {
     if (content.images.length > 1)
       return (
         <div className={s.multiImages}>
           {content.images.map((image, index) => (
-            <img
+            <Img
               key={`post_embed_image_${
                 // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
                 index
@@ -40,7 +48,7 @@ function EmbedRender({ content, post }: EmbedRender) {
         </div>
       );
     return (
-      <img
+      <Img
         src={content.images[0].thumb}
         alt={content.images[0].alt}
         className={s.singleImage}
@@ -51,7 +59,7 @@ function EmbedRender({ content, post }: EmbedRender) {
     return (
       <PostLink content={post}>
         <div className={s.videosContainer}>
-          <img
+          <Img
             src={content.thumbnail}
             alt={content.cid}
             className={s.videoThumbnail}
@@ -85,7 +93,7 @@ function EmbedRender({ content, post }: EmbedRender) {
         className={s.externalLink}
       >
         <div className={s.externalLinkMedia}>
-          <img
+          <Img
             src={content.external.thumb}
             alt={content.external.title}
             className={s.externalLinkMediaTumb}
@@ -129,9 +137,11 @@ function EmbedRender({ content, post }: EmbedRender) {
       >
         <div className={s.recordHeader}>
           <div className={s.recordAvatar}>
-            <img
+            <Avatar
               src={content.record.author.avatar}
               alt={content.record.author.handle}
+              height={16}
+              width={16}
             />
           </div>
           <p className={s.recordAuthor}>

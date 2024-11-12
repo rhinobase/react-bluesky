@@ -1,4 +1,4 @@
-.root {
+.text {
   font-size: var(--post-body-font-size);
   font-weight: var(--post-body-font-weight);
   line-height: var(--post-body-line-height);
@@ -6,4 +6,13 @@
   overflow-wrap: break-word;
   white-space: pre-wrap;
   padding-bottom: 0.75rem;
+}
+
+.hashLink {
+  cursor: pointer;
+  color: var(--post-color-blue-primary);
+}
+.hashLink:hover {
+  color: var(--post-color-blue-primary-hover);
+  text-decoration: underline;
 }

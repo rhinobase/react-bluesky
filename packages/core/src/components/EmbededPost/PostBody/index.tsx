@@ -12,7 +12,7 @@ export function PostBody({ content }: PostBody) {
   const hashtags = content.record.text.split("#").slice(1);
 
   return (
-    <p className={s.root} lang={content.record.langs[0]} dir="auto">
+    <p className={s.text} lang={content.record.langs[0]} dir="auto">
       {/* biome-ignore lint/security/noDangerouslySetInnerHtml: used to preserve the text encoding */}
       <span dangerouslySetInnerHTML={{ __html: body }} />
       {hashtags.map((hashtag, index) => (
@@ -26,7 +26,7 @@ export function PostBody({ content }: PostBody) {
             href={`https://bsky.app/tag/${hashtag.trim()}?ref_src=embed`}
             target="_blank"
             rel="noopener noreferrer nofollow"
-            className="cursor-pointer hover:underline text-blue-500"
+            className={s.hashLink}
           >
             <span>#{hashtag.trim()}</span>
           </a>{" "}
