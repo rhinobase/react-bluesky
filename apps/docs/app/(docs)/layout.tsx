@@ -2,7 +2,6 @@ import glob from "fast-glob";
 import type { PropsWithChildren } from "react";
 import { Layout } from "../../components/Layout";
 import type { Section } from "../../components/SectionProvider";
-import { Providers } from "./providers";
 
 export default async function RootLayout(props: PropsWithChildren) {
   const pages = await glob("**/*.mdx", { cwd: "./app/(docs)" });
@@ -14,9 +13,5 @@ export default async function RootLayout(props: PropsWithChildren) {
   )) as Array<[string, Array<Section>]>;
   const allSections = Object.fromEntries(allSectionsEntries);
 
-  return (
-    <Providers>
-      <Layout allSections={allSections}>{props.children}</Layout>
-    </Providers>
-  );
+  return <Layout allSections={allSections}>{props.children}</Layout>;
 }

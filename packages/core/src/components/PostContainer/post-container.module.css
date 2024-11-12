@@ -2,7 +2,6 @@
   width: 100%;
   min-width: 250px;
   max-width: 550px;
-  overflow: hidden;
   /* Base font styles */
   color: var(--post-font-color);
   font-family: var(--post-font-family);

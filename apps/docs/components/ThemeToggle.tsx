@@ -3,7 +3,11 @@ import { Button } from "@rafty/ui";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 
-export function ThemeToggle() {
+export type ThemeToggle = {
+  className?: HTMLDivElement["className"];
+};
+
+export function ThemeToggle({ className }: ThemeToggle) {
   const { resolvedTheme, setTheme } = useTheme();
   const otherTheme = resolvedTheme === "dark" ? "light" : "dark";
   const [mounted, setMounted] = useState(false);
@@ -17,6 +21,7 @@ export function ThemeToggle() {
       type="button"
       size="icon"
       variant="ghost"
+      className={className}
       aria-label={mounted ? `Switch to ${otherTheme} theme` : "Toggle theme"}
       onClick={() => setTheme(otherTheme)}
     >

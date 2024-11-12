@@ -1,4 +1,5 @@
 import "./global.css";
+import { Providers } from "./providers";
 
 export const metadata = {
   title: "Welcome to docs",
@@ -12,7 +13,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="bg-white dark:bg-zinc-950">{children}</body>
+      <body className="bg-white dark:bg-zinc-950">
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }
