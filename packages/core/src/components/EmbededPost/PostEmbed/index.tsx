@@ -1,12 +1,27 @@
-import { EmbedContentType, type EmbedType } from "../../../api/types";
+import {
+  EmbedContentType,
+  type EmbedType,
+  type PostType,
+} from "../../../api/types";
+import { PostLink } from "../../PostLink";
 import s from "./post-embed.module.css";
 
 export type PostEmbed = {
-  content: EmbedType;
-  postLink?: string;
+  content: PostType;
 };
 
-export function PostEmbed({ content, postLink }: PostEmbed) {
+export function PostEmbed(props: PostEmbed) {
+  const content = props.content.embed;
+
+  if (content) return <EmbedRender content={content} post={props.content} />;
+}
+
+type EmbedRender = {
+  content: EmbedType;
+  post: PostType;
+};
+
+function EmbedRender({ content, post }: EmbedRender) {
   if (content.$type === EmbedContentType.IMAGES) {
     if (content.images.length > 1)
       return (
@@ -34,7 +49,7 @@ export function PostEmbed({ content, postLink }: PostEmbed) {
   }
   if (content.$type === EmbedContentType.VIDEO)
     return (
-      <a href={postLink} target="_blank" rel="noopener noreferrer nofollow">
+      <PostLink content={post}>
         <div className={s.videosContainer}>
           <img
             src={content.thumbnail}
@@ -56,7 +71,7 @@ export function PostEmbed({ content, postLink }: PostEmbed) {
             </svg>
           </div>
         </div>
-      </a>
+      </PostLink>
     );
 
   if (content.$type === EmbedContentType.EXTERNAL) {
@@ -130,7 +145,7 @@ export function PostEmbed({ content, postLink }: PostEmbed) {
         </div>
         <p className={s.recordBody}>{content.record.value.text}</p>
         {content.record.embeds && (
-          <PostEmbed content={content.record.embeds[0]} />
+          <EmbedRender content={content.record.embeds[0]} post={post} />
         )}
       </a>
     );

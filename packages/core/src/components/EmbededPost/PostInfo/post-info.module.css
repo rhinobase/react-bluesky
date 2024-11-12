@@ -60,3 +60,6 @@
   text-decoration: underline;
   color: var(--post-color-blue-primary-hover);
 }
+.actionSpacer {
+  flex: 1 1 0%;
+}

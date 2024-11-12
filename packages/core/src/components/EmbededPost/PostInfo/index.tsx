@@ -1,38 +1,31 @@
 import type { PostType } from "../../../api";
 import { formatDate, formatNumber } from "../../../utils";
+import { PostLink } from "../../PostLink";
 import s from "./post-info.module.css";
 
 export type PostInfo = {
   content: PostType;
-  postLink: string;
 };
 
-export function PostInfo({ content, postLink }: PostInfo) {
+export function PostInfo({ content }: PostInfo) {
   const createdAt = new Date(content.indexedAt);
   const formattedCreatedAtDate = formatDate(createdAt);
 
   return (
     <>
       <div className={s.createdAt}>
-        <a
-          href={postLink}
-          target="_blank"
-          rel="noopener noreferrer nofollow"
+        <PostLink
+          content={content}
           className={s.createdAtLink}
           aria-label={formattedCreatedAtDate}
         >
           <time dateTime={createdAt.toISOString()} className={s.createdAtTime}>
             {formattedCreatedAtDate}
           </time>
-        </a>
+        </PostLink>
       </div>
       <div className={s.actions}>
-        <a
-          href={postLink}
-          target="_blank"
-          rel="noopener noreferrer nofollow"
-          className={s.actionLink}
-        >
+        <PostLink content={content} className={s.actionLink}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -46,13 +39,8 @@ export function PostInfo({ content, postLink }: PostInfo) {
             />
           </svg>
           <p className={s.actionText}>{formatNumber(content.likeCount)}</p>
-        </a>
-        <a
-          href={postLink}
-          target="_blank"
-          rel="noopener noreferrer nofollow"
-          className={s.actionLink}
-        >
+        </PostLink>
+        <PostLink content={content} className={s.actionLink}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -66,13 +54,8 @@ export function PostInfo({ content, postLink }: PostInfo) {
             />
           </svg>
           <p className={s.actionText}>{content.repostCount}</p>
-        </a>
-        <a
-          href={postLink}
-          target="_blank"
-          rel="noopener noreferrer nofollow"
-          className={s.actionLink}
-        >
+        </PostLink>
+        <PostLink content={content} className={s.actionLink}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -86,20 +69,15 @@ export function PostInfo({ content, postLink }: PostInfo) {
             />
           </svg>
           <p className={s.actionText}>Reply</p>
-        </a>
-        <div className="flex-1" />
-        <a
-          href={postLink}
-          target="_blank"
-          rel="noopener noreferrer nofollow"
-          className={s.actionReadmore}
-        >
+        </PostLink>
+        <div className={s.actionSpacer} />
+        <PostLink content={content} className={s.actionReadmore}>
           Read{" "}
           {content.replyCount > 1
             ? `${content.replyCount} replies`
             : `${content.replyCount} reply`}{" "}
           on Bluesky
-        </a>
+        </PostLink>
       </div>
     </>
   );
