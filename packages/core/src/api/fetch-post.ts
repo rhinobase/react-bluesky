@@ -28,13 +28,14 @@ export async function fetchPost(uri: string) {
           `https://public.api.bsky.app/xrpc/com.atproto.identity.resolveHandle?handle=${didOrHandle}`,
         ).then(
           (res) =>
-            res.json() as Promise<ComAtprotoIdentityResolveHandle.Response>,
+            res.json() as Promise<ComAtprotoIdentityResolveHandle.OutputSchema>,
         );
 
-        if (!resolution.data.did) {
+        if (!resolution.did) {
           throw new Error("No DID found");
         }
-        did = resolution.data.did;
+
+        did = resolution.did;
       }
 
       atUri = `at://${did}/app.bsky.feed.post/${rkey}`;
@@ -44,15 +45,15 @@ export async function fetchPost(uri: string) {
     }
   }
 
-  const { data } = await fetch(
+  const { thread } = await fetch(
     `https://public.api.bsky.app/xrpc/app.bsky.feed.getPostThread?uri=${atUri}&depth=0&parentHeight=0`,
-  ).then((res) => res.json() as Promise<AppBskyFeedGetPostThread.Response>);
+  ).then((res) => res.json() as Promise<AppBskyFeedGetPostThread.OutputSchema>);
 
-  if (!isThreadViewPost(data.thread)) {
+  if (!isThreadViewPost(thread)) {
     throw new Error("Post not found");
   }
 
-  return data.thread;
+  return thread;
 }
 
 function isThreadViewPost(v: unknown): v is AppBskyFeedDefs.ThreadViewPost {

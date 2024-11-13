@@ -61,7 +61,7 @@ export default function PlaygroundPage() {
             </div>
           )}
         </div>
-        {config && <Post {...config} />}
+        {config && <Post uri={config.uri} />}
       </div>
     </div>
   );
