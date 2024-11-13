@@ -16,7 +16,7 @@
     "baseUrl": ".",
     "paths": {
       "react-bluesky": ["packages/core/src/index.ts"],
-      "react-bluesky/api": ["packages/core/src/server.ts"]
+      "react-bluesky/api": ["packages/core/src/api/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

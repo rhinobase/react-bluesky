@@ -17,9 +17,9 @@
       "types": "./index.esm.d.ts"
     },
     "./api": {
-      "import": "./server.esm.js",
-      "require": "./server.cjs.js",
-      "types": "./server.esm.d.ts"
+      "import": "./api.esm.js",
+      "require": "./api.cjs.js",
+      "types": "./api.esm.d.ts"
     }
   }
 }

@@ -1,1 +1,0 @@
-export { fetchPost } from "./api";

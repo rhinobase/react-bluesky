@@ -7,6 +7,7 @@ import {
 import { CONTENT_LABELS, getRkey, niceDate, prettyNumber } from "../utils";
 import { Container } from "./Container";
 import { Link } from "./Link";
+import { Embed } from "./Embed";
 
 interface Props {
   thread: AppBskyFeedDefs.ThreadViewPost;
@@ -16,7 +17,7 @@ export function Post({ thread }: Props) {
   const post = thread.post;
 
   const isAuthorLabeled = post.author.labels?.some((label) =>
-    CONTENT_LABELS.includes(label.val),
+    CONTENT_LABELS.includes(label.val)
   );
 
   let record: AppBskyFeedPost.Record | null = null;
@@ -77,7 +78,7 @@ export function Post({ thread }: Props) {
           </Link>
         </div>
         <PostContent record={record} />
-        {/* <Embed content={post.embed} labels={post.labels} /> */}
+        <Embed content={post.embed} labels={post.labels} />
         <Link href={href}>
           <time
             dateTime={new Date(post.indexedAt).toISOString()}
@@ -186,7 +187,7 @@ function PostContent({ record }: { record: AppBskyFeedPost.Record | null }) {
           }
         >
           {segment.text}
-        </Link>,
+        </Link>
       );
     } else if (
       segment.mention &&
@@ -199,7 +200,7 @@ function PostContent({ record }: { record: AppBskyFeedPost.Record | null }) {
           className="text-blue-500 hover:underline"
         >
           {segment.text}
-        </Link>,
+        </Link>
       );
     } else if (
       segment.tag &&
@@ -212,7 +213,7 @@ function PostContent({ record }: { record: AppBskyFeedPost.Record | null }) {
           className="text-blue-500 hover:underline"
         >
           {segment.text}
-        </Link>,
+        </Link>
       );
     } else {
       richText.push(segment.text);
