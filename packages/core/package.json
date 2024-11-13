@@ -6,5 +6,20 @@
   },
   "peerDependencies": {
     "react": "^18.3.1"
+  },
+  "devDependencies": {
+    "@atproto/api": "~0.13.15"
+  },
+  "exports": {
+    ".": {
+      "import": "./index.esm.js",
+      "require": "./index.cjs.js",
+      "types": "./index.esm.d.ts"
+    },
+    "./api": {
+      "import": "./server.esm.js",
+      "require": "./server.cjs.js",
+      "types": "./server.esm.d.ts"
+    }
   }
 }

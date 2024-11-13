@@ -1,5 +1,5 @@
+import type { AppBskyFeedDefs } from "@atproto/api";
 import { useMemo } from "react";
-import type { PostType } from "../../api";
 import type { PostComponents } from "../../types";
 import { PostContainer } from "../PostContainer";
 import { PostBody } from "./PostBody";
@@ -8,8 +8,8 @@ import { PostHeader } from "./PostHeader";
 import { PostInfo } from "./PostInfo";
 
 export type EmbededPost = {
-  content: PostType;
-  components?: Omit<PostComponents, "PostNotFound">;
+  content: AppBskyFeedDefs.PostView;
+  components?: PostComponents;
 };
 
 export function EmbededPost({ content: postContent, components }: EmbededPost) {

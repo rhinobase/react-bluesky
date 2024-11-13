@@ -1,48 +1,65 @@
-import type { PostType } from "./types";
+import type {
+  AppBskyFeedDefs,
+  AppBskyFeedGetPostThread,
+  ComAtprotoIdentityResolveHandle,
+} from "@atproto/api";
 
-type ResolveHandleResponse = {
-  did: string;
-};
+export async function fetchPost(uri: string) {
+  let atUri = uri;
 
-type PostResponse = {
-  thread: {
-    $type: string;
-    post: PostType;
-  };
-};
+  if (!atUri.startsWith("at://")) {
+    try {
+      const urlp = new URL(uri);
+      if (!urlp.hostname.endsWith("bsky.app")) {
+        throw new Error("Invalid hostname");
+      }
+      const split = urlp.pathname.slice(1).split("/");
+      if (split.length < 4) {
+        throw new Error("Invalid pathname");
+      }
+      const [profile, didOrHandle, type, rkey] = split;
+      if (profile !== "profile" || type !== "post") {
+        throw new Error("Invalid profile or type");
+      }
 
-export async function fetchPost(handle: string, id: string) {
-  const resolvedHandle = await fetch(
-    `https://public.api.bsky.app/xrpc/com.atproto.identity.resolveHandle?handle=${handle}`,
-  )
-    .then((res) => res.json() as Promise<ResolveHandleResponse>)
-    .then((data) => data.did);
+      let did = didOrHandle;
+      if (!didOrHandle.startsWith("did:")) {
+        const resolution = await fetch(
+          `https://public.api.bsky.app/xrpc/com.atproto.identity.resolveHandle?handle=${didOrHandle}`,
+        ).then(
+          (res) =>
+            res.json() as Promise<ComAtprotoIdentityResolveHandle.Response>,
+        );
 
-  const response = await fetch(
-    `https://public.api.bsky.app/xrpc/app.bsky.feed.getPostThread?uri=at://${resolvedHandle}/app.bsky.feed.post/${id}&depth=0&parentHeight=0`,
-  ).then((res) => res.json() as Promise<PostResponse>);
+        if (!resolution.data.did) {
+          throw new Error("No DID found");
+        }
+        did = resolution.data.did;
+      }
 
-  return response.thread.post;
+      atUri = `at://${did}/app.bsky.feed.post/${rkey}`;
+    } catch (err) {
+      console.log(err);
+      throw new Error("Invalid Bluesky URL");
+    }
+  }
+
+  const { data } = await fetch(
+    `https://public.api.bsky.app/xrpc/app.bsky.feed.getPostThread?uri=${atUri}&depth=0&parentHeight=0`,
+  ).then((res) => res.json() as Promise<AppBskyFeedGetPostThread.Response>);
+
+  if (!isThreadViewPost(data.thread)) {
+    throw new Error("Post not found");
+  }
+
+  return data.thread;
 }
 
-export class PostApiError extends Error {
-  status: number;
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-  data: any;
-
-  constructor({
-    message,
-    status,
-    data,
-  }: {
-    message: string;
-    status: number;
-    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-    data: any;
-  }) {
-    super(message);
-    this.name = "TwitterApiError";
-    this.status = status;
-    this.data = data;
-  }
+function isThreadViewPost(v: unknown): v is AppBskyFeedDefs.ThreadViewPost {
+  return (
+    v != null &&
+    typeof v === "object" &&
+    "$type" in v &&
+    v.$type === "app.bsky.feed.defs#threadViewPost"
+  );
 }

@@ -11,30 +11,23 @@ import { CopyButton } from "./CopyButton";
 import { CodeHighlighter } from "./Highlight";
 
 const DEFAULT_POST = {
-  handle: "adima7.bsky.social",
-  id: "3laq6uzwjbc2t",
+  uri: "https://bsky.app/profile/adima7.bsky.social/post/3laq6uzwjbc2t",
   default: true,
 };
 
 export default function PlaygroundPage() {
   const [config, setConfig] = useState<{
-    handle: string;
-    id: string;
+    uri: string;
     default?: boolean;
   }>(DEFAULT_POST);
 
   const handleChange = (e: React.FocusEvent<HTMLInputElement, Element>) => {
-    const fragments = e.target.value.split("/");
-
-    if (fragments.length < 6) return setConfig(DEFAULT_POST);
-
     setConfig({
-      handle: fragments[4],
-      id: fragments[6],
+      uri: e.target.value,
     });
   };
 
-  const content = `<Post handle="${config?.handle}" id="${config?.id}" />`;
+  const content = `<Post uri="${config.uri}" />`;
 
   return (
     <div className="overflow-y-auto">

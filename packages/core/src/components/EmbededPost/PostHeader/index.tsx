@@ -6,7 +6,6 @@ import s from "./post-header.module.css";
 
 export type PostHeader = {
   content: PostType;
-  components?: PostComponents;
 };
 
 export function PostHeader({ content, components }: PostHeader) {

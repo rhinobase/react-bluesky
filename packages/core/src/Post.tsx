@@ -1,26 +1,19 @@
-import { fetchPost } from "./api";
-import { EmbededPost } from "./components/EmbededPost";
+import { Suspense } from "react";
+import { Post as EmbededPost } from "./component/Post";
 import { PostLoading } from "./components/PostLoading";
 import { PostNotFound } from "./components/PostNotFound";
 import { usePost } from "./hooks";
 import type { PostProps } from "./types";
 
-export type Post = PostProps;
+export function Post(props: PostProps) {
+  const { data, isLoading } = usePost(props);
 
-export function Post({
-  id,
-  apiUrl,
-  fallback,
-  components,
-  fetchOptions,
-  handle,
-  onError,
-}: Post) {
-  const { data, isLoading } = usePost(handle, id);
-
-  const NotFound = components?.PostNotFound ?? PostNotFound;
-
-  if (data) return <EmbededPost content={data} components={components} />;
+  if (data)
+    return (
+      <Suspense fallback={props.fallback}>
+        <EmbededPost thread={data} />
+      </Suspense>
+    );
   if (isLoading) return <PostLoading />;
-  return <NotFound />;
+  return <PostNotFound />;
 }

@@ -1,14 +1,14 @@
 import cors from "edge-cors";
 import { NextResponse } from "next/server";
-import { fetchPost } from "react-bluesky";
+import { fetchPost } from "react-bluesky/api";
 
-type RouteSegment = { params: { handle: string; id: string } };
+type RouteSegment = { params: { uri: string } };
 
 export const fetchCache = "only-cache";
 
 export async function GET(req: Request, { params }: RouteSegment) {
   try {
-    const post = await fetchPost(params.handle, params.id);
+    const post = await fetchPost(params.uri);
 
     return cors(
       req,

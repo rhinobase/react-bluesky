@@ -41,6 +41,7 @@
   },
   "dependencies": {
     "@algolia/autocomplete-core": "^1.17.7",
+    "@atproto/api": "^0.13.15",
     "@heroicons/react": "^2.1.5",
     "@mdx-js/loader": "^3.1.0",
     "@next/mdx": "^15.0.3",

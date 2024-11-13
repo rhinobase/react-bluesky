@@ -1,6 +1,7 @@
 "use client";
+import type { AppBskyFeedDefs } from "@atproto/api";
 import swr from "swr";
-import { PostApiError, type PostType } from "../api";
+import type { PostProps } from "../types";
 
 // Avoids an error when used in the pages directory where useSWR might be in `default`.
 // biome-ignore lint/suspicious/noExplicitAny: <explanation>
@@ -10,37 +11,29 @@ const host = "http://localhost:3000";
 async function fetcher([url, fetchOptions]: [
   string,
   RequestInit,
-]): Promise<PostType | null> {
+]): Promise<AppBskyFeedDefs.ThreadViewPost> {
   const res = await fetch(url, fetchOptions);
   const json = await res.json();
 
-  // We return null in case `json.data` is undefined, that way we can check for "loading" by
-  // checking if data is `undefined`. `null` means it was fetched.
-  if (res.ok) return json.data || null;
+  if (res.ok) return json.data;
 
-  throw new PostApiError({
-    message: `Failed to fetch tweet at "${url}" with "${res.status}".`,
-    data: json,
-    status: res.status,
-  });
+  throw new Error(
+    json.error ?? `Failed to fetch post at "${url}" with "${res.status}".`,
+  );
 }
 
 /**
  * SWR hook for fetching a post in the browser.
  */
 export const usePost = (
-  handle?: string,
-  id?: string,
-  apiUrl?: string,
-  fetchOptions?: RequestInit,
+  props: Pick<PostProps, "uri" | "apiUrl" | "fetchOptions" | "onError">,
 ) => {
+  const { uri, apiUrl, fetchOptions } = props;
+
   const { isLoading, data, error } = useSWR(
     () =>
-      apiUrl || handle || id
-        ? [
-            apiUrl || (handle && id && `${host}/api/post/${handle}/${id}`),
-            fetchOptions,
-          ]
+      apiUrl || uri
+        ? [apiUrl || (uri && `${host}/api/post/?uri=${uri}`), fetchOptions]
         : null,
     fetcher,
     {
