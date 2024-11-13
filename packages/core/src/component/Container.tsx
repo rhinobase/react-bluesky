@@ -1,5 +1,7 @@
 import { type PropsWithChildren, useEffect, useRef } from "react";
+import { eventHandler } from "../utils";
 import { Link } from "./Link";
+import "../theme.css";
 
 export type ContainerProps = PropsWithChildren<{
   href?: string;
@@ -33,26 +35,21 @@ export function Container({ children, href }: ContainerProps) {
     }
   }, []);
 
+  const handleInteraction = eventHandler(() => {
+    if (ref.current && href) {
+      const anchor = ref.current.querySelector("a");
+      if (anchor) {
+        anchor.click();
+      }
+    }
+  });
+
   return (
     <div
       ref={ref}
-      className="w-full bg-white hover:bg-neutral-50 relative transition-colors max-w-[600px] min-w-[300px] flex border rounded-xl"
-      onClick={() => {
-        if (ref.current && href) {
-          const anchor = ref.current.querySelector("a");
-          if (anchor) {
-            anchor.click();
-          }
-        }
-      }}
-      onKeyDown={() => {
-        if (ref.current && href) {
-          const anchor = ref.current.querySelector("a");
-          if (anchor) {
-            anchor.click();
-          }
-        }
-      }}
+      className="react-bluesky-theme w-full bg-[var(--post-bg-color)] hover:bg-[var(--post-bg-color-hover)] relative transition-colors max-w-[600px] min-w-[300px] flex border rounded-xl"
+      onClick={handleInteraction}
+      onKeyDown={handleInteraction}
     >
       {href && <Link href={href} />}
       <div className="flex-1 px-4 pt-3 pb-2.5">{children}</div>

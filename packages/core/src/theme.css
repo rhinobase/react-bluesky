@@ -45,42 +45,39 @@
 
 :is([data-theme="light"], .light) :where(.react-bluesky-theme),
 :where(.react-bluesky-theme) {
-  --post-skeleton-bg: rgb(212, 212, 216);
   --post-border: 1px solid rgb(207, 217, 222);
   --post-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Helvetica, Arial, sans-serif;
   --post-font-color: rgb(15, 20, 25);
-  --post-font-color-secondary: rgb(83, 100, 113);
+  --post-font-color-secondary: rgb(66, 87, 108);
   --post-bg-color: #fff;
-  --post-bg-color-hover: rgb(247, 249, 249);
-  --post-color-blue-primary: rgb(29, 155, 240);
+  --post-bg-color-hover: hsl(211, 20%, 95%);
+  --post-color-blue-primary: rgb(10, 122, 255);
   --post-color-blue-primary-hover: rgb(26, 140, 216);
 }
 
 :is([data-theme="dark"], .dark) :where(.react-bluesky-theme) {
-  --post-skeleton-bg: rgb(63, 63, 70);
   --post-border: 1px solid rgb(66, 83, 100);
   --post-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Helvetica, Arial, sans-serif;
   --post-font-color: rgb(247, 249, 249);
-  --post-font-color-secondary: rgb(139, 152, 165);
-  --post-bg-color: rgb(21, 32, 43);
-  --post-bg-color-hover: rgb(30, 39, 50);
-  --post-color-blue-primary: rgb(29, 155, 240);
+  --post-font-color-secondary: rgb(66, 87, 108);
+  --post-bg-color: hsl(211, 28%, 12%);
+  --post-bg-color-hover: hsl(211, 20%, 10%);
+  --post-color-blue-primary: rgb(10, 122, 255);
   --post-color-blue-primary-hover: rgb(26, 140, 216);
 }
 
 @media (prefers-color-scheme: dark) {
   :where(.react-bluesky-theme) {
-    --post-skeleton-bg: rgb(63, 63, 70);
     --post-border: 1px solid rgb(66, 83, 100);
     --post-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
       Helvetica, Arial, sans-serif;
     --post-font-color: rgb(247, 249, 249);
-    --post-font-color-secondary: rgb(139, 152, 165);
-    --post-bg-color: rgb(21, 32, 43);
-    --post-bg-color-hover: rgb(30, 39, 50);
-    --post-color-blue-primary: rgb(29, 155, 240);
+    --post-font-color-secondary: rgb(66, 87, 108);
+    --post-bg-color: hsl(211, 28%, 12%);
+    --post-bg-color-hover: hsl(211, 20%, 10%);
+    --post-color-blue-primary: rgb(10, 122, 255);
     --post-color-blue-primary-hover: rgb(26, 140, 216);
   }
 }

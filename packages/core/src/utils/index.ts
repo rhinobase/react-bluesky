@@ -1,3 +1,4 @@
+import type { BaseSyntheticEvent } from "react";
 export * from "./labels";
 
 export function niceDate(date: number | string | Date) {
@@ -28,4 +29,15 @@ export function prettyNumber(number: number) {
 
 export function classNames(...classes: unknown[]) {
   return classes.filter(Boolean).join(" ");
+}
+
+export function eventHandler(func: (event: BaseSyntheticEvent) => void) {
+  return (event: BaseSyntheticEvent) => {
+    if ("key" in event && event.key !== "Enter") return;
+
+    event.preventDefault();
+    event.stopPropagation();
+
+    func(event);
+  };
 }
