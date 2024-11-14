@@ -246,13 +246,7 @@ export const NAVIGATION: NavGroupType[] = [
     links: [
       { title: "Bluesky Theme", href: "/bluesky-theme" },
       { title: "API Reference", href: "/bluesky-theme/api-reference" },
-      { title: "Advanced", href: "/bluesky-theme/advanced" },
-      { title: "Custom Theme", href: "/custom-theme" },
     ],
-  },
-  {
-    title: "More",
-    links: [{ title: "Contributing", href: "/contributing" }],
   },
 ];
 

@@ -108,15 +108,3 @@ export default function Page({ tweet }: { tweet: Tweet }) {
   return isFallback ? <TweetSkeleton /> : <EmbeddedTweet tweet={tweet} />;
 }
 ```
-
-## Running the test app
-
-Clone the [`bsky-react-post`](https://github.com/rhinobase/react-bluesky) repository and then run the following command:
-
-```bash
-pnpm install && pnpm nx dev sandbox
-```
-
-The app will be up and running at http://localhost:3000 for the [Next.js app example](https://github.com/vercel-labs/react-tweet/tree/main/apps/next-app).
-
-The source code for `bsky-react-post` is imported from [packages/core](https://github.com/rhinobase/react-bluesky/tree/main/packages/core) and any changes you make to it will be reflected in the app immediately.

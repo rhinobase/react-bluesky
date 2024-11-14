@@ -7,12 +7,12 @@ import { Post } from "bsky-react-post";
 ```
 
 ```tsx
-<Post id="1629307668568633344">
+<Post uri="1629307668568633344">
 ```
 
 Fetches and renders the post. It accepts the following props:
 
-- **id** - `string`: the post URI. For example in `https://twitter.com/chibicode/status/1629307668568633344` the tweet ID is `1629307668568633344`. This is the only required prop.
+- **uri** - `string`: the post URI. For example in `https://twitter.com/chibicode/status/1629307668568633344` the tweet ID is `1629307668568633344`. This is the only required prop.
 - **apiUrl** - `string`: the API URL to fetch the post from when using the post client-side with SWR. Defaults to `https://react-tweet.vercel.app/api/tweet/:id`.
 - **fallback** - `ReactNode`: The fallback component to render while the post is loading. Defaults to `TweetSkeleton`.
 - **onError** - `(error?: any) => any`: The returned error will be sent to the `TweetNotFound` component.
@@ -56,67 +56,3 @@ export default handler;
 ```
 
 Something similar can be done with Next.js API Routes or Route Handlers.
-
-### `EmbeddedTweet`
-
-```tsx
-import { EmbeddedTweet } from "react-tweet";
-```
-
-Renders a post. It accepts the following props:
-
-- **post** - `Post`: the tweet data, as returned by `getTweet`. Required.
-- **components** - `TwitterComponents`: Components to replace the default tweet components. See the [custom tweet components](#custom-tweet-components) section for more details.
-
-### `TweetSkeleton`
-
-```tsx
-import { TweetSkeleton } from "bsky-react-post";
-```
-
-A tweet skeleton useful for loading states.
-
-### `TweetNotFound`
-
-```tsx
-import { TweetNotFound } from "react-tweet";
-```
-
-A tweet not found component. It accepts the following props:
-
-- **error** - `any`: the error that was thrown when fetching the post. Not required.
-
-## Custom tweet components
-
-Default components used by [`Post`](#post) and [`EmbeddedTweet`](#embeddedtweet) can be replaced by passing a `components` prop. It extends the `TwitterComponents` type exported from `react-tweet`:
-
-```ts
-type TwitterComponents = {
-  TweetNotFound?: (props: Props) => JSX.Element;
-  AvatarImg?: (props: AvatarImgProps) => JSX.Element;
-  MediaImg?: (props: MediaImgProps) => JSX.Element;
-};
-```
-
-For example, to replace the default `img` tag used for the avatar and media with `next/image` you can do the following:
-
-```tsx
-// tweet-components.tsx
-import Image from "next/image";
-import type { TwitterComponents } from "react-tweet";
-
-export const components: TwitterComponents = {
-  AvatarImg: (props) => <Image {...props} />,
-  MediaImg: (props) => <Image {...props} fill unoptimized />,
-};
-```
-
-And then pass the components to `Post` or `EmbeddedTweet`:
-
-```tsx
-import { components } from "./tweet-components";
-
-const MyTweet = ({ id }: { id: string }) => (
-  <Tweet id={id} components={components} />
-);
-```
