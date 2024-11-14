@@ -54,7 +54,7 @@ export const metadata: Metadata = {
 };
 
 // Google Analytics ID
-const GMT_ID = "G-S4SLS87GGQ";
+const GMT_ID = "G-4R4ZW45190";
 
 export default function RootLayout(props: PropsWithChildren) {
   return (
