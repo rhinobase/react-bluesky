@@ -8,15 +8,12 @@ export type PostNotFound = {
 
 export const PostNotFound = (props: PostNotFound) => (
   <Container href="https://bsky.app/">
-    <Link
-      href="https://bsky.app/"
-      className="transition-transform hover:scale-110 absolute top-4 right-4"
-    >
+    <Link href="https://bsky.app/" className={s.logo}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 320 286"
-        className="h-6"
+        className={s.logoSvg}
       >
         <title>Bluesky Logo</title>
         <path
@@ -25,8 +22,6 @@ export const PostNotFound = (props: PostNotFound) => (
         />
       </svg>
     </Link>
-    <p className="my-16 text-center w-full text-textLight">
-      Post not found, it may have been deleted.
-    </p>
+    <p className={s.text}>Post not found, it may have been deleted.</p>
   </Container>
 );
