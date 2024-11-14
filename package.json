@@ -16,6 +16,7 @@
     "@nx/rollup": "19.8.10",
     "@nx/workspace": "19.8.10",
     "@rafty/plugin": "^1.1.2",
+    "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-url": "^8.0.2",
     "@svgr/rollup": "^8.1.0",
     "@swc-node/register": "~1.9.1",

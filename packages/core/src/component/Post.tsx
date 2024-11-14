@@ -1,13 +1,16 @@
+import type { AppBskyFeedDefs, AppBskyFeedPost } from "@atproto/api";
 import {
-  type AppBskyFeedDefs,
-  type AppBskyFeedPost,
-  AppBskyRichtextFacet,
-  RichText,
-} from "@atproto/api";
-import { CONTENT_LABELS, getRkey, niceDate, prettyNumber } from "../utils";
+  CONTENT_LABELS,
+  getRkey,
+  hasProp,
+  isObj,
+  niceDate,
+  prettyNumber,
+} from "../utils";
 import { Container } from "./Container";
 import { Link } from "./Link";
-import { Embed } from "./Embed";
+import { PostContent } from "./PostContent";
+// import { Embed } from "./Embed";
 
 interface Props {
   thread: AppBskyFeedDefs.ThreadViewPost;
@@ -17,7 +20,7 @@ export function Post({ thread }: Props) {
   const post = thread.post;
 
   const isAuthorLabeled = post.author.labels?.some((label) =>
-    CONTENT_LABELS.includes(label.val)
+    CONTENT_LABELS.includes(label.val),
   );
 
   let record: AppBskyFeedPost.Record | null = null;
@@ -78,7 +81,7 @@ export function Post({ thread }: Props) {
           </Link>
         </div>
         <PostContent record={record} />
-        <Embed content={post.embed} labels={post.labels} />
+        {/* <Embed content={post.embed} labels={post.labels} /> */}
         <Link href={href}>
           <time
             dateTime={new Date(post.indexedAt).toISOString()}
@@ -160,80 +163,10 @@ export function Post({ thread }: Props) {
   );
 }
 
-function PostContent({ record }: { record: AppBskyFeedPost.Record | null }) {
-  if (!record) return null;
-
-  const rt = new RichText({
-    text: record.text,
-    facets: record.facets,
-  });
-
-  const richText = [];
-
-  let counter = 0;
-  for (const segment of rt.segments()) {
-    if (
-      segment.link &&
-      AppBskyRichtextFacet.validateLink(segment.link).success
-    ) {
-      richText.push(
-        <Link
-          key={counter}
-          href={segment.link.uri}
-          className="text-blue-400 hover:underline"
-          disableTracking={
-            !segment.link.uri.startsWith("https://bsky.app") &&
-            !segment.link.uri.startsWith("https://go.bsky.app")
-          }
-        >
-          {segment.text}
-        </Link>
-      );
-    } else if (
-      segment.mention &&
-      AppBskyRichtextFacet.validateMention(segment.mention).success
-    ) {
-      richText.push(
-        <Link
-          key={counter}
-          href={`/profile/${segment.mention.did}`}
-          className="text-blue-500 hover:underline"
-        >
-          {segment.text}
-        </Link>
-      );
-    } else if (
-      segment.tag &&
-      AppBskyRichtextFacet.validateTag(segment.tag).success
-    ) {
-      richText.push(
-        <Link
-          key={counter}
-          href={`/tag/${segment.tag.tag}`}
-          className="text-blue-500 hover:underline"
-        >
-          {segment.text}
-        </Link>
-      );
-    } else {
-      richText.push(segment.text);
-    }
-
-    counter++;
-  }
-
+export function isRecord(v: unknown): v is AppBskyFeedPost.Record {
   return (
-    <p className="min-[300px]:text-lg leading-6 break-word break-words whitespace-pre-wrap">
-      {richText}
-    </p>
-  );
-}
-
-function isRecord(v: unknown): v is AppBskyFeedPost.Record {
-  return (
-    v != null &&
-    typeof v === "object" &&
-    "$type" in v &&
+    isObj(v) &&
+    hasProp(v, "$type") &&
     (v.$type === "app.bsky.feed.post#main" || v.$type === "app.bsky.feed.post")
   );
 }

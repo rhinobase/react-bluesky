@@ -26,7 +26,7 @@ async function fetcher([url, fetchOptions]: [
  * SWR hook for fetching a post in the browser.
  */
 export const usePost = (
-  props: Pick<PostProps, "uri" | "apiUrl" | "fetchOptions" | "onError">,
+  props: Pick<PostProps, "uri" | "apiUrl" | "fetchOptions">,
 ) => {
   const { uri, apiUrl, fetchOptions } = props;
 

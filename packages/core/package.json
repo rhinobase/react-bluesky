@@ -1,24 +1,21 @@
 {
   "name": "react-bluesky",
   "version": "0.0.1",
-  "dependencies": {
-    "swr": "^2.2.5"
-  },
   "peerDependencies": {
-    "react": "^18.3.1"
+    "react": "^18.3.1",
+    "swr": "^2.2.5"
   },
   "devDependencies": {
     "@atproto/api": "~0.13.15"
   },
   "exports": {
     ".": {
-      "import": "./index.esm.js",
-      "require": "./index.cjs.js",
+      "react-server": "./index.js",
+      "default": "./index.client.js",
       "types": "./index.esm.d.ts"
     },
     "./api": {
       "import": "./api.esm.js",
-      "require": "./api.cjs.js",
       "types": "./api.esm.d.ts"
     }
   }
