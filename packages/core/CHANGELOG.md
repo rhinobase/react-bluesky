@@ -1,3 +1,10 @@
+## 0.1.2 (2024-11-14)
+
+
+### 🩹 Fixes
+
+- **core:** updated build config ([3584a68](https://github.com/rhinobase/react-bluesky/commit/3584a68))
+
 ## 0.1.1 (2024-11-14)
 
 
