@@ -94,7 +94,7 @@ export function Heading<Level extends 2 | 3>({
       <Eyebrow tag={tag} label={label} />
       <Component
         ref={ref}
-        className={tag || label ? "mt-2 scroll-mt-32" : "scroll-mt-24"}
+        className={tag || label ? "mt-2 scroll-mt-32" : "scroll-mt-20"}
         {...props}
       >
         {anchor ? (

@@ -71,7 +71,7 @@ export const Header = forwardRef<HTMLDivElement, Header>(function Header(
       <div className="flex items-center gap-3 lg:hidden">
         <MobileNavigation />
         <Link href="/" aria-label="Home">
-          react-bluesky
+          bsky-react-post
         </Link>
       </div>
       <div className="flex items-center gap-5">
@@ -94,12 +94,12 @@ export const Header = forwardRef<HTMLDivElement, Header>(function Header(
 const SOCIALS = [
   {
     name: "Twitter",
-    link: "#",
+    link: "https://x.com/rhinobaseio",
     icon: BsTwitter,
   },
   {
     name: "Github",
-    link: "#",
+    link: "https://github.com/rhinobase/react-bluesky",
     icon: BsGithub,
   },
 ];

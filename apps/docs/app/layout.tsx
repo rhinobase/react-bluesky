@@ -12,13 +12,13 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: "Bluesky React Post",
+    default: "bsky-react-post",
     template: "%s – bsky-react-post",
   },
   description: "Embed Bluesky posts in your React applications.",
   twitter: {
     card: "summary_large_image",
-    site: "bsky-react-post.vercel.app",
+    site: "bsky-react-post.rhinobase.io",
     creator: "@rhinobaseio",
   },
   openGraph: {

@@ -1,16 +1,15 @@
-import {
-  type AppBskyEmbedExternal,
-  type AppBskyEmbedImages,
-  type AppBskyEmbedVideo,
-  type AppBskyFeedDefs,
-  type AppBskyGraphDefs,
-  AtUri,
+import type {
+  AppBskyEmbedExternal,
+  AppBskyEmbedImages,
+  AppBskyEmbedVideo,
+  AppBskyFeedDefs,
+  AppBskyGraphDefs,
 } from "@atproto/api";
 import { type PropsWithChildren, useMemo } from "react";
 import { CONTENT_LABELS, classNames, labelsToInfo } from "../../utils";
 import { getRkey } from "../../utils";
 import { Link } from "../Link";
-import { isRecord } from "../Post";
+import { isRecord } from "../Post/utils";
 import s from "./embed.module.css";
 import {
   isEmbedExternalView,
@@ -491,14 +490,14 @@ function StarterPackEmbed({
 
 // from #/lib/strings/starter-pack.ts
 function getStarterPackImage(starterPack: AppBskyGraphDefs.StarterPackView) {
-  const rkey = new AtUri(starterPack.uri).rkey;
+  const rkey = getRkey(starterPack);
   return `https://ogcard.cdn.bsky.app/start/${starterPack.creator.did}/${rkey}`;
 }
 
 function getStarterPackHref(
   starterPack: AppBskyGraphDefs.StarterPackViewBasic,
 ) {
-  const rkey = new AtUri(starterPack.uri).rkey;
+  const rkey = getRkey(starterPack);
   const handleOrDid = starterPack.creator.handle || starterPack.creator.did;
   return `/starter-pack/${handleOrDid}/${rkey}`;
 }

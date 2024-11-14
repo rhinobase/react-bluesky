@@ -1,8 +1,23 @@
 {
   "name": "bsky-react-post",
-  "version": "0.0.1",
+  "description": "Embed Bluesky (bsky) posts in your React application. ",
+  "version": "0.1.0",
+  "license": "MIT",
+  "keywords": ["bsky", "bluesky", "react", "embed", "rsc", "client"],
+  "homepage": "https://bsky-react-post.rhinobase.io",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rhinobase/react-bluesky.git",
+    "directory": "packages/ui"
+  },
+  "bugs": {
+    "url": "https://github.com/rhinobase/react-bluesky/issues"
+  },
   "peerDependencies": {
-    "react": "^18.3.1",
+    "react": ">= 18.0.0",
     "swr": "^2.2.5"
   },
   "devDependencies": {
@@ -10,13 +25,13 @@
   },
   "exports": {
     ".": {
-      "react-server": "./index.js",
-      "default": "./index.client.js",
-      "types": "./index.esm.d.ts"
+      "react-server": "./index.esm.js",
+      "default": "./client.esm.js"
     },
     "./api": {
       "import": "./api.esm.js",
       "types": "./api.esm.d.ts"
-    }
+    },
+    "./theme.css": "./index.css"
   }
 }

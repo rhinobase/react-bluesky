@@ -27,7 +27,7 @@ export function Layout({ children, allSections }: Layout) {
           <div className="lg:border-secondary-900/10 contents lg:pointer-events-auto lg:block lg:w-72 lg:overflow-y-auto lg:border-r lg:px-6 lg:pb-8 lg:pt-4 xl:w-80 lg:dark:border-white/10">
             <div className="hidden lg:flex">
               <Link href="/" aria-label="Home">
-                react-bluesky
+                bsky-react-post
               </Link>
             </div>
             <Header />

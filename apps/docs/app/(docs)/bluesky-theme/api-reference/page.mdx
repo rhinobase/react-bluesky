@@ -1,33 +1,33 @@
 # API Reference
 
-### `Tweet`
+### `Post`
 
 ```tsx
-import { Tweet } from "react-tweet";
+import { Post } from "bsky-react-post";
 ```
 
 ```tsx
-<Tweet id="1629307668568633344">
+<Post id="1629307668568633344">
 ```
 
-Fetches and renders the tweet. It accepts the following props:
+Fetches and renders the post. It accepts the following props:
 
-- **id** - `string`: the tweet ID. For example in `https://twitter.com/chibicode/status/1629307668568633344` the tweet ID is `1629307668568633344`. This is the only required prop.
-- **apiUrl** - `string`: the API URL to fetch the tweet from when using the tweet client-side with SWR. Defaults to `https://react-tweet.vercel.app/api/tweet/:id`.
-- **fallback** - `ReactNode`: The fallback component to render while the tweet is loading. Defaults to `TweetSkeleton`.
+- **id** - `string`: the post URI. For example in `https://twitter.com/chibicode/status/1629307668568633344` the tweet ID is `1629307668568633344`. This is the only required prop.
+- **apiUrl** - `string`: the API URL to fetch the post from when using the post client-side with SWR. Defaults to `https://react-tweet.vercel.app/api/tweet/:id`.
+- **fallback** - `ReactNode`: The fallback component to render while the post is loading. Defaults to `TweetSkeleton`.
 - **onError** - `(error?: any) => any`: The returned error will be sent to the `TweetNotFound` component.
 - **components** - `TwitterComponents`: Components to replace the default tweet components. See the [custom tweet components](#custom-tweet-components) section for more details.
 - **fetchOptions** - `RequestInit`: options to pass to [`fetch`](https://developer.mozilla.org/en-US/docs/Web/API/fetch).
 
-If the environment where `Tweet` is used does not support React Server Components then it will work with [SWR](https://swr.vercel.app/) instead and the tweet will be fetched from `https://react-tweet.vercel.app/api/tweet/:id`, which is CORS friendly.
+If the environment where `Post` is used does not support React Server Components then it will work with [SWR](https://swr.vercel.app/) instead and the post will be fetched from `https://react-tweet.vercel.app/api/tweet/:id`, which is CORS friendly.
 
-We highly recommend adding your own API route to fetch the tweet in production (as we cannot guarantee our IP will not get limited). You can do it by using the `apiUrl` prop:
+We highly recommend adding your own API route to fetch the post in production (as we cannot guarantee our IP will not get limited). You can do it by using the `apiUrl` prop:
 
 ```tsx
-<Tweet apiUrl={id && `/api/tweet/${id}`} />
+<Post apiUrl={id && `/api/tweet/${id}`} />
 ```
 
-> Note: `apiUrl` does nothing if the Tweet is rendered in a server component because it can fetch directly from Twitter's CDN.
+> Note: `apiUrl` does nothing if the Post is rendered in a server component because it can fetch directly from Twitter's CDN.
 
 Here's a good example of how to setup your own API route:
 
@@ -44,7 +44,7 @@ const handler = async (req: VercelRequest, res: VercelResponse) => {
   }
 
   try {
-    const tweet = await getTweet(tweetId);
+    const post = await getTweet(tweetId);
     res.status(tweet ? 200 : 404).json({ data: tweet ?? null });
   } catch (error) {
     console.error(error);
@@ -63,15 +63,15 @@ Something similar can be done with Next.js API Routes or Route Handlers.
 import { EmbeddedTweet } from "react-tweet";
 ```
 
-Renders a tweet. It accepts the following props:
+Renders a post. It accepts the following props:
 
-- **tweet** - `Tweet`: the tweet data, as returned by `getTweet`. Required.
+- **post** - `Post`: the tweet data, as returned by `getTweet`. Required.
 - **components** - `TwitterComponents`: Components to replace the default tweet components. See the [custom tweet components](#custom-tweet-components) section for more details.
 
 ### `TweetSkeleton`
 
 ```tsx
-import { TweetSkeleton } from "react-tweet";
+import { TweetSkeleton } from "bsky-react-post";
 ```
 
 A tweet skeleton useful for loading states.
@@ -84,11 +84,11 @@ import { TweetNotFound } from "react-tweet";
 
 A tweet not found component. It accepts the following props:
 
-- **error** - `any`: the error that was thrown when fetching the tweet. Not required.
+- **error** - `any`: the error that was thrown when fetching the post. Not required.
 
 ## Custom tweet components
 
-Default components used by [`Tweet`](#tweet) and [`EmbeddedTweet`](#embeddedtweet) can be replaced by passing a `components` prop. It extends the `TwitterComponents` type exported from `react-tweet`:
+Default components used by [`Post`](#post) and [`EmbeddedTweet`](#embeddedtweet) can be replaced by passing a `components` prop. It extends the `TwitterComponents` type exported from `react-tweet`:
 
 ```ts
 type TwitterComponents = {
@@ -111,7 +111,7 @@ export const components: TwitterComponents = {
 };
 ```
 
-And then pass the components to `Tweet` or `EmbeddedTweet`:
+And then pass the components to `Post` or `EmbeddedTweet`:
 
 ```tsx
 import { components } from "./tweet-components";

@@ -5,7 +5,7 @@ const svg = require("@svgr/rollup");
 
 module.exports = withNx(
   {
-    main: "./src/index.ts",
+    main: "./src/client.ts",
     outputPath: "../../dist/packages/core",
     tsConfig: "./tsconfig.lib.json",
     compiler: "swc",
@@ -15,10 +15,8 @@ module.exports = withNx(
   {
     input: {
       index: "./src/index.ts",
+      client: "./src/index.client.ts",
       api: "./src/api.ts",
-    },
-    output: {
-      entryFileNames: "[name].js",
     },
     plugins: [
       svg({

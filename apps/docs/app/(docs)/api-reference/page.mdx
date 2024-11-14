@@ -15,11 +15,11 @@ function fetchTweet(
 }>;
 ```
 
-Fetches and returns a [`Tweet`](https://github.com/vercel-labs/react-tweet/blob/main/packages/react-tweet/src/api/types/tweet.ts) just like [`getTweet`](#gettweet), but it also returns additional information about the tweet:
+Fetches and returns a [`Post`](https://github.com/vercel-labs/react-tweet/blob/main/packages/react-tweet/src/api/types/tweet.ts) just like [`getTweet`](#gettweet), but it also returns additional information about the tweet:
 
-- **data** - `Tweet` (Optional): The tweet data.
-- **tombstone** - `true` (Optional): Indicates if the tweet has been made private.
-- **notFound** - `true` (Optional): Indicates if the tweet was not found.
+- **data** - `Post` (Optional): The post data.
+- **tombstone** - `true` (Optional): Indicates if the post has been made private.
+- **notFound** - `true` (Optional): Indicates if the post was not found.
 
 ## `useTweet`
 
@@ -34,31 +34,31 @@ const useTweet: (
   fetchOptions?: RequestInit
 ) => {
   isLoading: boolean;
-  data: Tweet | null | undefined;
+  data: post | null | undefined;
   error: any;
 };
 ```
 
-SWR hook for fetching a tweet in the browser. It accepts the following parameters:
+SWR hook for fetching a post in the browser. It accepts the following parameters:
 
-- **id** - `string`: the tweet ID. For example in `https://twitter.com/chibicode/status/1629307668568633344` the tweet ID is `1629307668568633344`. This parameter is not used if `apiUrl` is provided.
-- **apiUrl** - `string`: the API URL to fetch the tweet from. Defaults to `https://react-tweet.vercel.app/api/tweet/:id`.
+- **id** - `string`: the post ID. For example in `https://twitter.com/chibicode/status/1629307668568633344` the post ID is `1629307668568633344`. This parameter is not used if `apiUrl` is provided.
+- **apiUrl** - `string`: the API URL to fetch the post from. Defaults to `https://react-tweet.vercel.app/api/tweet/:id`.
 - **fetchOptions** - `RequestInit` (Optional): options to pass to [`fetch`](https://developer.mozilla.org/en-US/docs/Web/API/fetch). Try to pass down a reference to the same object to avoid unnecessary re-renders.
 
 We highly recommend adding your own API endpoint in `apiUrl` for production:
 
 ```ts
-const tweet = useTweet(null, id && `/api/tweet/${id}`);
+const post = useTweet(null, id && `/api/tweet/${id}`);
 ```
 
 It's likely you'll never use this hook directly, and `apiUrl` is passed as a prop to a component instead:
 
 ```tsx
-<Tweet apiUrl={id && `/api/tweet/${id}`} />
+<Post apiUrl={id && `/api/tweet/${id}`} />
 ```
 
-Or if the tweet component already knows about the endpoint it needs to use, you can use `id` instead:
+Or if the post component already knows about the endpoint it needs to use, you can use `id` instead:
 
 ```tsx
-<Tweet id={id} />
+<Post id={id} />
 ```

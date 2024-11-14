@@ -48,7 +48,7 @@ export function Container({ children, href }: ContainerProps) {
   return (
     <div
       ref={ref}
-      className={classNames("react-bluesky-theme", s.container)}
+      className={classNames("bsky-react-post-theme", s.container)}
       onClick={handleInteraction}
       onKeyDown={handleInteraction}
     >

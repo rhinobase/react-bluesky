@@ -1,4 +1,4 @@
-.react-bluesky-theme {
+.bsky-react-post-theme {
   --post-container-margin: 0;
 
   /* Header */
@@ -37,14 +37,14 @@
   --post-replies-font-weight: 700;
 }
 
-:where(.react-bluesky-theme) * {
+:where(.bsky-react-post-theme) * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-:is([data-theme="light"], .light) :where(.react-bluesky-theme),
-:where(.react-bluesky-theme) {
+:is([data-theme="light"], .light) :where(.bsky-react-post-theme),
+:where(.bsky-react-post-theme) {
   --post-skeleton-bg: rgb(212, 212, 216);
   --post-border: 1px solid rgb(212, 219, 226);
   --post-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
@@ -58,7 +58,7 @@
   --post-link-font-color: rgb(59 130 246);
 }
 
-:is([data-theme="dark"], .dark) :where(.react-bluesky-theme) {
+:is([data-theme="dark"], .dark) :where(.bsky-react-post-theme) {
   --post-skeleton-bg: rgb(63, 63, 70);
   --post-border: 1px solid rgb(46, 64, 82);
   --post-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
@@ -73,7 +73,7 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :where(.react-bluesky-theme) {
+  :where(.bsky-react-post-theme) {
     --post-skeleton-bg: rgb(63, 63, 70);
     --post-border: 1px solid rgb(46, 64, 82);
     --post-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,

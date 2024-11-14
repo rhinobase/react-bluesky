@@ -1,5 +1,5 @@
 {
-  "name": "@react-bluesky/source",
+  "name": "@bsky-react-post/source",
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
