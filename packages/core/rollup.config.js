@@ -1,4 +1,5 @@
 const { withNx } = require("@nx/rollup/with-nx");
+const preserveDirectives = require("rollup-plugin-preserve-directives");
 const terser = require("@rollup/plugin-terser");
 const url = require("@rollup/plugin-url");
 const svg = require("@svgr/rollup");
@@ -18,7 +19,11 @@ module.exports = withNx(
       client: "./src/index.client.ts",
       api: "./src/api.ts",
     },
+    output: {
+      preserveModules: true,
+    },
     plugins: [
+      preserveDirectives.default(),
       svg({
         svgo: false,
         titleProp: true,

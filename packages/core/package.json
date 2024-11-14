@@ -11,7 +11,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/rhinobase/react-bluesky.git",
-    "directory": "packages/ui"
+    "directory": "packages/core"
   },
   "bugs": {
     "url": "https://github.com/rhinobase/react-bluesky/issues"
@@ -28,10 +28,14 @@
       "react-server": "./index.esm.js",
       "default": "./client.esm.js"
     },
-    "./api": {
-      "import": "./api.esm.js",
-      "types": "./api.esm.d.ts"
-    },
-    "./theme.css": "./index.css"
+    "./api": "./api.esm.js",
+    "./theme.css": "./index.esm.css"
+  },
+  "typesVersions": {
+    "*": {
+      "index": ["./index.esm.d.ts"],
+      "api": ["./api.esm.d.ts"],
+      "*": []
+    }
   }
 }
