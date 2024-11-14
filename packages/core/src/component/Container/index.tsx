@@ -1,7 +1,8 @@
 import { type PropsWithChildren, useEffect, useRef } from "react";
-import { eventHandler } from "../utils";
-import { Link } from "./Link";
-import "../theme.css";
+import { classNames, eventHandler } from "../../utils";
+import { Link } from "../Link";
+import "../../theme.css";
+import s from "./container.module.css";
 
 export type ContainerProps = PropsWithChildren<{
   href?: string;
@@ -47,12 +48,12 @@ export function Container({ children, href }: ContainerProps) {
   return (
     <div
       ref={ref}
-      className="react-bluesky-theme w-full bg-[var(--post-bg-color)] hover:bg-[var(--post-bg-color-hover)] relative transition-colors max-w-[600px] min-w-[300px] flex border rounded-xl"
+      className={classNames("react-bluesky-theme", s.container)}
       onClick={handleInteraction}
       onKeyDown={handleInteraction}
     >
       {href && <Link href={href} />}
-      <div className="flex-1 px-4 pt-3 pb-2.5">{children}</div>
+      <div className={s.article}>{children}</div>
     </div>
   );
 }

@@ -7,14 +7,11 @@ import {
   AtUri,
 } from "@atproto/api";
 import { type PropsWithChildren, useMemo } from "react";
-
-// import infoIcon from "../../assets/circleInfo_stroke2_corner0_rounded.svg";
-// import playIcon from "../../assets/play_filled_corner2_rounded.svg";
-// import starterPackIcon from "../../assets/starterPack.svg";
-import { CONTENT_LABELS, labelsToInfo } from "../../utils";
+import { CONTENT_LABELS, classNames, labelsToInfo } from "../../utils";
 import { getRkey } from "../../utils";
 import { Link } from "../Link";
 import { isRecord } from "../Post";
+import s from "./embed.module.css";
 import {
   isEmbedExternalView,
   isEmbedRecordView,
@@ -90,26 +87,26 @@ export function Embed({
         return (
           <Link
             href={`/profile/${record.author.did}/post/${getRkey(record)}`}
-            className="transition-colors hover:bg-neutral-100 border rounded-lg p-2 gap-1.5 w-full flex flex-col"
+            className={s.record}
           >
-            <div className="flex gap-1.5 items-center">
-              <div className="w-4 h-4 overflow-hidden rounded-full bg-neutral-300 shrink-0">
+            <div className={s.recordHeader}>
+              <div className={s.recordAvatar}>
                 <img
                   alt={record.author.displayName}
                   src={record.author.avatar}
-                  style={
-                    isAuthorLabeled ? { filter: "blur(1.5px)" } : undefined
-                  }
+                  className={classNames(isAuthorLabeled && s.recordAvatarImg)}
                 />
               </div>
-              <p className="line-clamp-1 text-sm">
-                <span className="font-bold">{record.author.displayName}</span>
-                <span className="text-textLight ml-1">
+              <p className={s.recordAuthor}>
+                <span className={s.recordAuthorDisplayName}>
+                  {record.author.displayName}
+                </span>
+                <span className={s.recordAuthorHandle}>
                   @{record.author.handle}
                 </span>
               </p>
             </div>
-            {text && <p className="text-sm">{text}</p>}
+            {text && <p className={s.recordText}>{text}</p>}
             {record.embeds?.map((embed) => (
               <Embed
                 key={String(embed.$type)}
@@ -194,7 +191,7 @@ export function Embed({
       isEmbedViewRecord(content.record.record)
     ) {
       return (
-        <div className="flex flex-col gap-2">
+        <div className={s.recordMedia}>
           <Embed
             content={content.media}
             labels={labels}
@@ -223,9 +220,14 @@ export function Embed({
 
 function Info({ children }: PropsWithChildren) {
   return (
-    <div className="w-full rounded-lg border py-2 px-2.5 flex-row flex gap-2 bg-neutral-50">
-      {/* <img src={infoIcon} className="w-4 h-4 shrink-0 mt-0.5" /> */}
-      <p className="text-sm text-textLight">{children}</p>
+    <div className={s.info}>
+      <svg viewBox="0 0 24 24" aria-hidden="true" className={s.infoIcon}>
+        <title>Information Icon</title>
+        <g>
+          <path d="M13.5 8.5c0 .83-.67 1.5-1.5 1.5s-1.5-.67-1.5-1.5S11.17 7 12 7s1.5.67 1.5 1.5zM13 17v-5h-2v5h2zm-1 5.25c5.66 0 10.25-4.59 10.25-10.25S17.66 1.75 12 1.75 1.75 6.34 1.75 12 6.34 22.25 12 22.25zM20.25 12c0 4.56-3.69 8.25-8.25 8.25S3.75 16.56 3.75 12 7.44 3.75 12 3.75s8.25 3.69 8.25 8.25z" />
+        </g>
+      </svg>
+      <p className={s.infoText}>{children}</p>
     </div>
   );
 }
@@ -247,37 +249,37 @@ function ImageEmbed({
         <img
           src={content.images[0].thumb}
           alt={content.images[0].alt}
-          className="w-full rounded-lg overflow-hidden object-cover h-auto max-h-[1000px]"
+          className={s.singleImage}
         />
       );
     case 2:
       return (
-        <div className="flex gap-1 rounded-lg overflow-hidden w-full aspect-[2/1]">
+        <div className={s.imagesContainer}>
           {content.images.map((image, i) => (
             <img
               key={`${i}-${image.alt}`}
               src={image.thumb}
               alt={image.alt}
-              className="w-1/2 h-full object-cover rounded-sm"
+              className={s.doubleImagesImg}
             />
           ))}
         </div>
       );
     case 3:
       return (
-        <div className="flex gap-1 rounded-lg overflow-hidden w-full aspect-[2/1]">
+        <div className={s.imagesContainer}>
           <img
             src={content.images[0].thumb}
             alt={content.images[0].alt}
-            className="flex-[3] object-cover rounded-sm"
+            className={s.threeImagesLargeImg}
           />
-          <div className="flex flex-col gap-1 flex-[2]">
+          <div className={s.threeImagesRemainingImagesContainer}>
             {content.images.slice(1).map((image, i) => (
               <img
                 key={`${i}-${image.alt}`}
                 src={image.thumb}
                 alt={image.alt}
-                className="w-full h-full object-cover rounded-sm"
+                className={s.threeImagesRemainingImages}
               />
             ))}
           </div>
@@ -285,13 +287,13 @@ function ImageEmbed({
       );
     case 4:
       return (
-        <div className="grid grid-cols-2 gap-1 rounded-lg overflow-hidden">
+        <div className={s.fourImagesContainer}>
           {content.images.map((image, i) => (
             <img
               key={`${i}-${image.alt}`}
               src={image.thumb}
               alt={image.alt}
-              className="aspect-square w-full object-cover rounded-sm"
+              className={s.fourImagesImg}
             />
           ))}
         </div>
@@ -322,26 +324,18 @@ function ExternalEmbed({
   }
 
   return (
-    <Link
-      href={content.external.uri}
-      className="w-full rounded-lg overflow-hidden border flex flex-col items-stretch"
-      disableTracking
-    >
+    <Link href={content.external.uri} className={s.external} disableTracking>
       {content.external.thumb && (
         <img
           alt={content.external.title}
           src={content.external.thumb}
-          className="aspect-[1.91/1] object-cover"
+          className={s.externalThumbnail}
         />
       )}
-      <div className="py-3 px-4">
-        <p className="text-sm text-textLight line-clamp-1">
-          {toNiceDomain(content.external.uri)}
-        </p>
-        <p className="font-semibold line-clamp-3">{content.external.title}</p>
-        <p className="text-sm text-textLight line-clamp-2 mt-0.5">
-          {content.external.description}
-        </p>
+      <div className={s.externalContent}>
+        <p className={s.externalDomain}>{toNiceDomain(content.external.uri)}</p>
+        <p className={s.externalTitle}>{content.external.title}</p>
+        <p className={s.externalDescription}>{content.external.description}</p>
       </div>
     </Link>
   );
@@ -361,26 +355,25 @@ function GenericWithImageEmbed({
   description?: string;
 }) {
   return (
-    <Link
-      href={href}
-      className="w-full rounded-lg border py-2 px-3 flex flex-col gap-2"
-    >
-      <div className="flex gap-2.5 items-center">
+    <Link href={href} className={s.generic}>
+      <div className={s.genericHeader}>
         {image ? (
           <img
             src={image}
             alt={title}
-            className="w-8 h-8 rounded-md bg-neutral-300 shrink-0"
+            className={classNames(s.genericImage, s.genericImageImg)}
           />
         ) : (
-          <div className="w-8 h-8 rounded-md bg-brand shrink-0" />
+          <div
+            className={classNames(s.genericImage, s.genericImagePlaceholder)}
+          />
         )}
-        <div className="flex-1">
-          <p className="font-bold text-sm">{title}</p>
-          <p className="text-textLight text-sm">{subtitle}</p>
+        <div className={s.genericTitleAndDescription}>
+          <p className={s.genericTitle}>{title}</p>
+          <p className={s.genericDescription}>{subtitle}</p>
         </div>
       </div>
-      {description && <p className="text-textLight text-sm">{description}</p>}
+      {description && <p className={s.genericText}>{description}</p>}
     </Link>
   );
 }
@@ -395,17 +388,25 @@ function VideoEmbed({ content }: { content: AppBskyEmbedVideo.View }) {
   }
 
   return (
-    <div
-      className="w-full overflow-hidden rounded-lg aspect-square relative"
-      style={{ aspectRatio: `${aspectRatio} / 1` }}
-    >
+    <div className={s.videoEmbed} style={{ aspectRatio: `${aspectRatio} / 1` }}>
       <img
         src={content.thumbnail}
         alt={content.alt}
-        className="object-cover size-full"
+        className={s.videoEmbedThumbnail}
       />
-      <div className="size-24 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-black/50 flex items-center justify-center">
-        {/* <img src={playIcon} className="object-cover size-3/5" /> */}
+      <div className={s.videoEmbedIconBg}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          className={s.videoEmbedIcon}
+        >
+          <title>Play Icon</title>
+          <path
+            fill="#fff"
+            d="M9.576 2.534C7.578 1.299 5 2.737 5 5.086v13.828c0 2.35 2.578 3.787 4.576 2.552l11.194-6.914c1.899-1.172 1.899-3.932 0-5.104L9.576 2.534Z"
+          />
+        </svg>
       </div>
     </div>
   );
@@ -424,29 +425,62 @@ function StarterPackEmbed({
   const imageUri = getStarterPackImage(content);
 
   return (
-    <Link
-      href={starterPackHref}
-      className="w-full rounded-lg overflow-hidden border flex flex-col items-stretch"
-    >
-      {/* <img src={imageUri} className="aspect-[1.91/1] object-cover" /> */}
-      <div className="py-3 px-4">
-        <div className="flex space-x-2 items-center">
-          {/* <img  src={starterPackIcon} className="w-10 h-10" /> */}
+    <Link href={starterPackHref} className={s.starterPack}>
+      <img
+        src={imageUri}
+        alt={content.record.name}
+        className={s.starterPackImage}
+      />
+      <div className={s.starterPackContent}>
+        <div className={s.starterPackContentHeader}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            className={s.starterPackIcon}
+          >
+            <title>Starter pack icon</title>
+            <defs>
+              <linearGradient
+                x1="0"
+                y1="0"
+                x2="100%"
+                y2="0"
+                gradientTransform="rotate(45)"
+                id="sky_V5w1FF_xb91wVQ_1euhBX"
+              >
+                <stop offset="0" stop-color="#0A7AFF" />
+                <stop offset="1" stop-color="#59B9FF" />
+              </linearGradient>
+            </defs>
+            <path
+              fill="url(#sky_V5w1FF_xb91wVQ_1euhBX)"
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M11.26 5.227 5.02 6.899c-.734.197-1.17.95-.973 1.685l1.672 6.24c.197.734.951 1.17 1.685.973l6.24-1.672c.734-.197 1.17-.951.973-1.685L12.945 6.2a1.375 1.375 0 0 0-1.685-.973Zm-6.566.459a2.632 2.632 0 0 0-1.86 3.223l1.672 6.24a2.632 2.632 0 0 0 3.223 1.861l6.24-1.672a2.631 2.631 0 0 0 1.861-3.223l-1.672-6.24a2.632 2.632 0 0 0-3.223-1.861l-6.24 1.672Z"
+            />
+            <path
+              fill="url(#sky_V5w1FF_xb91wVQ_1euhBX)"
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M15.138 18.411a4.606 4.606 0 1 0 0-9.211 4.606 4.606 0 0 0 0 9.211Zm0 1.257a5.862 5.862 0 1 0 0-11.724 5.862 5.862 0 0 0 0 11.724Z"
+            />
+          </svg>
           <div>
-            <p className="font-semibold leading-[21px]">
-              {content.record.name}
-            </p>
-            <p className="text-sm text-textLight line-clamp-2 leading-[18px]">
+            <p className={s.starterPackName}>{content.record.name}</p>
+            <p className={s.starterPackAuthor}>
               Starter pack by{" "}
               {content.creator.displayName || `@${content.creator.handle}`}
             </p>
           </div>
         </div>
         {content.record.description && (
-          <p className="text-sm mt-1">{content.record.description}</p>
+          <p className={s.starterPackDescription}>
+            {content.record.description}
+          </p>
         )}
         {!!content.joinedAllTimeCount && content.joinedAllTimeCount > 50 && (
-          <p className="text-sm font-semibold text-textLight mt-1">
+          <p className={s.starterPackJoined}>
             {content.joinedAllTimeCount} users have joined!
           </p>
         )}

@@ -1,5 +1,6 @@
 import type { AppBskyFeedPost } from "@atproto/api";
 import { Link } from "../Link";
+import s from "./post-content.module.css";
 import { rtSegments } from "./utils";
 
 export type PostContent = {
@@ -21,7 +22,7 @@ export function PostContent({ record }: PostContent) {
         <Link
           key={counter}
           href={segment.link.uri}
-          className="text-blue-400 hover:underline"
+          className={s.richText}
           disableTracking={
             !segment.link.uri.startsWith("https://bsky.app") &&
             !segment.link.uri.startsWith("https://go.bsky.app")
@@ -35,7 +36,7 @@ export function PostContent({ record }: PostContent) {
         <Link
           key={counter}
           href={`/profile/${segment.mention.did}`}
-          className="text-blue-500 hover:underline"
+          className={s.richText}
         >
           {segment.text}
         </Link>,
@@ -45,7 +46,7 @@ export function PostContent({ record }: PostContent) {
         <Link
           key={counter}
           href={`/tag/${segment.tag.tag}`}
-          className="text-blue-500 hover:underline"
+          className={s.richText}
         >
           {segment.text}
         </Link>,
@@ -57,9 +58,5 @@ export function PostContent({ record }: PostContent) {
     counter++;
   }
 
-  return (
-    <p className="min-[300px]:text-lg leading-6 break-word break-words whitespace-pre-wrap">
-      {richText}
-    </p>
-  );
+  return <p className={s.content}>{richText}</p>;
 }
