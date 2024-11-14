@@ -5,7 +5,7 @@ import type { PostHandleWithApiUrlProps, PostProps } from "../types";
 
 // biome-ignore lint/suspicious/noExplicitAny: Avoids an error when used in the pages directory where useSWR might be in `default`.
 const useSWR = ((swr as any).default as typeof swr) || swr;
-const host = "http://localhost:3000"; // "https://bsky-react-post.rhinobase.io";
+const host = "https://bsky-react-post.rhinobase.io";
 
 async function fetcher([url, fetchOptions]: [
   string,
