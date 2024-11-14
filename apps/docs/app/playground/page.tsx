@@ -31,7 +31,7 @@ export default function PlaygroundPage() {
 
   return (
     <div className="overflow-y-auto">
-      <div className="max-w-[550px] mx-auto size-full flex flex-col items-center gap-8 w-full py-14 px-4 md:pt-32">
+      <div className="max-w-[600px] mx-auto size-full flex flex-col items-center gap-8 w-full py-14 px-4 md:px-0 md:py-0 md:pt-32">
         <ThemeToggle className="absolute top-4 right-4" />
         <Link href="https://bsky.social/about?ref_src=embed" target="_blank">
           <Image
