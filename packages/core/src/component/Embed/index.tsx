@@ -1,16 +1,12 @@
 import {
   type AppBskyEmbedExternal,
   type AppBskyEmbedImages,
-  AppBskyEmbedRecord,
-  AppBskyEmbedRecordWithMedia,
-  AppBskyEmbedVideo,
-  AppBskyFeedDefs,
-  AppBskyGraphDefs,
-  AppBskyGraphStarterpack,
-  AppBskyLabelerDefs,
+  type AppBskyEmbedVideo,
+  type AppBskyFeedDefs,
+  type AppBskyGraphDefs,
   AtUri,
 } from "@atproto/api";
-import { useMemo, type PropsWithChildren } from "react";
+import { type PropsWithChildren, useMemo } from "react";
 
 // import infoIcon from "../../assets/circleInfo_stroke2_corner0_rounded.svg";
 // import playIcon from "../../assets/play_filled_corner2_rounded.svg";
@@ -18,13 +14,23 @@ import { useMemo, type PropsWithChildren } from "react";
 import { CONTENT_LABELS, labelsToInfo } from "../../utils";
 import { getRkey } from "../../utils";
 import { Link } from "../Link";
+import { isRecord } from "../Post";
 import {
   isEmbedExternalView,
-  isImageView,
   isEmbedRecordView,
+  isEmbedRecordWithMediaView,
+  isEmbedViewBlocked,
+  isEmbedViewDetached,
+  isEmbedViewNotFound,
   isEmbedViewRecord,
+  isFeedGeneratorView,
+  isGraphListView,
+  isImageView,
+  isLabelerView,
+  isStarterPackViewBasic,
+  isStarterpackRecord,
+  isVideoView,
 } from "./utils";
-import { isRecord } from "../Post";
 
 export function Embed({
   content,
@@ -61,7 +67,7 @@ export function Embed({
       // Case 3.1: Post
       if (isEmbedViewRecord(record)) {
         const pwiOptOut = !!record.author.labels?.find(
-          (label) => label.val === "!no-unauthenticated"
+          (label) => label.val === "!no-unauthenticated",
         );
         if (pwiOptOut) {
           return (
@@ -78,7 +84,7 @@ export function Embed({
         }
 
         const isAuthorLabeled = record.author.labels?.some((label) =>
-          CONTENT_LABELS.includes(label.val)
+          CONTENT_LABELS.includes(label.val),
         );
 
         return (
@@ -117,14 +123,14 @@ export function Embed({
       }
 
       // Case 3.2: List
-      if (AppBskyGraphDefs.isListView(record)) {
+      if (isGraphListView(record)) {
         return (
           <GenericWithImageEmbed
             image={record.avatar}
             title={record.name}
             href={`/profile/${record.creator.did}/lists/${getRkey(record)}`}
             subtitle={
-              record.purpose === AppBskyGraphDefs.MODLIST
+              record.purpose === "app.bsky.graph.defs#modlist"
                 ? `Moderation list by @${record.creator.handle}`
                 : `User list by @${record.creator.handle}`
             }
@@ -134,7 +140,7 @@ export function Embed({
       }
 
       // Case 3.3: Feed
-      if (AppBskyFeedDefs.isGeneratorView(record)) {
+      if (isFeedGeneratorView(record)) {
         return (
           <GenericWithImageEmbed
             image={record.avatar}
@@ -147,28 +153,28 @@ export function Embed({
       }
 
       // Case 3.4: Labeler
-      if (AppBskyLabelerDefs.isLabelerView(record)) {
+      if (isLabelerView(record)) {
         // Embed type does not exist in the app, so show nothing
         return null;
       }
 
       // Case 3.5: Starter pack
-      if (AppBskyGraphDefs.isStarterPackViewBasic(record)) {
+      if (isStarterPackViewBasic(record)) {
         return <StarterPackEmbed content={record} />;
       }
 
       // Case 3.6: Post not found
-      if (AppBskyEmbedRecord.isViewNotFound(record)) {
+      if (isEmbedViewNotFound(record)) {
         return <Info>Quoted post not found, it may have been deleted.</Info>;
       }
 
       // Case 3.7: Post blocked
-      if (AppBskyEmbedRecord.isViewBlocked(record)) {
+      if (isEmbedViewBlocked(record)) {
         return <Info>The quoted post is blocked.</Info>;
       }
 
       // Case 3.8: Detached quote post
-      if (AppBskyEmbedRecord.isViewDetached(record)) {
+      if (isEmbedViewDetached(record)) {
         // Just don't show anything
         return null;
       }
@@ -178,14 +184,14 @@ export function Embed({
     }
 
     // Case 4: Video
-    if (AppBskyEmbedVideo.isView(content)) {
+    if (isVideoView(content)) {
       return <VideoEmbed content={content} />;
     }
 
     // Case 5: Record with media
     if (
-      AppBskyEmbedRecordWithMedia.isView(content) &&
-      AppBskyEmbedRecord.isViewRecord(content.record.record)
+      isEmbedRecordWithMediaView(content) &&
+      isEmbedViewRecord(content.record.record)
     ) {
       return (
         <div className="flex flex-col gap-2">
@@ -249,7 +255,7 @@ function ImageEmbed({
         <div className="flex gap-1 rounded-lg overflow-hidden w-full aspect-[2/1]">
           {content.images.map((image, i) => (
             <img
-              key={i}
+              key={`${i}-${image.alt}`}
               src={image.thumb}
               alt={image.alt}
               className="w-1/2 h-full object-cover rounded-sm"
@@ -268,7 +274,7 @@ function ImageEmbed({
           <div className="flex flex-col gap-1 flex-[2]">
             {content.images.slice(1).map((image, i) => (
               <img
-                key={i}
+                key={`${i}-${image.alt}`}
                 src={image.thumb}
                 alt={image.alt}
                 className="w-full h-full object-cover rounded-sm"
@@ -282,7 +288,7 @@ function ImageEmbed({
         <div className="grid grid-cols-2 gap-1 rounded-lg overflow-hidden">
           {content.images.map((image, i) => (
             <img
-              key={i}
+              key={`${i}-${image.alt}`}
               src={image.thumb}
               alt={image.alt}
               className="aspect-square w-full object-cover rounded-sm"
@@ -410,7 +416,7 @@ function StarterPackEmbed({
 }: {
   content: AppBskyGraphDefs.StarterPackViewBasic;
 }) {
-  if (!AppBskyGraphStarterpack.isRecord(content.record)) {
+  if (!isStarterpackRecord(content.record)) {
     return null;
   }
 
@@ -456,7 +462,7 @@ function getStarterPackImage(starterPack: AppBskyGraphDefs.StarterPackView) {
 }
 
 function getStarterPackHref(
-  starterPack: AppBskyGraphDefs.StarterPackViewBasic
+  starterPack: AppBskyGraphDefs.StarterPackViewBasic,
 ) {
   const rkey = new AtUri(starterPack.uri).rkey;
   const handleOrDid = starterPack.creator.handle || starterPack.creator.did;
