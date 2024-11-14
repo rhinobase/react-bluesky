@@ -32,6 +32,20 @@ export const metadata: Metadata = {
     name: "Rhinobase Team",
     url: "https://github.com/rhinobase",
   },
+  icons: [
+    {
+      rel: "icon",
+      type: "image/png",
+      sizes: "16x16",
+      url: "/favicon-16x16.png",
+    },
+    {
+      rel: "icon",
+      type: "image/png",
+      sizes: "32x32",
+      url: "/favicon-32x32.png",
+    },
+  ],
 };
 
 export default function RootLayout(props: PropsWithChildren) {

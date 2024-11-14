@@ -3,8 +3,7 @@ import type { AppBskyFeedDefs } from "@atproto/api";
 import swr from "swr";
 import type { PostProps } from "../types";
 
-// Avoids an error when used in the pages directory where useSWR might be in `default`.
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+// biome-ignore lint/suspicious/noExplicitAny: Avoids an error when used in the pages directory where useSWR might be in `default`.
 const useSWR = ((swr as any).default as typeof swr) || swr;
 const host = "http://localhost:3000";
 
