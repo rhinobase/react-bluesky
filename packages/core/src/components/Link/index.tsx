@@ -1,3 +1,4 @@
+"use client";
 import type { AnchorHTMLAttributes } from "react";
 import { classNames } from "../../utils";
 import s from "./link.module.css";
@@ -15,8 +16,12 @@ export function Link({
   onKeyDown,
   ...props
 }: Link) {
-  const searchParam = new URLSearchParams(window?.location.search);
-  const ref_url = searchParam.get("ref_url");
+  let ref_url: string | null = null;
+
+  if (typeof window !== "undefined") {
+    const searchParam = new URLSearchParams(window.location.search);
+    ref_url = searchParam.get("ref_url");
+  }
 
   const newSearchParam = new URLSearchParams();
   newSearchParam.set("ref_src", "embed");
