@@ -2,63 +2,55 @@
 
 This is the reference for the utility functions that `bsky-react-post` provides for [building your own post components](/custom-theme) or simply fetching a post. Navigate to the docs for the [Bluesky theme](/bluesky-theme) if you want to render the existing Post components instead.
 
-## `fetchTweet`
+## `fetchPost`
 
 ```tsx
-function fetchTweet(
-  id: string,
+function fetchPost(
+  config: PostHandleProps,
   fetchOptions?: RequestInit
-): Promise<{
-  data?: Tweet | undefined;
-  tombstone?: true | undefined;
-  notFound?: true | undefined;
-}>;
+): Promise<AppBskyFeedDefs.ThreadViewPost>;
 ```
 
-Fetches and returns a [`Post`](https://github.com/vercel-labs/react-tweet/blob/main/packages/react-tweet/src/api/types/tweet.ts) just like [`getTweet`](#gettweet), but it also returns additional information about the tweet:
+Fetches and returns a [`Post`](https://github.com/rhinobase/react-bluesky/blob/main/packages/core/src/api.ts), it returns information about the post:
 
-- **data** - `Post` (Optional): The post data.
-- **tombstone** - `true` (Optional): Indicates if the post has been made private.
-- **notFound** - `true` (Optional): Indicates if the post was not found.
+- **post** - `Post`: The post data.
+- **parent** - `Post` (Optional): The parent post.
+- **replies** - `Post[]` (Optional): The replies to the post.
 
-## `useTweet`
+## `usePost`
 
-> If your app supports React Server Components, use [`getTweet`](#gettweet) instead.
+> If your app supports React Server Components, use [`fetchPost`](#fetchpost) instead.
 
 ```tsx
-import { useTweet } from "react-tweet";
+import { usePost } from "bsky-react-post";
 
-const useTweet: (
-  id?: string,
-  apiUrl?: string,
-  fetchOptions?: RequestInit
+const usePost: (
+  options: PostHandleWithApiUrlProps & { fetchOptions?: RequestInit }
 ) => {
   isLoading: boolean;
-  data: post | null | undefined;
+  data: thread | null | undefined;
   error: any;
 };
 ```
 
 SWR hook for fetching a post in the browser. It accepts the following parameters:
 
-- **id** - `string`: the post ID. For example in `https://twitter.com/chibicode/status/1629307668568633344` the post ID is `1629307668568633344`. This parameter is not used if `apiUrl` is provided.
-- **apiUrl** - `string`: the API URL to fetch the post from. Defaults to `https://react-tweet.vercel.app/api/tweet/:id`.
+- **handle** - `string`: the post handle. For example in `https://bsky.app/profile/adima7.bsky.social/post/3laq6uzwjbc2t` the handle is `adima7.bsky.social`.
+- **did** - `string`: the post DID. For example in `at://did:plc:xdwatsttsxnl5h65mf3ddxbq/app.bsky.feed.post/3laq6uzwjbc2t` the post DID is `did:plc:xdwatsttsxnl5h65mf3ddxbq`.
+- **id** - `string`: the post ID. For example in `https://bsky.app/profile/adima7.bsky.social/post/3laq6uzwjbc2t` the post ID is `3laq6uzwjbc2t`.
+- **apiUrl** - `string` (Optional): the API URL to fetch the post from. Defaults to `https://bsky-react-post.rhinobase.io/api/post?handle=:handle&id=:id&did=:did`.
 - **fetchOptions** - `RequestInit` (Optional): options to pass to [`fetch`](https://developer.mozilla.org/en-US/docs/Web/API/fetch). Try to pass down a reference to the same object to avoid unnecessary re-renders.
+
+You can either provide `handle` and `id` or `did` and `id` to fetch the post. If you provide `apiUrl`, then `handle`, `id`, and `did` will be ignored.
 
 We highly recommend adding your own API endpoint in `apiUrl` for production:
 
 ```ts
-const post = useTweet(null, id && `/api/tweet/${id}`);
+const post = usePost({ apiUrl: id && `/api/post/${id}` });
 ```
 
 It's likely you'll never use this hook directly, and `apiUrl` is passed as a prop to a component instead:
 
 ```tsx
-<Post apiUrl={id && `/api/tweet/${id}`} />
-```
-
-Or if the post component already knows about the endpoint it needs to use, you can use `id` instead:
-
-```tsx
-<Post id={id} />
+<Post apiUrl={id && `/api/post/${id}`} />
 ```

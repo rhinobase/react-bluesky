@@ -1,3 +1,4 @@
+import { GoogleAnalytics } from "@next/third-parties/google";
 import type { PropsWithChildren } from "react";
 import "./global.css";
 import type { Metadata } from "next";
@@ -27,6 +28,10 @@ export const metadata: Metadata = {
       template: "%s – bsky-react-post",
     },
     description: "Embed Bluesky posts in your React applications.",
+    type: "website",
+    images: {
+      url: "https://res.cloudinary.com/rhinobase/image/upload/f_auto,q_auto/v1/bsky-react-post/sm1syi7qzxaoamjpjrd9",
+    },
   },
   authors: {
     name: "Rhinobase Team",
@@ -48,6 +53,9 @@ export const metadata: Metadata = {
   ],
 };
 
+// Google Analytics ID
+const GMT_ID = "G-S4SLS87GGQ";
+
 export default function RootLayout(props: PropsWithChildren) {
   return (
     <html lang="en" className={inter.className}>
@@ -56,8 +64,9 @@ export default function RootLayout(props: PropsWithChildren) {
         <meta name="theme-color" content="#fff" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </head>
-      <body className="bg-white dark:bg-secondary-950">
+      <body className="dark:bg-secondary-950 h-screen w-full bg-white selection:bg-[#79ffe1] dark:selection:bg-[#f81ce5] dark:selection:text-white antialiased">
         <Providers>{props.children}</Providers>
+        <GoogleAnalytics gaId={GMT_ID} />
       </body>
     </html>
   );

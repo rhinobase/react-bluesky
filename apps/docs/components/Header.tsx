@@ -3,6 +3,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import Link from "next/link";
 import { type HTMLAttributes, type PropsWithChildren, forwardRef } from "react";
 import { BsGithub, BsTwitter } from "react-icons/bs";
+import { FaBluesky } from "react-icons/fa6";
 import {
   MobileNavigation,
   useIsInsideMobileNavigation,
@@ -84,6 +85,7 @@ export const Header = forwardRef<HTMLDivElement, Header>(function Header(
         <div className="flex gap-4">
           <MobileSearch />
           <ThemeToggle />
+          <div className="bg-secondary-900/10 self-center hidden h-5 w-px md:block dark:bg-white/15" />
           <SmallPrint />
         </div>
       </div>
@@ -92,6 +94,11 @@ export const Header = forwardRef<HTMLDivElement, Header>(function Header(
 });
 
 const SOCIALS = [
+  {
+    name: "Bluesky",
+    link: "https://bsky.app/profile/adima7.bsky.social",
+    icon: FaBluesky,
+  },
   {
     name: "Twitter",
     link: "https://x.com/rhinobaseio",
@@ -108,7 +115,7 @@ function SmallPrint() {
   return (
     <div className="flex items-center gap-5">
       {SOCIALS.map(({ name, icon: Icon, link }) => (
-        <Link href={link} key={name}>
+        <Link href={link} key={name} target="_blank" rel="noopener noreferrer">
           <Icon
             size={17}
             className="hover:fill-secondary-900 fill-secondary-500 dark:hover:fill-secondary-300 dark:fill-secondary-500 transition-all"

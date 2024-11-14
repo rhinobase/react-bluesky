@@ -2,7 +2,7 @@
 import { ArrowDownIcon } from "@heroicons/react/24/outline";
 import { InputField } from "@rafty/ui";
 import { ThemeToggle } from "apps/docs/components/ThemeToggle";
-import { Post } from "bsky-react-post";
+import { Post, type PostHandleProps } from "bsky-react-post";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -11,23 +11,47 @@ import { CopyButton } from "./CopyButton";
 import { CodeHighlighter } from "./Highlight";
 
 const DEFAULT_POST = {
-  uri: "https://bsky.app/profile/adima7.bsky.social/post/3laq6uzwjbc2t",
+  handle: "adima7.bsky.social",
+  id: "3laq6uzwjbc2t",
   default: true,
 };
 
 export default function PlaygroundPage() {
-  const [config, setConfig] = useState<{
-    uri: string;
-    default?: boolean;
-  }>(DEFAULT_POST);
+  const [config, setConfig] = useState<
+    PostHandleProps & {
+      default?: boolean;
+    }
+  >(DEFAULT_POST);
 
   const handleChange = (e: React.FocusEvent<HTMLInputElement, Element>) => {
-    setConfig({
-      uri: e.target.value,
-    });
+    const value = e.target.value;
+
+    let config: PostHandleProps;
+
+    const urlp = new URL(value);
+    const split = urlp.pathname.slice(1).split("/");
+
+    const [profile, didOrHandle, type, rkey] = split;
+
+    if (profile === "profile" && type === "post") {
+      config = {
+        handle: didOrHandle,
+        id: rkey,
+      };
+    } else {
+      config = {
+        did: didOrHandle,
+        id: rkey,
+      };
+    }
+
+    setConfig(config);
   };
 
-  const content = `<Post uri="${config.uri}" />`;
+  const content =
+    "did" in config && config.did
+      ? `<Post did="${config.did}" id="${config.id}" />`
+      : `<Post handle="${config.handle}" id="${config.id}" />`;
 
   return (
     <div className="overflow-y-auto">
@@ -59,7 +83,7 @@ export default function PlaygroundPage() {
             <CopyButton data={content} />
           </div>
         )}
-        {config && <Post uri={config.uri} />}
+        {config && <Post {...config} />}
       </div>
     </div>
   );

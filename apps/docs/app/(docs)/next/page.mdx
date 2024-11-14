@@ -11,18 +11,16 @@ Follow the [installation docs in the Introduction](/#installation).
 In any component, import `Post` from `bsky-react-post` and use it like so:
 
 ```tsx
-import { Tweet } from "bsky-react-post";
+import { Post } from "bsky-react-post";
 
 export default function Page() {
-  return (
-    <Tweet uri="https://bsky.app/profile/adima7.bsky.social/post/3laq6uzwjbc2t" />
-  );
+  return <Post handle="adima7.bsky.social" id="3laq6uzwjbc2t" />;
 }
 ```
 
 `Post` works differently depending on where it's used. If it's used in the App Router it will fetch the post in the server. If it's used in the pages directory it will fetch the post in the client with [SWR](https://swr.vercel.app/).
 
-You can learn more about `Post` in the [Bluesky theme docs](/bluesky-theme). And you can learn more about the usage in [Running the test app](#running-the-test-app).
+You can learn more about `Post` in the [Bluesky theme docs](/bluesky-theme).
 
 ### Troubleshooting
 
@@ -41,28 +39,26 @@ It's recommended to enable cache for the Bluesky API if you intend to go to prod
 ```tsx
 import { Suspense } from "react";
 import { unstable_cache } from "next/cache";
-import { TweetSkeleton, EmbeddedTweet, TweetNotFound } from "react-tweet";
-import { getTweet as _getTweet } from "react-tweet/api";
+import { PostSkeleton, EmbeddedPost, PostNotFound } from "bsky-react-post";
+import { fetchPost } from "bsky-react-post/api";
 
-const getTweet = unstable_cache(
-  async (id: string) => _getTweet(id),
-  ["tweet"],
-  { revalidate: 3600 * 24 }
-);
+const getPost = unstable_cache(async (id: string) => fetchPost(id), ["post"], {
+  revalidate: 3600 * 24,
+});
 
-const TweetPage = async ({ id }: { id: string }) => {
+const PostPage = async ({ id }: { id: string }) => {
   try {
-    const tweet = await getTweet(id);
-    return tweet ? <EmbeddedTweet tweet={tweet} /> : <TweetNotFound />;
+    const thread = await getPost(id);
+    return thread ? <EmbeddedPost thread={thread} /> : <PostNotFound />;
   } catch (error) {
     console.error(error);
-    return <TweetNotFound error={error} />;
+    return <PostNotFound error={error} />;
   }
 };
 
-const Page = ({ params }: { params: { tweet: string } }) => (
-  <Suspense fallback={<TweetSkeleton />}>
-    <TweetPage id={params.tweet} />
+const Page = ({ params }: { params: { post: string } }) => (
+  <Suspense fallback={<PostSkeleton />}>
+    <PostPage id={params.post} />
   </Suspense>
 );
 
@@ -75,25 +71,24 @@ This can prevent getting your server IPs rate limited if they are making too man
 
 ### Manual data fetching
 
-You can use the [`getPost`](/api-reference#getpost) function from `bsky-react-post/api` to fetch the post manually. This is useful for SSG pages and for other [Next.js data fetching methods](https://nextjs.org/docs/basic-features/data-fetching/overview) in the `pages` directory.
+You can use the [`fetchPost`](/api-reference#fetchpost) function from `bsky-react-post/api` to fetch the post manually. This is useful for SSG pages and for other [Next.js data fetching methods](https://nextjs.org/docs/basic-features/data-fetching/overview) in the `pages` directory.
 
-For example, using `getStaticProps` in `pages/[post].tsx` to fetch the tweet and send it as props to the page component:
+For example, using `getStaticProps` in `pages/[post].tsx` to fetch the post and send it as props to the page component:
 
 ```tsx
 import { useRouter } from "next/router";
-import { getTweet, type Tweet } from "react-tweet/api";
-import { EmbeddedTweet, TweetSkeleton } from "react-tweet";
+import { fetchPost } from "bsky-react-post/api";
+import { PostSkeleton, EmbeddedPost } from "bsky-react-post";
 
-export async function getStaticProps({
-  params,
-}: {
-  params: { tweet: string };
-}) {
-  const tweetId = params.tweet;
+export async function getStaticProps({ params }: { params: { post: string } }) {
+  const postId = params.post;
 
   try {
-    const tweet = await getTweet(tweetId);
-    return tweet ? { props: { tweet } } : { notFound: true };
+    const thread = await fetchPost({
+      handle: "<handle>",
+      id: postId,
+    });
+    return thread ? { props: { thread } } : { notFound: true };
   } catch (error) {
     return { notFound: true };
   }
@@ -103,8 +98,8 @@ export async function getStaticPaths() {
   return { paths: [], fallback: true };
 }
 
-export default function Page({ tweet }: { tweet: Tweet }) {
+export default function Page({ thread }: { thread: any }) {
   const { isFallback } = useRouter();
-  return isFallback ? <TweetSkeleton /> : <EmbeddedTweet tweet={tweet} />;
+  return isFallback ? <PostSkeleton /> : <EmbeddedPost thread={thread} />;
 }
 ```

@@ -17,9 +17,7 @@ export type Post = {
   thread: AppBskyFeedDefs.ThreadViewPost;
 };
 
-export function Post({ thread }: Post) {
-  const post = thread.post;
-
+export function Post({ thread: { post, parent, replies } }: Post) {
   let record: AppBskyFeedPost.Record | null = null;
   if (isRecord(post.record)) {
     record = post.record;

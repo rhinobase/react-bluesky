@@ -1,6 +1,6 @@
 # Introduction
 
-`bsky-react-post` allows you to embed posts in your React application when using Next.js, Create React App, Vite, and more. Posts can be rendered statically, preventing the need to include an iframe and additional client-side JavaScript.
+`bsky-react-post` allows you to embed posts in your React application when using Next.js, Vite, and more. Posts can be rendered statically, preventing the need to include an iframe and additional client-side JavaScript.
 
 You can try it out in the [live playground](/playground).
 
@@ -10,17 +10,21 @@ This library is fully compatible with React Server Components. [Learn more](http
 
 Install `bsky-react-post` using your package manager of choice:
 
-```bash
-pnpm add bsky-react-post
+<CodeGroup>
+
+```bash {{ title: 'npm' }}
+npm install bsky-react-post
 ```
 
-```bash
+```bash {{ title: 'yarn' }}
 yarn add bsky-react-post
 ```
 
-```bash
-npm install bsky-react-post
+```bash {{ title: 'pnpm' }}
+pnpm add bsky-react-post
 ```
+
+</CodeGroup>
 
 Now follow the usage instructions for your framework or builder:
 
@@ -39,7 +43,7 @@ The closest `data-theme` attribute on a parent element can determine the theme o
 
 ```tsx
 <div data-theme="dark">
-  <Post uri="https://bsky.app/profile/adima7.bsky.social/post/3laq6uzwjbc2t" />
+  <Post handle="adima7.bsky.social" id="3laq6uzwjbc2t" />
 </div>
 ```
 
@@ -47,7 +51,7 @@ Alternatively, a parent with the class `light` or `dark` will also work:
 
 ```tsx
 <div className="dark">
-  <Post uri="https://bsky.app/profile/adima7.bsky.social/post/3laq6uzwjbc2t" />
+  <Post handle="adima7.bsky.social" id="3laq6uzwjbc2t" />
 </div>
 ```
 
@@ -57,7 +61,7 @@ In CSS Modules, you can use the `:global` selector to update the CSS variables u
 
 ```css
 .my-class :global(.bsky-react-post-theme) {
-  --tweet-body-font-size: 1rem;
+  --post-body-font-size: 1rem;
 }
 ```
 

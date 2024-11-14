@@ -3,49 +3,39 @@ import type {
   AppBskyFeedGetPostThread,
   ComAtprotoIdentityResolveHandle,
 } from "@atproto/api";
+import type { PostHandleProps } from "./types";
 
 const BASE_PATH = "https://public.api.bsky.app/xrpc";
 
-export async function fetchPost(uri: string, fetchOptions?: RequestInit) {
-  let atUri = uri;
+export async function fetchPost(
+  config: PostHandleProps,
+  fetchOptions?: RequestInit,
+) {
+  let atUri: string;
 
-  if (!atUri.startsWith("at://")) {
+  if ("handle" in config && config.handle) {
     try {
-      const urlp = new URL(uri);
-      if (!urlp.hostname.endsWith("bsky.app")) {
-        throw new Error("Invalid hostname");
-      }
-      const split = urlp.pathname.slice(1).split("/");
-      if (split.length < 4) {
-        throw new Error("Invalid pathname");
-      }
-      const [profile, didOrHandle, type, rkey] = split;
-      if (profile !== "profile" || type !== "post") {
-        throw new Error("Invalid profile or type");
-      }
+      const resolution = await fetch(
+        `${BASE_PATH}/com.atproto.identity.resolveHandle?handle=${config.handle}`,
+        fetchOptions,
+      ).then(
+        (res) =>
+          res.json() as Promise<ComAtprotoIdentityResolveHandle.OutputSchema>,
+      );
 
-      let did = didOrHandle;
-      if (!didOrHandle.startsWith("did:")) {
-        const resolution = await fetch(
-          `${BASE_PATH}/com.atproto.identity.resolveHandle?handle=${didOrHandle}`,
-          fetchOptions,
-        ).then(
-          (res) =>
-            res.json() as Promise<ComAtprotoIdentityResolveHandle.OutputSchema>,
-        );
-
-        if (!resolution.did) {
-          throw new Error("No DID found");
-        }
-
-        did = resolution.did;
+      if (!resolution.did) {
+        throw new Error("No DID found");
       }
 
-      atUri = `at://${did}/app.bsky.feed.post/${rkey}`;
+      atUri = `at://${resolution.did}/app.bsky.feed.post/${config.id}`;
     } catch (err) {
       console.error(err);
       throw new Error("Invalid Bluesky URL");
     }
+  } else if ("did" in config && config.did) {
+    atUri = `at://${config.did}/app.bsky.feed.post/${config.id}`;
+  } else {
+    throw new Error("Invalid Bluesky Embed Config");
   }
 
   const { thread } = await fetch(

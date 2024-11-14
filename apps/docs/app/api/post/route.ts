@@ -1,3 +1,4 @@
+import type { PostHandleProps } from "bsky-react-post";
 import { fetchPost } from "bsky-react-post/api";
 import cors from "edge-cors";
 import { type NextRequest, NextResponse } from "next/server";
@@ -6,11 +7,23 @@ export const fetchCache = "only-cache";
 
 export async function GET(req: NextRequest) {
   try {
-    const uri = req.nextUrl.searchParams.get("uri");
+    let config: PostHandleProps;
 
-    let post = null;
+    if (req.nextUrl.searchParams.has("handle")) {
+      config = {
+        handle: req.nextUrl.searchParams.get("handle") as string,
+        id: req.nextUrl.searchParams.get("id") as string,
+      };
+    } else if (req.nextUrl.searchParams.has("did")) {
+      config = {
+        did: req.nextUrl.searchParams.get("did") as string,
+        id: req.nextUrl.searchParams.get("id") as string,
+      };
+    } else {
+      throw new Error("Invalid Bluesky Embed Config");
+    }
 
-    if (uri) post = await fetchPost(uri);
+    const post = await fetchPost(config);
 
     return cors(
       req,

@@ -46,6 +46,7 @@
     "@heroicons/react": "^2.1.5",
     "@mdx-js/loader": "^3.1.0",
     "@next/mdx": "^15.0.3",
+    "@next/third-parties": "^15.0.3",
     "@rafty/ui": "^1.7.7",
     "@sindresorhus/slugify": "^2.2.1",
     "@tailwindcss/typography": "0.5.9",

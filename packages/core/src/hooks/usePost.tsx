@@ -1,11 +1,11 @@
 "use client";
 import type { AppBskyFeedDefs } from "@atproto/api";
 import swr from "swr";
-import type { PostProps } from "../types";
+import type { PostHandleWithApiUrlProps, PostProps } from "../types";
 
 // biome-ignore lint/suspicious/noExplicitAny: Avoids an error when used in the pages directory where useSWR might be in `default`.
 const useSWR = ((swr as any).default as typeof swr) || swr;
-const host = "bsky-react-post.rhinobase.io";
+const host = "http://localhost:3000"; // "https://bsky-react-post.rhinobase.io";
 
 async function fetcher([url, fetchOptions]: [
   string,
@@ -21,19 +21,27 @@ async function fetcher([url, fetchOptions]: [
   );
 }
 
+export type usePost = PostHandleWithApiUrlProps &
+  Pick<PostProps, "fetchOptions">;
+
 /**
  * SWR hook for fetching a post in the browser.
  */
-export const usePost = (
-  props: Pick<PostProps, "uri" | "apiUrl" | "fetchOptions">,
-) => {
-  const { uri, apiUrl, fetchOptions } = props;
+export const usePost = (props: usePost) => {
+  const { fetchOptions, ...config } = props;
+
+  let endpoint: string | null = null;
+
+  if ("apiUrl" in config && config.apiUrl) {
+    endpoint = config.apiUrl;
+  } else if ("handle" in config && config.handle) {
+    endpoint = `${host}/api/post?handle=${config.handle}&id=${config.id}`;
+  } else if ("did" in config && config.did) {
+    endpoint = `${host}/api/post?did=${config.did}&id=${config.id}`;
+  }
 
   const { isLoading, data, error } = useSWR(
-    () =>
-      apiUrl || uri
-        ? [apiUrl || (uri && `${host}/api/post/?uri=${uri}`), fetchOptions]
-        : null,
+    () => [endpoint, fetchOptions],
     fetcher,
     {
       revalidateIfStale: false,

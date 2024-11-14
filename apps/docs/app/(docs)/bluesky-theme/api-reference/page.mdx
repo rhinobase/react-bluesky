@@ -1,4 +1,4 @@
-# API Reference
+## API Reference
 
 ### `Post`
 
@@ -7,45 +7,49 @@ import { Post } from "bsky-react-post";
 ```
 
 ```tsx
-<Post uri="1629307668568633344">
+<Post handle="adima7.bsky.social" id="3laq6uzwjbc2t" />
 ```
 
 Fetches and renders the post. It accepts the following props:
 
-- **uri** - `string`: the post URI. For example in `https://twitter.com/chibicode/status/1629307668568633344` the tweet ID is `1629307668568633344`. This is the only required prop.
-- **apiUrl** - `string`: the API URL to fetch the post from when using the post client-side with SWR. Defaults to `https://react-tweet.vercel.app/api/tweet/:id`.
-- **fallback** - `ReactNode`: The fallback component to render while the post is loading. Defaults to `TweetSkeleton`.
-- **onError** - `(error?: any) => any`: The returned error will be sent to the `TweetNotFound` component.
-- **components** - `TwitterComponents`: Components to replace the default tweet components. See the [custom tweet components](#custom-tweet-components) section for more details.
-- **fetchOptions** - `RequestInit`: options to pass to [`fetch`](https://developer.mozilla.org/en-US/docs/Web/API/fetch).
+- **handle** - `string`: the post handle. For example in `https://bsky.app/profile/adima7.bsky.social/post/3laq6uzwjbc2t` the handle is `adima7.bsky.social`.
+- **did** - `string`: the post DID. For example in `at://did:plc:xdwatsttsxnl5h65mf3ddxbq/app.bsky.feed.post/3laq6uzwjbc2t` the post DID is `did:plc:xdwatsttsxnl5h65mf3ddxbq`.
+- **id** - `string`: the post ID. For example in `https://bsky.app/profile/adima7.bsky.social/post/3laq6uzwjbc2t` the post ID is `3laq6uzwjbc2t`.
+- **apiUrl** - `string` (Optional): the API URL to fetch the post from. Defaults to `https://bsky-react-post.rhinobase.io/api/post?handle=:handle&id=:id&did=:did`.
+- **fallback** - `ReactNode`: The fallback component to render while the post is loading. Defaults to `PostSkeleton`.
+- **onError** - `(error?: any) => any`: The returned error will be sent to the `PostNotFound` component.
+- **components** - `PostComponents`: Components to replace the default post components.
+- **fetchOptions** - `RequestInit` (Optional): options to pass to [`fetch`](https://developer.mozilla.org/en-US/docs/Web/API/fetch). Try to pass down a reference to the same object to avoid unnecessary re-renders.
 
-If the environment where `Post` is used does not support React Server Components then it will work with [SWR](https://swr.vercel.app/) instead and the post will be fetched from `https://react-tweet.vercel.app/api/tweet/:id`, which is CORS friendly.
+If the environment where `Post` is used does not support React Server Components then it will work with [SWR](https://swr.vercel.app/) instead and the post will be fetched from `https://bsky-react-post.rhinobase.io/api/post`, which is CORS friendly.
 
 We highly recommend adding your own API route to fetch the post in production (as we cannot guarantee our IP will not get limited). You can do it by using the `apiUrl` prop:
 
 ```tsx
-<Post apiUrl={id && `/api/tweet/${id}`} />
+<Post apiUrl={id && `/api/post/${id}`} />
 ```
 
-> Note: `apiUrl` does nothing if the Post is rendered in a server component because it can fetch directly from Twitter's CDN.
+> Note: `apiUrl` does nothing if the Post is rendered in a server component because it can fetch directly from Bluesky's CDN.
 
 Here's a good example of how to setup your own API route:
 
+<CodeGroup title="api/post/[post].ts">
+
 ```ts
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { getTweet } from "react-tweet/api";
+import { fetchPost } from "bsky-react-post/api";
 
 const handler = async (req: VercelRequest, res: VercelResponse) => {
-  const tweetId = req.query.tweet;
+  const postId = req.query.post;
 
-  if (req.method !== "GET" || typeof tweetId !== "string") {
+  if (req.method !== "GET" || typeof postId !== "string") {
     res.status(400).json({ error: "Bad Request." });
     return;
   }
 
   try {
-    const post = await getTweet(tweetId);
-    res.status(tweet ? 200 : 404).json({ data: tweet ?? null });
+    const post = await fetchPost(postId);
+    res.status(post ? 200 : 404).json({ data: post ?? null });
   } catch (error) {
     console.error(error);
     res.status(400).json({ error: error.message ?? "Bad request." });
@@ -55,4 +59,34 @@ const handler = async (req: VercelRequest, res: VercelResponse) => {
 export default handler;
 ```
 
+</CodeGroup>
+
 Something similar can be done with Next.js API Routes or Route Handlers.
+
+### `EmbeddedPost`
+
+```tsx
+import { EmbeddedPost } from "bsky-react-post";
+```
+
+Renders a post. It accepts the following props:
+
+- **thread** - `AppBskyFeedDefs.ThreadViewPost`: the post data, as returned by `fetchPost`. Required.
+
+### `PostSkeleton`
+
+```tsx
+import { PostSkeleton } from "bsky-react-post";
+```
+
+A post skeleton useful for loading states.
+
+### `PostNotFound`
+
+```tsx
+import { PostNotFound } from "bsky-react-post";
+```
+
+A post not found component. It accepts the following props:
+
+- **error** - `any`: the error that was thrown when fetching the post. Not required.

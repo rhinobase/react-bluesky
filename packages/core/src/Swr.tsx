@@ -1,12 +1,10 @@
 "use client";
-import { Post as EmbededPost } from "./components/Post";
-import { PostLoading } from "./components/PostLoading";
-import { PostNotFound } from "./components/PostNotFound";
+import { EmbeddedPost, PostNotFound, PostSkeleton } from "./components";
 import { usePost } from "./hooks";
 import type { PostProps } from "./types";
 
 export function Post({
-  fallback = <PostLoading />,
+  fallback = <PostSkeleton />,
   components,
   onError,
   ...props
@@ -20,5 +18,5 @@ export function Post({
     return <NotFound error={onError ? onError(error) : error} />;
   }
 
-  return <EmbededPost thread={data} />;
+  return <EmbeddedPost thread={data} />;
 }
