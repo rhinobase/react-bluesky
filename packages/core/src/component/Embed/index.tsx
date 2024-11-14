@@ -1,11 +1,10 @@
 import {
-  AppBskyEmbedExternal,
-  AppBskyEmbedImages,
+  type AppBskyEmbedExternal,
+  type AppBskyEmbedImages,
   AppBskyEmbedRecord,
   AppBskyEmbedRecordWithMedia,
   AppBskyEmbedVideo,
   AppBskyFeedDefs,
-  AppBskyFeedPost,
   AppBskyGraphDefs,
   AppBskyGraphStarterpack,
   AppBskyLabelerDefs,
@@ -16,9 +15,16 @@ import { useMemo, type PropsWithChildren } from "react";
 // import infoIcon from "../../assets/circleInfo_stroke2_corner0_rounded.svg";
 // import playIcon from "../../assets/play_filled_corner2_rounded.svg";
 // import starterPackIcon from "../../assets/starterPack.svg";
-import { CONTENT_LABELS, labelsToInfo } from "../utils";
-import { getRkey } from "../utils";
-import { Link } from "./Link";
+import { CONTENT_LABELS, labelsToInfo } from "../../utils";
+import { getRkey } from "../../utils";
+import { Link } from "../Link";
+import {
+  isEmbedExternalView,
+  isImageView,
+  isEmbedRecordView,
+  isEmbedViewRecord,
+} from "./utils";
+import { isRecord } from "../Post";
 
 export function Embed({
   content,
@@ -35,17 +41,17 @@ export function Embed({
 
   try {
     // Case 1: Image
-    if (AppBskyEmbedImages.isView(content)) {
+    if (isImageView(content)) {
       return <ImageEmbed content={content} labelInfo={labelInfo} />;
     }
 
     // Case 2: External link
-    if (AppBskyEmbedExternal.isView(content)) {
+    if (isEmbedExternalView(content)) {
       return <ExternalEmbed content={content} labelInfo={labelInfo} />;
     }
 
     // Case 3: Record (quote or linked post)
-    if (AppBskyEmbedRecord.isView(content)) {
+    if (isEmbedRecordView(content)) {
       if (hideRecord) {
         return null;
       }
@@ -53,7 +59,7 @@ export function Embed({
       const record = content.record;
 
       // Case 3.1: Post
-      if (AppBskyEmbedRecord.isViewRecord(record)) {
+      if (isEmbedViewRecord(record)) {
         const pwiOptOut = !!record.author.labels?.find(
           (label) => label.val === "!no-unauthenticated"
         );
@@ -67,7 +73,7 @@ export function Embed({
         }
 
         let text: string | undefined;
-        if (AppBskyFeedPost.isRecord(record.value)) {
+        if (isRecord(record.value)) {
           text = record.value.text;
         }
 
