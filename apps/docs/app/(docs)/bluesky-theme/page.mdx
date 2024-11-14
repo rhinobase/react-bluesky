@@ -1,19 +1,21 @@
-# Twitter Theme
+# Bluesky Theme
 
-This is the theme you'll see in [publish.twitter.com](https://publish.twitter.com/?query=https%3A%2F%2Ftwitter.com%2FInterior%2Fstatus%2F463440424141459456&widget=Tweet) and the default theme included in `react-tweet`.
+This is the theme you'll see in [embed.bsky.app/](https://embed.bsky.app/) and the default theme included in `bsky-react-post`.
 
 ## Usage
 
-In any component, import `Tweet` from `react-tweet` and use it like so:
+In any component, import `Post` from `bsky-react-post` and use it like so:
 
 ```tsx
-import { Tweet } from "react-tweet";
+import { Post } from "bsky-react-post";
 
 export default function Page() {
-  return <Tweet id="1628832338187636740" />;
+  return (
+    <Post uri="https://bsky.app/profile/adima7.bsky.social/post/3laq6uzwjbc2t" />
+  );
 }
 ```
 
 ## Troubleshooting
 
-Currently, `react-tweet` uses CSS Modules to scope the CSS of each component, so the bundler where it's used needs to support CSS Modules. If you get issues about your bundler not recognizing CSS Modules, please open an issue as we would like to know how well supported this is.
+Currently, `bsky-react-post` uses CSS Modules to scope the CSS of each component, so the bundler where it's used needs to support CSS Modules. If you get issues about your bundler not recognizing CSS Modules, please open an issue as we would like to know how well supported this is.

@@ -252,10 +252,7 @@ export const NAVIGATION: NavGroupType[] = [
   },
   {
     title: "More",
-    links: [
-      { title: "Contributing", href: "/contributing" },
-      { title: "Next.js Docs ↗", href: "https://nextjs.org/" },
-    ],
+    links: [{ title: "Contributing", href: "/contributing" }],
   },
 ];
 
