@@ -1,3 +1,15 @@
+## 0.1.1 (2024-11-14)
+
+
+### 🚀 Features
+
+- **docs:** completed ([d020518](https://github.com/rhinobase/react-bluesky/commit/d020518))
+
+
+### 🩹 Fixes
+
+- minor changes ([4beb1cc](https://github.com/rhinobase/react-bluesky/commit/4beb1cc))
+
 ## 0.1.0 (2024-11-14)
 
 
