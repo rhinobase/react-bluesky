@@ -31,36 +31,34 @@ export default function PlaygroundPage() {
 
   return (
     <div className="overflow-y-auto">
-      <div className="max-w-[550px] mx-auto size-full flex flex-col items-center w-full py-14 px-4 md:pt-32">
+      <div className="max-w-[550px] mx-auto size-full flex flex-col items-center gap-8 w-full py-14 px-4 md:pt-32">
         <ThemeToggle className="absolute top-4 right-4" />
-        <div className="flex flex-col items-center gap-6 w-full">
-          <Link href="https://bsky.social/about?ref_src=embed" target="_blank">
-            <Image
-              alt="Bluesky"
-              src={BlueskyLogo}
-              width={500}
-              height={500}
-              className="h-10 w-full hover:scale-110 transition-all ease-in-out cursor-pointer"
-            />
-          </Link>
-          <h2 className="text-4xl font-bold text-center">
-            Embed a Bluesky Post in React
-          </h2>
-          <InputField
-            size="lg"
-            placeholder="https://bsky.app/profile/adima7.bsky.social/post/3laq6uzwjbc2t"
-            onChange={handleChange}
+        <Link href="https://bsky.social/about?ref_src=embed" target="_blank">
+          <Image
+            alt="Bluesky"
+            src={BlueskyLogo}
+            width={500}
+            height={500}
+            className="h-10 w-full hover:scale-110 transition-all ease-in-out cursor-pointer"
           />
-          <ArrowDownIcon className="size-5 stroke-2" />
-          {!config.default && (
-            <div className="w-full flex items-center gap-2">
-              <div className="p-2.5 bg-white dark:bg-[#0d1117] w-full border h-max overflow-x-auto [&::-webkit-scrollbar]:hidden border-secondary-200 dark:border-secondary-800 rounded-md">
-                <CodeHighlighter content={content} language="js" />
-              </div>
-              <CopyButton data={content} />
+        </Link>
+        <h2 className="text-4xl font-bold text-center">
+          Embed a Bluesky Post in React
+        </h2>
+        <InputField
+          size="lg"
+          placeholder="https://bsky.app/profile/adima7.bsky.social/post/3laq6uzwjbc2t"
+          onChange={handleChange}
+        />
+        <ArrowDownIcon className="size-5 stroke-2" />
+        {!config.default && (
+          <div className="w-full flex items-center gap-2">
+            <div className="p-2.5 bg-white dark:bg-[#0d1117] w-full border h-max overflow-x-auto [&::-webkit-scrollbar]:hidden border-secondary-200 dark:border-secondary-800 rounded-md">
+              <CodeHighlighter content={content} language="js" />
             </div>
-          )}
-        </div>
+            <CopyButton data={content} />
+          </div>
+        )}
         {config && <Post uri={config.uri} />}
       </div>
     </div>
