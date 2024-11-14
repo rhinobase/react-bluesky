@@ -1,6 +1,6 @@
+import { fetchPost } from "bsky-react-post/api";
 import cors from "edge-cors";
 import { type NextRequest, NextResponse } from "next/server";
-import { fetchPost } from "react-bluesky/api";
 
 export const fetchCache = "only-cache";
 

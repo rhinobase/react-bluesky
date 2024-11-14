@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import { fetchPost } from "./api";
-import { Post as EmbededPost } from "./component/Post";
+import { Post as EmbededPost } from "./components/Post";
 import { PostLoading } from "./components/PostLoading";
 import { PostNotFound } from "./components/PostNotFound";
 import type { PostProps } from "./types";

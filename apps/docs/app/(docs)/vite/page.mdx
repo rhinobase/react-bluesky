@@ -6,29 +6,26 @@ Follow the [installation docs in the Introduction](/#installation).
 
 ## Usage
 
-In any component, import `Tweet` from `react-tweet` and use it like so:
+In any component, import `Post` from `bsky-react-post` and use it like so:
 
 ```tsx
-import { Tweet } from "react-tweet";
+import { Post } from "bsky-react-post";
 
-export const IndexPage = () => <Tweet id="1628832338187636740" />;
+export const IndexPage = () => (
+  <Post uri="https://bsky.app/profile/adima7.bsky.social/post/3laq6uzwjbc2t" />
+);
 ```
 
-You can learn more about `Tweet` in the [Twitter theme docs](/twitter-theme).
+You can learn more about `Post` in the [Post theme docs](/bluesky-theme).
 
 ## Running the test app
 
-Clone the [`react-tweet`](https://github.com/vercel-labs/react-tweet) repository and then run the following command:
+Clone the [`bsky-react-post`](https://github.com/rhinobase/react-bluesky) repository and then run the following command:
 
 ```bash
-pnpm install && pnpm dev --filter=vite-app...
+pnpm install && pnpm nx dev --filter=vite-app...
 ```
 
-The app will be up and running at http://localhost:5173 for the [Vite app example](https://github.com/vercel-labs/react-tweet/tree/main/apps/vite-app).
+The app will be up and running at http://localhost:5173 for the [Vite app example](https://github.com/rhinobase/react-bluesky/tree/main/apps/vite-app).
 
-The app shows the usage of `react-tweet` in different scenarios:
-
-- [localhost:5173/](http://localhost:5173) renders a single tweet.
-- [localhost:5173/tweet/1629307668568633344](http://localhost:5173/tweet/1629307668568633344) renders dynamic tweets with SWR. `Tweet` already uses SWR and this page shows how to implement it manually.
-
-The source code for `react-tweet` is imported from [packages/react-tweet](https://github.com/vercel-labs/react-tweet/tree/main/packages/react-tweet) and any changes you make to it will be reflected in the app immediately.
+The source code for `bsky-react-post` is imported from [packages/core](https://github.com/rhinobase/react-bluesky/tree/main/packages/core) and any changes you make to it will be reflected in the app immediately.

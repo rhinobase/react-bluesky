@@ -1,10 +1,10 @@
 import { classNames } from "../../utils";
-import { PostContainer } from "../PostContainer";
+import { Container } from "../Container";
 import s from "./post-loading.module.css";
 
 export function PostLoading() {
   return (
-    <PostContainer>
+    <Container>
       <div className={s.wrapper}>
         <div className={s.header}>
           <div className={classNames(s.skeleton, s.avatar)} />
@@ -15,6 +15,6 @@ export function PostLoading() {
         </div>
         <div className={classNames(s.skeleton, s.body)} />
       </div>
-    </PostContainer>
+    </Container>
   );
 }

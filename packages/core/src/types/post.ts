@@ -1,6 +1,4 @@
 import type { ReactNode } from "react";
-import type { AvatarImage } from "../components/AvatarImage";
-import type { MediaImage } from "../components/MediaImage";
 import type { PostNotFound } from "../components/PostNotFound";
 
 /**
@@ -12,8 +10,6 @@ import type { PostNotFound } from "../components/PostNotFound";
  */
 export type PostComponents = {
   PostNotFound?: typeof PostNotFound;
-  AvatarImage?: typeof AvatarImage;
-  MediaImage?: typeof MediaImage;
 };
 
 export type PostProps = {

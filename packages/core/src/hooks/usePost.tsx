@@ -6,7 +6,7 @@ import type { PostProps } from "../types";
 // Avoids an error when used in the pages directory where useSWR might be in `default`.
 // biome-ignore lint/suspicious/noExplicitAny: <explanation>
 const useSWR = ((swr as any).default as typeof swr) || swr;
-const host = "http://localhost:3000";
+const host = "http://localhost:3002";
 
 async function fetcher([url, fetchOptions]: [
   string,

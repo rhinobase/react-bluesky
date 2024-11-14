@@ -1,5 +1,5 @@
 "use client";
-import { Post as EmbededPost } from "./component/Post";
+import { Post as EmbededPost } from "./components/Post";
 import { PostLoading } from "./components/PostLoading";
 import { PostNotFound } from "./components/PostNotFound";
 import { usePost } from "./hooks";

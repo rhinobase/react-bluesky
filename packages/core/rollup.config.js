@@ -17,6 +17,9 @@ module.exports = withNx(
       index: "./src/index.ts",
       api: "./src/api.ts",
     },
+    output: {
+      entryFileNames: "[name].js",
+    },
     plugins: [
       svg({
         svgo: false,

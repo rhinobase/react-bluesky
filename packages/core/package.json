@@ -1,5 +1,5 @@
 {
-  "name": "react-bluesky",
+  "name": "bsky-react-post",
   "version": "0.0.1",
   "peerDependencies": {
     "react": "^18.3.1",

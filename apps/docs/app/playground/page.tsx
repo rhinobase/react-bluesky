@@ -2,10 +2,10 @@
 import { ArrowDownIcon } from "@heroicons/react/24/outline";
 import { InputField } from "@rafty/ui";
 import { ThemeToggle } from "apps/docs/components/ThemeToggle";
+import { Post } from "bsky-react-post";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { Post } from "react-bluesky";
 import BlueskyLogo from "../../public/bluesky.svg";
 import { CopyButton } from "./CopyButton";
 import { CodeHighlighter } from "./Highlight";

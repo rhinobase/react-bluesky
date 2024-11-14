@@ -238,7 +238,6 @@ export const NAVIGATION: NavGroupType[] = [
       { title: "Introduction", href: "/" },
       { title: "Next.js", href: "/next" },
       { title: "Vite", href: "/vite" },
-      { title: "CRA", href: "/create-react-app" },
       { title: "API Reference", href: "/api-reference" },
     ],
   },

@@ -15,8 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "react-bluesky": ["packages/core/src/index.ts"],
-      "react-bluesky/api": ["packages/core/src/api/index.ts"]
+      "bsky-react-post": ["packages/core/src/index.client.ts"],
+      "bsky-react-post/api": ["packages/core/src/api.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
