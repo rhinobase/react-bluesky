@@ -1,19 +1,23 @@
 const { withNx } = require("@nx/rollup/with-nx");
+const terser = require("@rollup/plugin-terser");
 const url = require("@rollup/plugin-url");
 const svg = require("@svgr/rollup");
 
 module.exports = withNx(
   {
-    main: "./src/index.ts",
+    main: "./src/client.ts",
     outputPath: "../../dist/packages/core",
     tsConfig: "./tsconfig.lib.json",
     compiler: "swc",
-    external: ["react", "react-dom", "react/jsx-runtime"],
     format: ["esm"],
     assets: [{ input: ".", output: ".", glob: "README.md" }],
   },
   {
-    // Provide additional rollup configuration here. See: https://rollupjs.org/configuration-options
+    input: {
+      index: "./src/index.ts",
+      client: "./src/index.client.ts",
+      api: "./src/api.ts",
+    },
     plugins: [
       svg({
         svgo: false,
@@ -23,6 +27,7 @@ module.exports = withNx(
       url({
         limit: 10000, // 10kB
       }),
+      terser(),
     ],
   },
 );

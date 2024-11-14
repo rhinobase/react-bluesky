@@ -1,0 +1,74 @@
+# Introduction
+
+`bsky-react-post` allows you to embed posts in your React application when using Next.js, Vite, and more. Posts can be rendered statically, preventing the need to include an iframe and additional client-side JavaScript.
+
+You can try it out in the [live playground](/playground).
+
+This library is fully compatible with React Server Components. [Learn more](https://nextjs.org/docs/getting-started/react-essentials#server-components).
+
+## Installation
+
+Install `bsky-react-post` using your package manager of choice:
+
+<CodeGroup>
+
+```bash {{ title: 'npm' }}
+npm install bsky-react-post
+```
+
+```bash {{ title: 'yarn' }}
+yarn add bsky-react-post
+```
+
+```bash {{ title: 'pnpm' }}
+pnpm add bsky-react-post
+```
+
+</CodeGroup>
+
+Now follow the usage instructions for your framework or builder:
+
+- [Next.js](/next)
+- [Vite](/vite)
+
+> **Important**: Before going to production, we recommend [enabling cache for the Bluesky API](#enabling-cache-for-the-bluesky-api) as server IPs might get rate limited by Bluesky.
+
+## Choosing a theme
+
+The [`prefers-color-scheme`](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme) CSS media feature is used to select the theme of the post.
+
+### Toggling theme manually
+
+The closest `data-theme` attribute on a parent element can determine the theme of the post. You can set it to `light` or `dark`, like so:
+
+```tsx
+<div data-theme="dark">
+  <Post handle="adima7.bsky.social" id="3laq6uzwjbc2t" />
+</div>
+```
+
+Alternatively, a parent with the class `light` or `dark` will also work:
+
+```tsx
+<div className="dark">
+  <Post handle="adima7.bsky.social" id="3laq6uzwjbc2t" />
+</div>
+```
+
+### Updating the theme
+
+In CSS Modules, you can use the `:global` selector to update the CSS variables used by themes:
+
+```css
+.my-class :global(.bsky-react-post-theme) {
+  --post-body-font-size: 1rem;
+}
+```
+
+For Global CSS the usage of `:global` is not necessary.
+
+## Enabling cache for the Bluesky API
+
+Rendering posts requires making a call to Bluesky's syndication API. Getting rate limited by that API is very hard but it's possible if you're relying only on the endpoint we provide for SWR (`bsky-react-post.rhinobase.io/api/post`) as the IPs of the server are making many requests to the syndication API. This also applies to RSC where the API endpoint is not required but the server is still making the request from the same IP.
+
+To prevent this, you can use a db like Redis to cache the posts. If you're using Next.js then using [`unstable_cache`](/next#enabling-cache) works too.

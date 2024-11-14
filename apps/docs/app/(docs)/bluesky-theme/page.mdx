@@ -1,0 +1,19 @@
+# Bluesky Theme
+
+This is the theme you'll see in [embed.bsky.app](https://embed.bsky.app/) and the default theme included in `bsky-react-post`.
+
+## Usage
+
+In any component, import `Post` from `bsky-react-post` and use it like so:
+
+```tsx
+import { Post } from "bsky-react-post";
+
+export default function Page() {
+  return <Post handle="adima7.bsky.social" id="3laq6uzwjbc2t" />;
+}
+```
+
+## Troubleshooting
+
+Currently, `bsky-react-post` uses CSS Modules to scope the CSS of each component, so the bundler where it's used needs to support CSS Modules. If you get issues about your bundler not recognizing CSS Modules, please open an issue as we would like to know how well supported this is.

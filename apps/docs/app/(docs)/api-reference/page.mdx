@@ -1,0 +1,56 @@
+# API Reference
+
+This is the reference for the utility functions that `bsky-react-post` provides for [building your own post components](/custom-theme) or simply fetching a post. Navigate to the docs for the [Bluesky theme](/bluesky-theme) if you want to render the existing Post components instead.
+
+## `fetchPost`
+
+```tsx
+function fetchPost(
+  config: PostHandleProps,
+  fetchOptions?: RequestInit
+): Promise<AppBskyFeedDefs.ThreadViewPost>;
+```
+
+Fetches and returns a [`Post`](https://github.com/rhinobase/react-bluesky/blob/main/packages/core/src/api.ts), it returns information about the post:
+
+- **post** - `Post`: The post data.
+- **parent** - `Post` (Optional): The parent post.
+- **replies** - `Post[]` (Optional): The replies to the post.
+
+## `usePost`
+
+> If your app supports React Server Components, use [`fetchPost`](#fetchpost) instead.
+
+```tsx
+import { usePost } from "bsky-react-post";
+
+const usePost: (
+  options: PostHandleWithApiUrlProps & { fetchOptions?: RequestInit }
+) => {
+  isLoading: boolean;
+  data: thread | null | undefined;
+  error: any;
+};
+```
+
+SWR hook for fetching a post in the browser. It accepts the following parameters:
+
+- **handle** - `string`: the post handle. For example in `https://bsky.app/profile/adima7.bsky.social/post/3laq6uzwjbc2t` the handle is `adima7.bsky.social`.
+- **did** - `string`: the post DID. For example in `at://did:plc:xdwatsttsxnl5h65mf3ddxbq/app.bsky.feed.post/3laq6uzwjbc2t` the post DID is `did:plc:xdwatsttsxnl5h65mf3ddxbq`.
+- **id** - `string`: the post ID. For example in `https://bsky.app/profile/adima7.bsky.social/post/3laq6uzwjbc2t` the post ID is `3laq6uzwjbc2t`.
+- **apiUrl** - `string` (Optional): the API URL to fetch the post from. Defaults to `https://bsky-react-post.rhinobase.io/api/post?handle=:handle&id=:id&did=:did`.
+- **fetchOptions** - `RequestInit` (Optional): options to pass to [`fetch`](https://developer.mozilla.org/en-US/docs/Web/API/fetch). Try to pass down a reference to the same object to avoid unnecessary re-renders.
+
+You can either provide `handle` and `id` or `did` and `id` to fetch the post. If you provide `apiUrl`, then `handle`, `id`, and `did` will be ignored.
+
+We highly recommend adding your own API endpoint in `apiUrl` for production:
+
+```ts
+const post = usePost({ apiUrl: id && `/api/post/${id}` });
+```
+
+It's likely you'll never use this hook directly, and `apiUrl` is passed as a prop to a component instead:
+
+```tsx
+<Post apiUrl={id && `/api/post/${id}`} />
+```

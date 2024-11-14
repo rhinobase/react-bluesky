@@ -1,8 +1,8 @@
-# react-bluesky
+# bsky-react-post
 
-react-bluesky allows you to embed Bluesky posts in your React application when using Next.js, Create React App, Vite, and more.
+bsky-react-post allows you to embed Bluesky posts in your React application when using Next.js, Vite, and more.
 
-For documentation visit [react-bluesky.vercel.app](https://react-bluesky.vercel.app).
+For documentation visit [bsky-react-post.rhinobase.io](https://bsky-react-post.rhinobase.io).
 
 ## Contributing
 

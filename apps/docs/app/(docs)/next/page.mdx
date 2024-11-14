@@ -1,0 +1,105 @@
+# Next.js
+
+## Installation
+
+> Next.js 13.2.1 or higher is required in order to use `bsky-react-post`.
+
+Follow the [installation docs in the Introduction](/#installation).
+
+## Usage
+
+In any component, import `Post` from `bsky-react-post` and use it like so:
+
+```tsx
+import { Post } from "bsky-react-post";
+
+export default function Page() {
+  return <Post handle="adima7.bsky.social" id="3laq6uzwjbc2t" />;
+}
+```
+
+`Post` works differently depending on where it's used. If it's used in the App Router it will fetch the post in the server. If it's used in the pages directory it will fetch the post in the client with [SWR](https://swr.vercel.app/).
+
+You can learn more about `Post` in the [Bluesky theme docs](/bluesky-theme).
+
+### Troubleshooting
+
+If you see an error saying that CSS can't be imported from `node_modules` in the `pages` directory. Add the following config to `next.config.js`:
+
+```js
+transpilePackages: ["bsky-react-post"];
+```
+
+The error won't happen if the App Router is enabled, where [Next.js supports CSS imports from `node_modules`](https://github.com/vercel/next.js/discussions/27953#discussioncomment-3978605).
+
+### Enabling cache
+
+It's recommended to enable cache for the Bluesky API if you intend to go to production. This is how you can do it with [`unstable_cache`](https://nextjs.org/docs/app/api-reference/functions/unstable_cache):
+
+```tsx
+import { Suspense } from "react";
+import { unstable_cache } from "next/cache";
+import { PostSkeleton, EmbeddedPost, PostNotFound } from "bsky-react-post";
+import { fetchPost } from "bsky-react-post/api";
+
+const getPost = unstable_cache(async (id: string) => fetchPost(id), ["post"], {
+  revalidate: 3600 * 24,
+});
+
+const PostPage = async ({ id }: { id: string }) => {
+  try {
+    const thread = await getPost(id);
+    return thread ? <EmbeddedPost thread={thread} /> : <PostNotFound />;
+  } catch (error) {
+    console.error(error);
+    return <PostNotFound error={error} />;
+  }
+};
+
+const Page = ({ params }: { params: { post: string } }) => (
+  <Suspense fallback={<PostSkeleton />}>
+    <PostPage id={params.post} />
+  </Suspense>
+);
+
+export default Page;
+```
+
+This can prevent getting your server IPs rate limited if they are making too many requests to the Bluesky API.
+
+## Advanced usage
+
+### Manual data fetching
+
+You can use the [`fetchPost`](/api-reference#fetchpost) function from `bsky-react-post/api` to fetch the post manually. This is useful for SSG pages and for other [Next.js data fetching methods](https://nextjs.org/docs/basic-features/data-fetching/overview) in the `pages` directory.
+
+For example, using `getStaticProps` in `pages/[post].tsx` to fetch the post and send it as props to the page component:
+
+```tsx
+import { useRouter } from "next/router";
+import { fetchPost } from "bsky-react-post/api";
+import { PostSkeleton, EmbeddedPost } from "bsky-react-post";
+
+export async function getStaticProps({ params }: { params: { post: string } }) {
+  const postId = params.post;
+
+  try {
+    const thread = await fetchPost({
+      handle: "<handle>",
+      id: postId,
+    });
+    return thread ? { props: { thread } } : { notFound: true };
+  } catch (error) {
+    return { notFound: true };
+  }
+}
+
+export async function getStaticPaths() {
+  return { paths: [], fallback: true };
+}
+
+export default function Page({ thread }: { thread: any }) {
+  const { isFallback } = useRouter();
+  return isFallback ? <PostSkeleton /> : <EmbeddedPost thread={thread} />;
+}
+```
