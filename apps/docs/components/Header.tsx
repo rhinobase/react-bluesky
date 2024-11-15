@@ -2,10 +2,9 @@ import { classNames } from "@rafty/ui";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Link from "next/link";
 import { type HTMLAttributes, type PropsWithChildren, forwardRef } from "react";
-import { BsGithub, BsTwitter } from "react-icons/bs";
-import { FaBluesky } from "react-icons/fa6";
 import {
   MobileNavigation,
+  SOCIALS,
   useIsInsideMobileNavigation,
 } from "./MobileNavigation";
 import { MobileSearch, Search } from "./Search";
@@ -75,14 +74,17 @@ export const Header = forwardRef<HTMLDivElement, Header>(function Header(
           bsky-react-post
         </Link>
       </div>
-      <div className="flex items-center gap-5">
+      <Link href="/" aria-label="Home" className="hidden lg:block xl:hidden">
+        bsky-react-post
+      </Link>
+      <div className="flex items-center gap-3 lg:gap-5">
         <nav className="hidden md:block">
           <ul className="flex items-center gap-8">
             <TopLevelNavItem href="/playground">Playground</TopLevelNavItem>
           </ul>
         </nav>
         <div className="bg-secondary-900/10 hidden h-5 w-px md:block dark:bg-white/15" />
-        <div className="flex gap-4">
+        <div className="flex gap-[inherit]">
           <MobileSearch />
           <ThemeToggle />
           <div className="bg-secondary-900/10 self-center hidden h-5 w-px md:block dark:bg-white/15" />
@@ -93,29 +95,17 @@ export const Header = forwardRef<HTMLDivElement, Header>(function Header(
   );
 });
 
-const SOCIALS = [
-  {
-    name: "Bluesky",
-    link: "https://bsky.app/profile/adima7.bsky.social",
-    icon: FaBluesky,
-  },
-  {
-    name: "Twitter",
-    link: "https://x.com/rhinobaseio",
-    icon: BsTwitter,
-  },
-  {
-    name: "Github",
-    link: "https://github.com/rhinobase/react-bluesky",
-    icon: BsGithub,
-  },
-];
-
 function SmallPrint() {
   return (
-    <div className="flex items-center gap-5">
+    <div className="hidden md:flex items-center gap-[inherit]">
       {SOCIALS.map(({ name, icon: Icon, link }) => (
-        <Link href={link} key={name} target="_blank" rel="noopener noreferrer">
+        <Link
+          href={link}
+          key={name}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="p-1.5"
+        >
           <Icon
             size={17}
             className="hover:fill-secondary-900 fill-secondary-500 dark:hover:fill-secondary-300 dark:fill-secondary-500 transition-all"

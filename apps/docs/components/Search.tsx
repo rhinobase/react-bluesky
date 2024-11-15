@@ -402,7 +402,7 @@ export function Search() {
   }, []);
 
   return (
-    <div className="hidden lg:block lg:max-w-md lg:flex-auto">
+    <div className="hidden xl:block max-w-md flex-auto">
       <Button
         type="button"
         className="w-[470px] gap-2 rounded-full py-1"
@@ -424,7 +424,7 @@ export function MobileSearch() {
   const setOpen = useSearchDialog((state) => state.setOpen);
 
   return (
-    <div className="contents lg:hidden">
+    <div className="contents xl:hidden">
       <Button
         type="button"
         variant="ghost"
