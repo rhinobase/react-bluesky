@@ -33,7 +33,7 @@ async function SuspensedPost({
 export function Post({ fallback = <PostSkeleton />, ...props }: PostProps) {
   return (
     <Suspense fallback={fallback}>
-      {/* @ts-expect-error: Async components are valid in the app directory */}
+      {/* @ts-ignore: Async components are valid in the app directory */}
       <SuspensedPost {...props} />
     </Suspense>
   );
