@@ -1,4 +1,4 @@
-import { Post } from "bsky-react-post";
+import { Post } from "bsky-react-post/server";
 import type { PropsWithChildren } from "react";
 
 export default function HomeLayout(props: PropsWithChildren) {
