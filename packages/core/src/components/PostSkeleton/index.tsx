@@ -13,7 +13,11 @@ export function PostSkeleton() {
             <div className={classNames(s.skeleton, s.headerHandle)} />
           </div>
         </div>
-        <div className={classNames(s.skeleton, s.body)} />
+        <div className={s.body}>
+          <div className={classNames(s.skeleton, s.bodyItem, s.bodyItem1)} />
+          <div className={classNames(s.skeleton, s.bodyItem, s.bodyItem2)} />
+          <div className={classNames(s.skeleton, s.bodyItem, s.bodyItem3)} />
+        </div>
       </div>
     </Container>
   );

@@ -87,6 +87,7 @@
   min-height: 1rem;
   flex-shrink: 0;
   margin-top: 0.125rem;
+  fill: var(--post-font-color);
 }
 
 .infoText {
