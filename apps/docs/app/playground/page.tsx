@@ -1,6 +1,6 @@
 "use client";
 import { ArrowDownIcon } from "@heroicons/react/24/outline";
-import { InputField } from "@rafty/ui";
+import { InputField, useBoolean } from "@rafty/ui";
 import { ThemeToggle } from "apps/docs/components/ThemeToggle";
 import { Post, type PostHandleProps } from "bsky-react-post";
 import Image from "next/image";
@@ -10,42 +10,53 @@ import BlueskyLogo from "../../public/bluesky.svg";
 import { CopyButton } from "./CopyButton";
 import { CodeHighlighter } from "./Highlight";
 
-const DEFAULT_POST = {
+type PostType = PostHandleProps & { default?: boolean };
+
+const DEFAULT_POST: PostType = {
   handle: "adima7.bsky.social",
   id: "3laq6uzwjbc2t",
   default: true,
 };
 
 export default function PlaygroundPage() {
-  const [config, setConfig] = useState<
-    PostHandleProps & {
-      default?: boolean;
-    }
-  >(DEFAULT_POST);
+  const [config, setConfig] = useState<PostType>(DEFAULT_POST);
+  const [isError, setIsError] = useBoolean();
 
   const handleChange = (e: React.FocusEvent<HTMLInputElement, Element>) => {
     const value = e.target.value;
 
-    let config: PostHandleProps;
+    try {
+      let tmpConfig = DEFAULT_POST;
 
-    const urlp = new URL(value);
-    const split = urlp.pathname.slice(1).split("/");
+      if (value !== "") {
+        let config: PostType;
 
-    const [profile, didOrHandle, type, rkey] = split;
+        const urlp = new URL(value);
+        const split = urlp.pathname.slice(1).split("/");
 
-    if (profile === "profile" && type === "post") {
-      config = {
-        handle: didOrHandle,
-        id: rkey,
-      };
-    } else {
-      config = {
-        did: didOrHandle,
-        id: rkey,
-      };
+        const [profile, didOrHandle, type, rkey] = split;
+
+        if (profile === "profile" && type === "post") {
+          config = {
+            handle: didOrHandle,
+            id: rkey,
+          };
+        } else {
+          config = {
+            did: didOrHandle,
+            id: rkey,
+          };
+        }
+
+        tmpConfig = config;
+      }
+
+      setConfig(tmpConfig);
+      setIsError(false);
+    } catch (error) {
+      setIsError(true);
+      console.error(error);
     }
-
-    setConfig(config);
   };
 
   const content =
@@ -83,7 +94,15 @@ export default function PlaygroundPage() {
             <CopyButton data={content} />
           </div>
         )}
-        {config && <Post {...config} />}
+        {!isError ? (
+          <Post {...config} />
+        ) : (
+          <div className="w-full rounded-lg border border-red-500 bg-red-50 dark:border-red-300 dark:bg-red-900/50 px-4 py-3 select-none">
+            <p className="text-red-500 dark:text-red-300 text-center">
+              Invalid Bluesky URL
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );
