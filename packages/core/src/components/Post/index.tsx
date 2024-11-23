@@ -10,6 +10,7 @@ import { Container } from "../Container";
 import { Embed } from "../Embed";
 import { Link } from "../Link";
 import { PostContent } from "../PostContent";
+import { PostError } from "../PostError";
 import s from "./post.module.css";
 import { isRecord } from "./utils";
 
@@ -22,6 +23,11 @@ export function Post({ thread: { post, parent, replies } }: Post) {
   if (isRecord(post.record)) {
     record = post.record;
   }
+
+  if (post.author.labels?.find((label) => label.val === "!no-unauthenticated"))
+    return (
+      <PostError error="The author of this post has requested their posts not be displayed on external sites." />
+    );
 
   const href = `/profile/${post.author.did}/post/${getRkey(post)}`;
 

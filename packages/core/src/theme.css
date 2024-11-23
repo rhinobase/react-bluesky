@@ -47,12 +47,15 @@
 :where(.bsky-react-post-theme) {
   --post-skeleton-bg: rgb(212, 212, 216);
   --post-border: 1px solid rgb(212, 219, 226);
+  --post-error-border: 1px solid rgb(239, 68, 68);
   --post-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Helvetica, Arial, sans-serif;
   --post-font-color: rgb(15, 20, 25);
+  --post-error-font-color: rgb(239, 68, 68);
   --post-font-color-secondary: rgb(66, 87, 108);
   --post-bg-color: #fff;
   --post-bg-color-hover: rgba(241, 243, 245, 0.5);
+  --post-error-bg-color: rgb(254, 242, 242);
   --post-color-blue-primary: rgb(10, 122, 255);
   --post-color-blue-primary-hover: rgb(26, 140, 216);
   --post-link-font-color: rgb(59 130 246);
@@ -61,12 +64,15 @@
 :is([data-theme="dark"], .dark) :where(.bsky-react-post-theme) {
   --post-skeleton-bg: rgb(63, 63, 70);
   --post-border: 1px solid rgb(46, 64, 82);
+  --post-error-border: 1px solid rgb(252 165 165);
   --post-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Helvetica, Arial, sans-serif;
   --post-font-color: rgb(247, 249, 249);
+  --post-error-font-color: rgb(252 165 165);
   --post-font-color-secondary: rgb(66, 87, 108);
   --post-bg-color: rgb(22, 30, 39);
   --post-bg-color-hover: rgba(30, 41, 54, 0.5);
+  --post-error-bg-color: rgb(69, 10, 10);
   --post-color-blue-primary: rgb(10, 122, 255);
   --post-color-blue-primary-hover: rgb(26, 140, 216);
   --post-link-font-color: rgb(147 197 253);
@@ -76,12 +82,15 @@
   :where(.bsky-react-post-theme) {
     --post-skeleton-bg: rgb(63, 63, 70);
     --post-border: 1px solid rgb(46, 64, 82);
+    --post-error-border: 1px solid rgb(252 165 165);
     --post-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
       Helvetica, Arial, sans-serif;
     --post-font-color: rgb(247, 249, 249);
+    --post-error-font-color: rgb(252 165 165);
     --post-font-color-secondary: rgb(66, 87, 108);
     --post-bg-color: rgb(22, 30, 39);
     --post-bg-color-hover: rgba(30, 41, 54, 0.5);
+    --post-error-bg-color: rgb(69, 10, 10);
     --post-color-blue-primary: rgb(10, 122, 255);
     --post-color-blue-primary-hover: rgb(26, 140, 216);
     --post-link-font-color: rgb(147 197 253);

@@ -5,11 +5,11 @@ import { Link } from "../Link";
 import "../../theme.css";
 import s from "./container.module.css";
 
-export type ContainerProps = PropsWithChildren<{
+export type Container = PropsWithChildren<{
   href?: string;
 }>;
 
-export function Container({ children, href }: ContainerProps) {
+export function Container({ children, href }: Container) {
   const ref = useRef<HTMLDivElement>(null);
   const prevHeight = useRef(0);
 

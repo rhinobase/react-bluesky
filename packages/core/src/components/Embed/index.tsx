@@ -29,15 +29,13 @@ import {
   isVideoView,
 } from "./utils";
 
-export function Embed({
-  content,
-  labels,
-  hideRecord,
-}: {
+export type Embed = {
   content: AppBskyFeedDefs.PostView["embed"];
   labels: AppBskyFeedDefs.PostView["labels"];
   hideRecord?: boolean;
-}) {
+};
+
+export function Embed({ content, labels, hideRecord }: Embed) {
   const labelInfo = useMemo(() => labelsToInfo(labels), [labels]);
 
   if (!content) return null;
@@ -232,13 +230,12 @@ function Info({ children }: PropsWithChildren) {
   );
 }
 
-function ImageEmbed({
-  content,
-  labelInfo,
-}: {
+type ImageEmbed = {
   content: AppBskyEmbedImages.View;
   labelInfo?: string;
-}) {
+};
+
+function ImageEmbed({ content, labelInfo }: ImageEmbed) {
   if (labelInfo) {
     return <Info>{labelInfo}</Info>;
   }
@@ -303,13 +300,12 @@ function ImageEmbed({
   }
 }
 
-function ExternalEmbed({
-  content,
-  labelInfo,
-}: {
+type ExternalEmbed = {
   content: AppBskyEmbedExternal.View;
   labelInfo?: string;
-}) {
+};
+
+function ExternalEmbed({ content, labelInfo }: ExternalEmbed) {
   function toNiceDomain(url: string): string {
     try {
       const urlp = new URL(url);
@@ -341,19 +337,21 @@ function ExternalEmbed({
   );
 }
 
+type GenericWithImageEmbed = {
+  title: string;
+  subtitle: string;
+  href: string;
+  image?: string;
+  description?: string;
+};
+
 function GenericWithImageEmbed({
   title,
   subtitle,
   href,
   image,
   description,
-}: {
-  title: string;
-  subtitle: string;
-  href: string;
-  image?: string;
-  description?: string;
-}) {
+}: GenericWithImageEmbed) {
   return (
     <Link href={href} className={s.generic}>
       <div className={s.genericHeader}>
@@ -378,8 +376,9 @@ function GenericWithImageEmbed({
   );
 }
 
-// just the thumbnail and a play button
-function VideoEmbed({ content }: { content: AppBskyEmbedVideo.View }) {
+type VideoEmbed = { content: AppBskyEmbedVideo.View };
+
+function VideoEmbed({ content }: VideoEmbed) {
   let aspectRatio = 1;
 
   if (content.aspectRatio) {
@@ -412,11 +411,11 @@ function VideoEmbed({ content }: { content: AppBskyEmbedVideo.View }) {
   );
 }
 
-function StarterPackEmbed({
-  content,
-}: {
+type StarterPackEmbed = {
   content: AppBskyGraphDefs.StarterPackViewBasic;
-}) {
+};
+
+function StarterPackEmbed({ content }: StarterPackEmbed) {
   if (!isStarterpackRecord(content.record)) {
     return null;
   }
@@ -489,7 +488,6 @@ function StarterPackEmbed({
   );
 }
 
-// from #/lib/strings/starter-pack.ts
 function getStarterPackImage(starterPack: AppBskyGraphDefs.StarterPackView) {
   const rkey = getRkey(starterPack);
   return `https://ogcard.cdn.bsky.app/start/${starterPack.creator.did}/${rkey}`;
