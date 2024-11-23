@@ -1,6 +1,6 @@
 "use client";
 import { ArrowDownIcon } from "@heroicons/react/24/outline";
-import { InputField, useBoolean } from "@rafty/ui";
+import { InputField } from "@rafty/ui";
 import { ThemeToggle } from "apps/docs/components/ThemeToggle";
 import { Post, type PostHandleProps } from "bsky-react-post";
 import Image from "next/image";
@@ -20,42 +20,51 @@ const DEFAULT_POST: PostType = {
 
 export default function PlaygroundPage() {
   const [config, setConfig] = useState<PostType>(DEFAULT_POST);
-  const [isError, setIsError] = useBoolean();
+  const [error, setError] = useState<string | null>(null);
 
   const handleChange = (e: React.FocusEvent<HTMLInputElement, Element>) => {
     const value = e.target.value;
 
     try {
-      let tmpConfig = DEFAULT_POST;
+      let tmpConfig: PostType = DEFAULT_POST;
 
       if (value !== "") {
-        let config: PostType;
+        try {
+          const urlp = new URL(value);
+          if (!urlp.hostname.endsWith("bsky.app")) {
+            throw new Error("Invalid hostname");
+          }
+          const split = urlp.pathname.slice(1).split("/");
+          if (split.length < 4) {
+            throw new Error("Invalid pathname");
+          }
+          const [profile, didOrHandle, type, rkey] = split;
+          if (profile !== "profile" || type !== "post") {
+            throw new Error("Invalid profile or type");
+          }
 
-        const urlp = new URL(value);
-        const split = urlp.pathname.slice(1).split("/");
-
-        const [profile, didOrHandle, type, rkey] = split;
-
-        if (profile === "profile" && type === "post") {
-          config = {
-            handle: didOrHandle,
-            id: rkey,
-          };
-        } else {
-          config = {
-            did: didOrHandle,
-            id: rkey,
-          };
+          if (!didOrHandle.startsWith("did:")) {
+            tmpConfig = {
+              did: didOrHandle,
+              id: rkey,
+            };
+          } else {
+            tmpConfig = {
+              handle: didOrHandle,
+              id: rkey,
+            };
+          }
+        } catch (err) {
+          console.error(err);
+          throw new Error("Invalid Bluesky URL");
         }
-
-        tmpConfig = config;
       }
 
       setConfig(tmpConfig);
-      setIsError(false);
-    } catch (error) {
-      setIsError(true);
-      console.error(error);
+      setError(null);
+    } catch (err) {
+      console.error(err);
+      setError(err instanceof Error ? err.message : "Invalid Bluesky URL");
     }
   };
 
@@ -86,7 +95,7 @@ export default function PlaygroundPage() {
           onChange={handleChange}
         />
         <ArrowDownIcon className="size-5 stroke-2" />
-        {!config.default && (
+        {!config.default && error === null && (
           <div className="w-full flex items-center gap-2">
             <div className="p-2.5 bg-white dark:bg-[#0d1117] w-full border h-max overflow-x-auto [&::-webkit-scrollbar]:hidden border-secondary-200 dark:border-secondary-800 rounded-md">
               <CodeHighlighter content={content} language="js" />
@@ -94,12 +103,12 @@ export default function PlaygroundPage() {
             <CopyButton data={content} />
           </div>
         )}
-        {!isError ? (
+        {error == null ? (
           <Post {...config} />
         ) : (
           <div className="w-full rounded-lg border border-red-500 bg-red-50 dark:border-red-300 dark:bg-red-900/50 px-4 py-3 select-none">
             <p className="text-red-500 dark:text-red-300 text-center">
-              Invalid Bluesky URL
+              {error}
             </p>
           </div>
         )}
