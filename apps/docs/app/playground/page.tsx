@@ -2,7 +2,7 @@
 import { ArrowDownIcon } from "@heroicons/react/24/outline";
 import { InputField } from "@rafty/ui";
 import { ThemeToggle } from "apps/docs/components/ThemeToggle";
-import { Post, type PostHandleProps } from "bsky-react-post";
+import { Post, PostError, type PostHandleProps } from "bsky-react-post";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -103,15 +103,7 @@ export default function PlaygroundPage() {
             <CopyButton data={content} />
           </div>
         )}
-        {error == null ? (
-          <Post {...config} />
-        ) : (
-          <div className="w-full rounded-lg border border-red-500 bg-red-50 dark:border-red-300 dark:bg-red-900/50 px-4 py-3 select-none">
-            <p className="text-red-500 dark:text-red-300 text-center">
-              {error}
-            </p>
-          </div>
-        )}
+        {error == null ? <Post {...config} /> : <PostError error={error} />}
       </div>
     </div>
   );
