@@ -16,9 +16,11 @@
   "bugs": {
     "url": "https://github.com/rhinobase/react-bluesky/issues"
   },
-  "peerDependencies": {
-    "react": ">= 18.0.0",
+  "dependencies": {
     "swr": "^2.2.5"
+  },
+  "peerDependencies": {
+    "react": ">= 18.0.0"
   },
   "devDependencies": {
     "@atproto/api": "~0.13.15"

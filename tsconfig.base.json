@@ -16,8 +16,9 @@
     "baseUrl": ".",
     "paths": {
       "bsky-react-post": ["packages/core/src/index.client.ts"],
+      "bsky-react-post/api": ["packages/core/src/api.ts"],
       "bsky-react-post/server": ["packages/core/src/index.ts"],
-      "bsky-react-post/api": ["packages/core/src/api.ts"]
+      "bsky-solid-post": ["packages/solid/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

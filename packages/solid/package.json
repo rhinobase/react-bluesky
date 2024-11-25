@@ -1,0 +1,7 @@
+{
+  "name": "bsky-solid-post",
+  "version": "0.0.1",
+  "dependencies": {},
+  "main": "./index.cjs",
+  "module": "./index.js"
+}
