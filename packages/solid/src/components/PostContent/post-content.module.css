@@ -1,0 +1,19 @@
+.content {
+  font-size: 1rem;
+  line-height: 1.5rem;
+  overflow-wrap: break-word;
+  white-space: pre-wrap;
+}
+@media (min-width: 300px) {
+  .content {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+  }
+}
+
+.richText {
+  color: var(--post-link-font-color);
+}
+.richText:hover {
+  text-decoration-line: underline;
+}

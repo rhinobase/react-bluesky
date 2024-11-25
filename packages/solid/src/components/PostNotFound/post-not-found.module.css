@@ -1,0 +1,27 @@
+.logo {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  transition-property: transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+.logo:hover {
+  --tw-scale-x: 1.1;
+  --tw-scale-y: 1.1;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y))
+    rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
+    scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.logoSvg {
+  height: 1.5rem;
+}
+
+.text {
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+  text-align: center;
+  width: 100%;
+  color: var(--post-font-color-secondary);
+}

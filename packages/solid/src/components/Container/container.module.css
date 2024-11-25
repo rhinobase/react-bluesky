@@ -1,0 +1,25 @@
+.container {
+  width: 100%;
+  position: relative;
+  background-color: var(--post-bg-color);
+  transition-property: color, background-color, border-color,
+    text-decoration-color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+  min-width: 300px;
+  max-width: 600px;
+  display: flex;
+  border: var(--post-border);
+  border-radius: 0.75rem;
+}
+.container:hover {
+  background-color: var(--post-bg-color-hover);
+}
+
+.article {
+  flex: 1 1 0%;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.625rem;
+}

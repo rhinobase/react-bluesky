@@ -1,7 +1,38 @@
 {
   "name": "bsky-solid-post",
-  "version": "0.0.1",
-  "dependencies": {},
-  "main": "./index.cjs",
-  "module": "./index.js"
+  "description": "Embed Bluesky (bsky) posts in your Solid application.",
+  "version": "0.1.0",
+  "license": "MIT",
+  "keywords": ["bsky", "bluesky", "solid", "embed", "rsc", "client"],
+  "homepage": "https://bsky-react-post.rhinobase.io",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rhinobase/react-bluesky.git",
+    "directory": "packages/solid"
+  },
+  "bugs": {
+    "url": "https://github.com/rhinobase/react-bluesky/issues"
+  },
+  "peerDependencies": {
+    "solid-js": "^1.9.3"
+  },
+  "devDependencies": {
+    "@atproto/api": "~0.13.15"
+  },
+  "exports": {
+    ".": "./client.esm.js",
+    "./server": "./index.esm.js",
+    "./api": "./api.esm.js",
+    "./theme.css": "./index.esm.css"
+  },
+  "typesVersions": {
+    "*": {
+      "index": ["./index.esm.d.ts"],
+      "api": ["./api.esm.d.ts"],
+      "*": []
+    }
+  }
 }
