@@ -1,4 +1,4 @@
-import type { JSX } from "solid-js/jsx-runtime";
+import type { JSX } from "solid-js";
 import { classNames } from "../../utils";
 import s from "./link.module.css";
 
