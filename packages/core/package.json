@@ -1,6 +1,6 @@
 {
   "name": "bsky-react-post",
-  "description": "Embed Bluesky (bsky) posts in your React application. ",
+  "description": "Embed Bluesky (bsky) posts in your React application.",
   "version": "0.1.3",
   "license": "MIT",
   "keywords": ["bsky", "bluesky", "react", "embed", "rsc", "client"],
@@ -16,9 +16,11 @@
   "bugs": {
     "url": "https://github.com/rhinobase/react-bluesky/issues"
   },
-  "peerDependencies": {
-    "react": ">= 18.0.0",
+  "dependencies": {
     "swr": "^2.2.5"
+  },
+  "peerDependencies": {
+    "react": ">= 18.0.0"
   },
   "devDependencies": {
     "@atproto/api": "~0.13.15"

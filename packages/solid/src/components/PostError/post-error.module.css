@@ -1,0 +1,16 @@
+.container {
+  width: 100%;
+  border-radius: 0.5rem;
+  border: var(--post-error-border);
+  background-color: var(--post-error-bg-color);
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.625rem;
+  user-select: none;
+}
+
+.text {
+  text-align: center;
+  color: var(--post-error-font-color);
+}

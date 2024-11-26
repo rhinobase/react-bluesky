@@ -1,0 +1,98 @@
+.bsky-react-post-theme {
+  --post-container-margin: 0;
+
+  /* Header */
+  --post-header-font-size: 0.9375rem;
+  --post-header-line-height: 1.25rem;
+
+  /* Text */
+  --post-body-font-size: 1.25rem;
+  --post-body-font-weight: 400;
+  --post-body-line-height: 1.5rem;
+  --post-body-margin: 0;
+
+  /* Quoted Post */
+  --post-quoted-container-margin: 0.75rem 0;
+  --post-quoted-body-font-size: 0.938rem;
+  --post-quoted-body-font-weight: 400;
+  --post-quoted-body-line-height: 1.25rem;
+  --post-quoted-body-margin: 0.25rem 0 0.75rem 0;
+
+  /* Info */
+  --post-info-font-size: 0.9375rem;
+  --post-info-line-height: 1.25rem;
+
+  /* Actions like the like, reply and copy buttons */
+  --post-actions-font-size: 0.875rem;
+  --post-actions-line-height: 1rem;
+  --post-actions-font-weight: 700;
+  --post-actions-icon-size: 1.25em;
+  --post-actions-icon-wrapper-size: calc(
+    var(--post-actions-icon-size) + 0.75em
+  );
+
+  /* Reply button */
+  --post-replies-font-size: 0.875rem;
+  --post-replies-line-height: 1rem;
+  --post-replies-font-weight: 700;
+}
+
+:where(.bsky-react-post-theme) * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:is([data-theme="light"], .light) :where(.bsky-react-post-theme),
+:where(.bsky-react-post-theme) {
+  --post-skeleton-bg: rgb(212, 212, 216);
+  --post-border: 1px solid rgb(212, 219, 226);
+  --post-error-border: 1px solid rgb(239, 68, 68);
+  --post-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Helvetica, Arial, sans-serif;
+  --post-font-color: rgb(15, 20, 25);
+  --post-error-font-color: rgb(239, 68, 68);
+  --post-font-color-secondary: rgb(66, 87, 108);
+  --post-bg-color: #fff;
+  --post-bg-color-hover: rgba(241, 243, 245, 0.5);
+  --post-error-bg-color: rgb(254, 242, 242);
+  --post-color-blue-primary: rgb(10, 122, 255);
+  --post-color-blue-primary-hover: rgb(26, 140, 216);
+  --post-link-font-color: rgb(59 130 246);
+}
+
+:is([data-theme="dark"], .dark) :where(.bsky-react-post-theme) {
+  --post-skeleton-bg: rgb(63, 63, 70);
+  --post-border: 1px solid rgb(46, 64, 82);
+  --post-error-border: 1px solid rgb(252 165 165);
+  --post-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Helvetica, Arial, sans-serif;
+  --post-font-color: rgb(247, 249, 249);
+  --post-error-font-color: rgb(252 165 165);
+  --post-font-color-secondary: rgb(66, 87, 108);
+  --post-bg-color: rgb(22, 30, 39);
+  --post-bg-color-hover: rgba(30, 41, 54, 0.5);
+  --post-error-bg-color: rgb(69, 10, 10);
+  --post-color-blue-primary: rgb(10, 122, 255);
+  --post-color-blue-primary-hover: rgb(26, 140, 216);
+  --post-link-font-color: rgb(147 197 253);
+}
+
+@media (prefers-color-scheme: dark) {
+  :where(.bsky-react-post-theme) {
+    --post-skeleton-bg: rgb(63, 63, 70);
+    --post-border: 1px solid rgb(46, 64, 82);
+    --post-error-border: 1px solid rgb(252 165 165);
+    --post-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      Helvetica, Arial, sans-serif;
+    --post-font-color: rgb(247, 249, 249);
+    --post-error-font-color: rgb(252 165 165);
+    --post-font-color-secondary: rgb(66, 87, 108);
+    --post-bg-color: rgb(22, 30, 39);
+    --post-bg-color-hover: rgba(30, 41, 54, 0.5);
+    --post-error-bg-color: rgb(69, 10, 10);
+    --post-color-blue-primary: rgb(10, 122, 255);
+    --post-color-blue-primary-hover: rgb(26, 140, 216);
+    --post-link-font-color: rgb(147 197 253);
+  }
+}

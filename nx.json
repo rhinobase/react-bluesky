@@ -1,10 +1,7 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "namedInputs": {
-    "default": [
-      "{projectRoot}/**/*",
-      "sharedGlobals"
-    ],
+    "default": ["{projectRoot}/**/*", "sharedGlobals"],
     "production": [
       "default",
       "!{projectRoot}/.eslintrc.json",
@@ -13,9 +10,7 @@
     "sharedGlobals": []
   },
   "release": {
-    "projects": [
-      "*"
-    ],
+    "projects": ["*"],
     "changelog": {
       "projectChangelogs": {
         "renderOptions": {
@@ -23,7 +18,10 @@
         }
       }
     },
-    "projectsRelationship": "independent"
+    "projectsRelationship": "independent",
+    "version": {
+      "preVersionCommand": "pnpm dlx nx run-many -t build"
+    }
   },
   "plugins": [
     {
