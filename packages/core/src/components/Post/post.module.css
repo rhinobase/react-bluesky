@@ -3,12 +3,14 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  width: 100%;
 }
 
 .header {
   display: flex;
   align-items: center;
   gap: 0.625rem;
+  width: 100%;
 }
 
 .avatarLink {
@@ -78,6 +80,11 @@
 
 .logo {
   height: 2rem;
+}
+
+.createdAtLink {
+  width: max-content;
+  max-width: 100%;
 }
 
 .createdAt {

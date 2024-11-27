@@ -103,7 +103,7 @@ type CreatedAt = {
 
 function CreatedAt({ indexedAt, href }: CreatedAt) {
   return (
-    <Link href={href}>
+    <Link href={href} className={s.createdAtLink}>
       <time
         dateTime={new Date(indexedAt).toISOString()}
         className={s.createdAt}

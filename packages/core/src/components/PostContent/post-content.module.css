@@ -3,6 +3,7 @@
   line-height: 1.5rem;
   overflow-wrap: break-word;
   white-space: pre-wrap;
+  width: 100%;
 }
 @media (min-width: 300px) {
   .content {
