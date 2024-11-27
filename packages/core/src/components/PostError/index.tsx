@@ -1,6 +1,5 @@
 import { classNames } from "../../utils";
 import s from "./post-error.module.css";
-import "../../theme.css";
 
 export type PostError = {
   error: string;

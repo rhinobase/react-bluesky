@@ -1,8 +1,6 @@
 const { withNx } = require("@nx/rollup/with-nx");
 const preserveDirectives = require("rollup-plugin-preserve-directives");
 const terser = require("@rollup/plugin-terser");
-const url = require("@rollup/plugin-url");
-const svg = require("@svgr/rollup");
 
 module.exports = withNx(
   {
@@ -22,17 +20,6 @@ module.exports = withNx(
     output: {
       preserveModules: true,
     },
-    plugins: [
-      preserveDirectives.default(),
-      svg({
-        svgo: false,
-        titleProp: true,
-        ref: true,
-      }),
-      url({
-        limit: 10000, // 10kB
-      }),
-      terser(),
-    ],
+    plugins: [preserveDirectives.default(), terser()],
   },
 );

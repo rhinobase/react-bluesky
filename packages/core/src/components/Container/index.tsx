@@ -2,7 +2,6 @@
 import { type PropsWithChildren, useEffect, useRef } from "react";
 import { classNames, eventHandler } from "../../utils";
 import { Link } from "../Link";
-import "../../theme.css";
 import s from "./container.module.css";
 
 export type Container = PropsWithChildren<{
