@@ -1,3 +1,10 @@
+## 0.1.7 (2024-11-27)
+
+
+### 🩹 Fixes
+
+- **core:** corrected the types ([f7c0153](https://github.com/rhinobase/react-bluesky/commit/f7c0153))
+
 ## 0.1.6 (2024-11-27)
 
 This was a version bump only for core to align it with other projects, there were no code changes.
