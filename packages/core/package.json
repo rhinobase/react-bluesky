@@ -1,7 +1,7 @@
 {
   "name": "bsky-react-post",
   "description": "Embed Bluesky (bsky) posts in your React application. ",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "license": "MIT",
   "keywords": ["bsky", "bluesky", "react", "embed", "rsc", "client"],
   "homepage": "https://bsky-react-post.rhinobase.io",
