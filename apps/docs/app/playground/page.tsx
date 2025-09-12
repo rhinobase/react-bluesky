@@ -13,7 +13,7 @@ import { CodeHighlighter } from "./Highlight";
 type PostType = PostHandleProps & { default?: boolean };
 
 const DEFAULT_POST: PostType = {
-  handle: "adima7.bsky.social",
+  handle: "maditya.sh",
   id: "3laq6uzwjbc2t",
   default: true,
 };
