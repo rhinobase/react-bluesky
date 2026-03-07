@@ -42,7 +42,7 @@ export type PostHandleProps = {
   | {
       /**
        * The profile handle of the post author
-       * @example "adima7.bsky.social"
+       * @example "maditya.sh"
        */
       handle: string;
       did?: never;

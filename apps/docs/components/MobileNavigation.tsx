@@ -18,7 +18,7 @@ import { useDrawerDialog } from "./store";
 export const SOCIALS = [
   {
     name: "Bluesky",
-    link: "https://bsky.app/profile/adima7.bsky.social",
+    link: "https://bsky.app/profile/maditya.sh",
     icon: FaBluesky,
   },
   {

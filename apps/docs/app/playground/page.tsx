@@ -91,7 +91,7 @@ export default function PlaygroundPage() {
         </h2>
         <InputField
           size="lg"
-          placeholder="https://bsky.app/profile/adima7.bsky.social/post/3laq6uzwjbc2t"
+          placeholder="https://bsky.app/profile/maditya.sh/post/3laq6uzwjbc2t"
           onChange={handleChange}
         />
         <ArrowDownIcon className="size-5 stroke-2" />
